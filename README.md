@@ -2,7 +2,7 @@
 
 William's AI Studio is an open-source monorepo for AI agent workflows, a local Claude Code UI, and a multidisciplinary visual tutoring system.
 
-This repository is being prepared for public release. The source code is intended to be public, but the first public candidate is still being cleaned and verified. Local secrets, runtime logs, generated traces, build outputs, database volumes, and unreviewed data artifacts are intentionally excluded from the public export.
+This repository is published as a source-first open-source release. Local secrets, runtime logs, generated traces, build outputs, database volumes, and unreviewed data artifacts are intentionally excluded from the public source tree.
 
 ## Projects
 
@@ -21,7 +21,7 @@ Roys Alpha (`WilliamManus/`) is a secondary development based on [`kortix-ai/sun
 
 ## Current Status
 
-Open-source preparation is in progress.
+This is the initial source-first public release.
 
 Completed so far:
 
@@ -32,12 +32,11 @@ Completed so far:
 - Hardcoded public server IP defaults were replaced with `localhost` in known public runtime paths.
 - Unsafe JWT defaults and the local `/admin/env-vars` exposure were remediated and runtime-checked.
 
-Still required before public release or public artifact publication:
+Still required before publishing additional public artifacts:
 
-- Owner review of the private preparation reports before formal git operations.
 - Provider credential revocation/rotation evidence outside the repository.
-- Final legal/provenance review.
-- Full Roys Legion demo dataset packaging if the owner chooses a dataset-complete launch instead of source-first.
+- Continued legal/provenance review for optional dependencies and upstream-derived areas.
+- Full Roys Legion demo dataset packaging if a dataset-complete launch is added later.
 
 ## Local Development Model
 
