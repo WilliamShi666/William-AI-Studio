@@ -21,7 +21,49 @@ public_tutoring_demo/
     └── import_milvus.py
 ```
 
-Large binary assets may be tracked with Git LFS or published as release artifacts after review.
+Large binary assets are published outside normal git history as release artifacts.
+
+## Public Release v0.1.0
+
+The first curated release package is designed to be downloaded from the GitHub Releases page and extracted into this directory.
+
+Release contents:
+
+| Item | Count / Size |
+|------|--------------|
+| Documents | `504` |
+| Source PDFs | `504` |
+| Chunk JSONL files | `504` |
+| Chunks | `6181` |
+| Extracted image files | `3943` |
+| Curated unpacked size | about `3.3G` |
+| Excluded source documents | `10`, because they were missing source PDFs or chunk-referenced images |
+
+The release package includes:
+
+- `manifest.json`;
+- `uploads/`;
+- `extraction_results/`;
+- `chunks/`;
+- `scripts/`;
+- `EXCLUDED_DOCUMENTS.json`;
+- release notes and checksums.
+
+Expected release assets:
+
+```text
+roys-legion-demo-dataset-v0.1.0.tar.zst.part-aa
+roys-legion-demo-dataset-v0.1.0.tar.zst.part-ab
+SHA256SUMS
+```
+
+Recombine and extract:
+
+```bash
+cat roys-legion-demo-dataset-v0.1.0.tar.zst.part-* > roys-legion-demo-dataset-v0.1.0.tar.zst
+sha256sum -c SHA256SUMS
+tar --zstd -xf roys-legion-demo-dataset-v0.1.0.tar.zst
+```
 
 ## Why Not Commit Raw Milvus Volumes?
 
@@ -82,18 +124,25 @@ python scripts/validate_dataset.py --manifest manifest.json
 
 1. Start the local Roys Legion Milvus stack.
 2. Start the Milvus API service.
-3. Review or generate `manifest.json`.
-4. Import chunk files with `scripts/import_milvus.py`.
-5. Run the Roys Legion chat service against the imported collection.
+3. Download and extract the release package into `multimodalrag/datasets/public_tutoring_demo/`.
+4. Validate `manifest.json`.
+5. Import chunk files with `scripts/import_milvus.py`.
+6. Run the Roys Legion chat service against the imported collection.
 
 Example:
 
 ```bash
-cd multimodalrag/datasets/public_tutoring_demo
+cd multimodalrag/backend/Database/milvus_server
+cp .env.example .env
+docker compose up -d
+
+cd ../../../datasets/public_tutoring_demo
+python scripts/validate_dataset.py --manifest manifest.json
+
 python scripts/import_milvus.py \
   --manifest manifest.json \
   --milvus-api-url http://localhost:8000 \
-  --collection-name roys_legion_demo
+  --collection-name roys_legion_demo_v0_1_0
 ```
 
 Dry-run import without contacting Milvus:
@@ -101,9 +150,27 @@ Dry-run import without contacting Milvus:
 ```bash
 python scripts/import_milvus.py \
   --manifest manifest.json \
-  --collection-name roys_legion_demo \
+  --collection-name roys_legion_demo_v0_1_0 \
   --dry-run
 ```
+
+## Image URL Behavior
+
+Milvus stores chunk vectors and metadata. It does not store image binaries.
+
+Images live on disk under:
+
+```text
+extraction_results/{file_id}/images/
+```
+
+When a retrieved chunk references an image, the Roys Legion backend serves it through the document image route:
+
+```text
+/document/{file_id}/images/{image_name}
+```
+
+This is why the dataset package includes both the chunk JSONL files and the extracted image directories.
 
 ## Manifest
 
@@ -111,11 +178,11 @@ python scripts/import_milvus.py \
 
 ## Current Status
 
-This directory currently contains the dataset tooling and placeholder directories. The large public PDFs/images/chunks are not copied into this repository yet.
+The source repository contains dataset tooling and placeholder directories. The large public PDFs/images/chunks are published as release artifacts instead of ordinary git blobs.
 
 Preparation notes:
 
 - The source server has approved public PDFs and extracted images outside this project path.
-- The current local raw output size is about 1.1G for uploads and 5.5G for extraction results.
-- A curated subset or Git LFS/release-asset strategy should be chosen before copying large assets.
+- The raw source output was about 1.1G for uploads and 5.5G for extraction results.
+- The v0.1.0 curated release excludes documents with missing PDFs or missing chunk-referenced images.
 - Raw Milvus Docker volumes remain excluded from normal git. Developers should rebuild Milvus collections from this dataset instead.
