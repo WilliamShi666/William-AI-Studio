@@ -1,0 +1,1188 @@
+沙箱实例
+生命周期管理
+每个沙箱都有一个 timeout（“超时时间”）配置，当沙箱的运行时间超过该配置值时，沙箱将自动关闭并释放。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+您可以参考如下方式在启动的时候显式指定 timeout 的配置值，如果未指定，则默认值为 5 分钟。当前允许设置的最大值为 1 小时。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(
+  timeout=60,  # 单位为秒。
+)
+
+sandbox.kill()
+​
+更新沙箱超时时间
+您可以参考如下示例来在沙箱运行过程中更新其 timeout 配置值，更新后，沙箱的 timeout 将重置为最新值（从更新生效后的时间点开始计时）。
+请注意，当前沙箱的最大存活时间为 1 小时，不能通过本方法让沙箱运行更长的时间。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(timeout=60)
+
+# 更改沙箱超时时间为 30 秒（从方法执行后开始计时）。
+sandbox.set_timeout(30)
+
+sandbox.kill()
+​
+获取沙箱信息
+您可以通过如下方法来获取沙箱信息，包括沙箱 ID、沙箱模板 ID、沙箱元数据信息、开始时间和结束时间等。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(timeout=60)
+
+# 获取沙箱信息。
+info = sandbox.get_info()
+print(info)
+
+sandbox.kill()
+​
+关闭沙箱
+您可以通过调用 kill 方法在沙箱自动超时前的任意时刻关闭沙箱实例。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(timeout=60)
+
+# 立即关闭沙箱。
+sandbox.kill()
+
+沙箱实例
+暂停和恢复
+您现在可以暂停沙箱并且在后续需要时恢复该沙箱，恢复后，沙箱的文件系统和内存状态，包括正在运行的进程、已加载的变量、数据等都将被恢复。在沙箱暂停期间，我们不会对沙箱的运行时间计费。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+请注意：
+暂停沙箱所需的时间和沙箱的 RAM（内存）大小有关，每 1 GB RAM 需要约 4 秒；
+恢复沙箱需要约 1 秒；
+沙箱数据最长可保留 30 天。从沙箱创建起 30 天后，沙箱数据将会被删除，您将无法恢复。尝试恢复已删除或不存在的沙箱将导致 NotFoundError 错误（JavaScript SDK）或 NotFoundException 异常（Python SDK）；
+​
+暂停沙箱
+当您暂停沙箱时，沙箱的文件系统和内存状态都将被保存。包括沙箱文件系统中的所有文件以及所有正在运行的进程、已加载的变量、数据等。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+# or from ppio_sandbox.core import Sandbox
+# or from ppio_sandbox.desktop import Sandbox
+
+sandbox = Sandbox.create()
+print('Sandbox created', sandbox.sandbox_id)
+
+# 暂停沙箱
+# 建议您将沙箱 ID 保存到数据库中，以便稍后恢复沙箱。
+sandbox.beta_pause()
+print('Sandbox paused', sandbox.sandbox_id)
+
+sandbox.kill()
+​
+恢复沙箱
+当您恢复沙箱时，沙箱在暂停前文件系统中的所有文件、所有正在运行的进程、已加载的变量、数据等将被恢复。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+# or from ppio_sandbox.core import Sandbox
+# or from ppio_sandbox.desktop import Sandbox
+
+sandbox = Sandbox.create()
+print('Sandbox created', sandbox.sandbox_id)
+
+# 暂停沙箱
+# 建议您将沙箱 ID 保存到数据库中，以便稍后恢复沙箱。
+sandbox.beta_pause()
+print('Sandbox paused', sandbox.sandbox_id)
+
+# 恢复沙箱
+connectedSandbox = sandbox.connect()
+print('Sandbox resumed', connectedSandbox.sandbox_id)
+
+sandbox.kill()
+​
+恢复时指定超时时间
+当您恢复沙箱时，沙箱的 timeout 会重置为默认的 5 分钟。您可以参考如下方法来自定义 timeout 值。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+# or from ppio_sandbox.core import Sandbox
+# or from ppio_sandbox.desktop import Sandbox
+
+sandbox = Sandbox.create()
+
+connectedSandbox = Sandbox.connect(sandbox.sandbox_id, timeout=60) # 60 秒
+print('Sandbox connected', connectedSandbox.sandbox_id)
+
+sandbox.kill()
+​
+列出暂停的沙箱
+您可以参考如下方式列出所有被暂停的沙箱。详情请参考 沙箱列表。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxInfo, SandboxQuery, SandboxState
+# or from ppio_sandbox.core import Sandbox, SandboxInfo, SandboxQuery
+# or from ppio_sandbox.desktop import Sandbox, SandboxInfo, SandboxQuery
+
+sandbox = Sandbox.create()
+
+sandbox.beta_pause()
+print('Sandbox paused', sandbox.sandbox_id)
+
+# 过滤出所有被暂停的沙箱
+paginator = Sandbox.list(query=SandboxQuery(state=[SandboxState.PAUSED]))
+
+# 分页获取所有被暂停的沙箱
+sandboxes: list[SandboxInfo] = []
+while paginator.has_next:
+  items = paginator.next_items()
+  sandboxes.extend(items)
+
+print('all paused sandboxes', sandboxes)
+
+sandbox.kill()
+​
+删除暂停的沙箱
+您可以通过在沙箱实例上调用 kill 方法来删除暂停的沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+# or from ppio_sandbox.core import Sandbox
+# or from ppio_sandbox.desktop import Sandbox
+
+sandbox = Sandbox.create()
+
+# 暂停沙箱
+sandbox.beta_pause()
+
+# 删除被暂停的沙箱
+sandbox.kill()
+
+# 或者通过指定沙箱 ID 来删除被暂停的沙箱
+# Sandbox.kill(sandbox_id)
+​
+网络连接
+当您在沙箱内运行了服务并且暂停沙箱后，该服务将无法再从外部访问，所有客户端都将断开连接。在您恢复沙箱后，该服务可被再次访问，但您需要重新连接客户端。
+
+箱实例
+监控指标
+沙箱 “监控指标” 功能可以允许您获取有关沙箱 vCPU 和内存使用情况 的信息。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+获取监控指标信息
+指标信息以一个包含时间戳的数组形式提供（参考下方示例），包含 vCPU 和内存使用信息。指标在沙箱启动时开始采集，之后每 2 秒采集一次，在沙箱被删除前会采集最后一次。
+在沙箱创建后，可能需要等待几秒后才能获取到指标信息，在这之前，将会得到一个空数组。
+​
+使用 SDK 获取指标信息
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+import time
+
+sandbox = Sandbox.create()
+print('Sandbox created', sandbox.sandbox_id)
+
+metrics = sandbox.get_metrics()
+
+# 您也可以通过指定沙箱 ID 来获取指标信息
+# metrics = Sandbox.get_metrics(sbx.sandbox_id)
+
+while len(metrics) <= 1:
+    print('Waiting for metrics...')
+    time.sleep(1)
+    metrics = sandbox.get_metrics()
+
+print('Sandbox metrics', metrics)
+
+# 输出示例：
+# Sandbox metrics [SandboxMetrics(timestamp=datetime.datetime(2025, 6, 22, 6, 59, 28, 595373, tzinfo=tzutc()), cpu_used_pct=15.94, cpu_count=2, mem_used_mib=245, mem_total_mib=987), SandboxMetrics(timestamp=datetime.datetime(2025, 6, 22, 6, 59, 33, 591684, tzinfo=tzutc()), cpu_used_pct=1.1, cpu_count=2, mem_used_mib=246, mem_total_mib=987)]
+
+sandbox.kill()
+​
+使用 CLI 获取指标信息
+
+Bash
+
+Copy
+ppio-sandbox-cli sandbox metrics <sandbox_id>
+
+沙箱实例
+元数据
+沙箱元数据为附加在沙箱实例上的任意键值对信息。
+适用于以下场景：
+将沙箱与用户会话关联。
+为沙箱存储自定义用户数据，如 API 密钥。
+将沙箱与用户 ID 关联并稍后需要重新 连进沙箱。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+当您在创建沙箱时指定了元数据，可以通过如下方法列出正在运行的沙箱列表，并访问其元数据信息。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery, SandboxState
+
+# 创建沙箱并指定元数据。
+sandbox = Sandbox.create(
+  metadata={
+    'user_id': '123',
+  },
+)
+
+# 列出正在运行的沙箱并访问元数据。
+running_sandboxes_paginator = Sandbox.list(
+  query=SandboxQuery(
+    state=[SandboxState.RUNNING],
+  ),
+)
+running_sandboxes = running_sandboxes_paginator.next_items()
+
+print(running_sandboxes[0].metadata)
+
+# 输出示例：
+# { userId: '123' }
+
+sandbox.kill()
+​
+按元数据过滤沙箱列表
+您也可以基于元数据里的键值对来过滤沙箱列表，详情参考 获取沙箱列表。
+
+沙箱实例
+环境变量
+本节介绍如何在沙箱中设置和使用环境变量。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+设置环境变量
+您可以通过如下 3 种方式来设置环境变量：
+创建沙箱时设置全局环境变量
+在沙箱中运行代码时设置环境变量
+在沙箱中运行命令时设置环境变量
+​
+1. 创建沙箱时设置全局环境变量
+您可以在创建沙箱时设置全局环境变量。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create(
+  envs={
+    'MY_VAR': 'my_value',
+  },
+)
+
+# 命令跑在沙箱的 Shell 环境里
+result = sandbox.commands.run("echo $MY_VAR")
+
+print(result)
+
+# 输出示例：
+# { exitCode: 0, error: undefined, stdout: '123\n', stderr: '' }
+
+sandbox.kill()
+​
+2. 运行代码时设置环境变量
+您可以为沙箱中特定的代码运行片段设置环境变量。
+如果您设置了同名的全局环境变量，全局环境变量值将被覆盖。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 代码跑在沙箱实例里的 Jupyter Notebook 环境里
+result = sandbox.run_code(
+    'import os; print(os.environ.get("MY_VAR"))',
+    envs={
+        'MY_VAR': 'my_value'
+    }
+)
+print(result)
+
+sandbox.kill()
+​
+3. 运行命令时设置环境变量
+您可以为沙箱中特定的命令执行片段设置环境变量。
+如果您设置了同名的全局环境变量，全局环境变量值将被覆盖。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+result = sandbox.commands.run(
+    'echo $MY_VAR',
+    envs={
+        'MY_VAR': '123'
+    }
+)
+
+print(result)
+
+# 输出示例：
+# CommandResult(stderr='', stdout='123\n', exit_code=0, error='')
+
+sandbox.kill()
+元数据
+
+箱实例
+沙箱列表
+本节介绍如何通过各种方式查看您创建过的沙箱信息。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery, SandboxState
+
+# 创建一个沙箱，并设置元数据。
+sandbox = Sandbox.create(
+  metadata= {
+    'name': 'My Sandbox',
+  },
+)
+
+# 列出所有正在运行的沙箱。
+running_sandboxes_paginator = Sandbox.list(
+  query=SandboxQuery(
+    state=[SandboxState.RUNNING],
+  ),
+)
+
+running_sandboxes = running_sandboxes_paginator.next_items()
+
+running_sandbox = running_sandboxes[0]
+print('Running sandbox metadata:', running_sandbox.metadata)
+print('Running sandbox id:', running_sandbox.sandbox_id)
+print('Running sandbox started at:', running_sandbox.started_at)
+print('Running sandbox template id:', running_sandbox.template_id)
+
+# 输出结果：
+# Running sandbox metadata: { name: 'My Sandbox' }
+# Running sandbox id: i30sjldvvjx446kbkoofj-abf219fd
+# Running sandbox started at: 2025-06-22T15:09:28.822Z
+# Running sandbox template id: uhop43uji8fr7qkfbmsp
+
+sandbox.kill()
+当您拿到了正在运行的沙箱 ID 后，您可以 连接到该沙箱。
+​
+根据元数据过滤沙箱
+您可以通过指定 元数据 键值对来过滤沙箱。指定多个键值对将返回匹配所有条件的沙箱列表。如果您创建了大量沙箱，通过这种方式能帮助高效查找到特定沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery
+
+# 创建一个沙箱，并设置元数据。
+sandbox = Sandbox.create(
+    metadata={
+        "env": "dev",
+        "app": "my-app",
+        "user_id": "123",
+    },
+)
+
+# 列出所有正在运行的沙箱，其中 `user_id` 键的值为 `123` 且 `env` 键的值为 `dev`。
+paginator = Sandbox.list(
+    query=SandboxQuery(
+        metadata={
+            "user_id": "123",
+            "env": "dev",
+        }
+    ),
+)
+
+sandbox.kill()
+​
+列出所有沙箱
+现已支持分页获取沙箱列表，详情参考 高级分页 部分。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 列出所有沙箱（包括正在运行的和暂停的）
+paginator = Sandbox.list()
+
+firstPage = paginator.next_items()
+if paginator.has_next:
+    nextPage = paginator.next_items()
+
+sandbox.kill()
+​
+按条件过滤沙箱
+下面展示如何基于沙箱状态来过滤。状态参数可以是 running（正在运行的沙箱）、paused（已暂停的沙箱）或同时包含两者。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery, SandboxState
+
+sandbox = Sandbox.create()
+
+# 列出所有正在运行的或暂停的沙箱。
+paginator = Sandbox.list(
+    query=SandboxQuery(
+        state=[SandboxState.RUNNING, SandboxState.PAUSED],
+    ),
+)
+
+# 获取第一页的沙箱（正在运行的和暂停的）
+sandboxes = paginator.next_items()
+
+sandbox.kill()
+下面展示如何基于沙箱的元数据键值对来做过滤。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery
+
+sandbox = Sandbox.create(
+    metadata={
+        "env": "dev",
+        "app": "my-app",
+        "user_id": "123",
+    },
+)
+
+# 列出所有正在运行的沙箱，其中元数据中的 `user_id` 值为 `123` 且 `env` 值为 `dev`。
+paginator = Sandbox.list(
+    query=SandboxQuery(
+        metadata={
+            "user_id": "123",
+            "env": "dev",
+        }
+    ),
+)
+
+sandboxes = paginator.next_items()
+
+sandbox.kill()
+​
+高级分页
+您可以设置每页返回的沙箱数量（默认值和最大值都是 1000），通过指定偏移参数（nextToken 或 next_token）来分页获取沙箱列表。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+paginator = Sandbox.list(
+    limit=1000,
+    # next_token='<base64-encoded-token>',
+)
+
+# 获取下一页的沙箱
+paginator.next_items()
+
+# 是否有下一页
+print("paginator.has_next: ", paginator.has_next)
+
+# 下一页的偏移参数
+print("paginator.next_token: ", paginator.next_token)
+
+sandbox.kill()
+您可以通过循环遍历分页器来获取所有沙箱信息。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxInfo
+
+sandbox = Sandbox.create()
+
+paginator = Sandbox.list()
+
+# 循环遍历所有页面
+sandboxes: list[SandboxInfo] = []
+
+while paginator.has_next:
+    items = paginator.next_items()
+    sandboxes.extend(items)
+
+sandbox.kill()
+
+沙箱实例
+连接到正在运行的沙箱
+本节展示如何连接到一个正在运行的沙箱，连接沙箱后，可以使用 SDK 对该沙箱进行操作，包括运行命令、代码等。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+1. 获取沙箱 ID
+要连接到正在运行的沙箱，您首先需要获取其 ID。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery, SandboxState
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(
+  timeout=120,  # 单位为秒。
+)
+
+# 列出所有正在运行的沙箱。
+running_sandboxes_paginator = Sandbox.list(query=SandboxQuery(state=[SandboxState.RUNNING]))
+
+running_sandboxes = running_sandboxes_paginator.next_items()
+if len(running_sandboxes) == 0:
+  raise Exception("No running sandboxes found")
+running_sandbox_id = running_sandboxes[0].sandbox_id
+
+# 获取您想要连接的沙箱的 ID。
+print("got a running sandbox: ", running_sandbox_id)
+
+sandbox.kill()
+​
+2. 连接到沙箱
+获取到沙箱 ID 后，您可以通过 connect 方法连接到该沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, SandboxQuery, SandboxState
+
+# 创建一个沙箱，并保持运行 60 秒。
+sandbox = Sandbox.create(
+  timeout=120,  # 单位为秒。
+)
+
+# 列出所有正在运行的沙箱。
+running_sandboxes_paginator = Sandbox.list(query=SandboxQuery(state=[SandboxState.RUNNING]))
+
+running_sandboxes = running_sandboxes_paginator.next_items()
+if len(running_sandboxes) == 0:
+  raise Exception("No running sandboxes found")
+running_sandbox_id = running_sandboxes[0].sandbox_id
+
+# 连接到沙箱。
+sandbox = Sandbox.connect(running_sandbox_id)
+print("got a running sandbox: ", sandbox.sandbox_id)
+
+# 现在您可以继续使用该沙箱
+# ...
+
+sandbox.kill()
+
+沙箱实例
+联网功能
+每个沙箱都可以访问互联网，并且可被公共 URL 访问其上运行的服务。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+沙箱公共 URL
+每个沙箱都能提供公共 URL，用于访问沙箱内运行的服务。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 您需要传入一个端口号来获取公共 URL。
+host = sandbox.get_host(3000)
+print(f'https://{host}')
+
+# 输出示例：
+# https://3000-ik56flymp4xczmvmt97lk-abf219fd.sandbox.ppio.cn
+
+sandbox.kill()
+​
+访问沙箱内运行的服务
+您可以在沙箱内启动服务并通过一个公共 URL 访问它。
+在这个示例中，我们将启动一个简单的 HTTP 服务器，监听端口 3000，并返回启动服务器的目录信息。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 启动一个简单的 HTTP 服务器。
+process = sandbox.commands.run("python -m http.server 3000", background=True)
+host = sandbox.get_host(3000)
+url = f"https://{host}"
+print('Server started at:', url)
+
+# 从服务器获取数据。
+response = sandbox.commands.run(f"curl {url}")
+data = response.stdout
+print("Response from server inside sandbox:", data)
+
+# 终止服务器进程。
+process.kill()
+
+sandbox.kill()
+
+沙箱实例
+挂载对象存储 Bucket
+每个沙箱实例默认分配 20GB 的系统盘存储空间，用于临时存储数据。沙箱关闭后，该存储空间中的所有数据将被自动清理。因此，建议您将需要长期保存的数据存储到独立的云存储服务中。
+沙箱实例分配的存储空间大小后续可能会调整，具体以 计费说明 文档说明为准。
+对象存储（Object Storage）是一种稳定、高性价比、高性能的云存储服务，主流云服务商均提供此类产品。您可以在沙箱中使用云服务商提供的 SDK 或 CLI 工具直接操作对象存储，也可以使用 FUSE 文件系统工具将对象存储 Bucket 挂载到沙箱的指定目录，从而像操作本地文件系统一样使用对象存储。
+FUSE（Filesystem in Userspace）是一个用户空间文件系统框架，它可用于将各种云存储服务 “伪装成” 本地普通文件夹，只需要像操作普通文件夹一样使用它们。
+本文档将介绍如何将主流云服务商提供的对象存储 Bucket 挂载到沙箱中，以便后续使用。
+通过以下方式挂载对象存储 Bucket 到本地目录，通常文件读写性能较差，如果您的业务对文件读写性能敏感，不建议使用这种方式。同时通过这种方式操作对象存储并不是原子性的，也就是存在本地操作成功但对象存储操作失败的风险，进而导致数据丢失。
+因此这种方式比较适用于对读写性能不敏感，且没有频繁写操作的场景。否则建议您优先使用云服务商提供的 SDK 或 CLI 工具在业务逻辑中直接操作对象存储。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+Amazon S3 对象存储
+可以通过 s3fs 工具将 Amazon S3 对象存储 Bucket 挂载到沙箱中。
+您可以在制作 沙箱模板 时在 ppio.Dockerfile 文件中添加安装 s3fs 的命令，或者在沙箱实例内执行安装命令来临时安装。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作沙箱模板时安装 s3fs 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# 注意，安装的 s3fs 版本较低，可能会导致挂载失败，请保证安装的 s3fs 版本高于 1.93
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y s3fs
+下面展示了如何在沙箱实例中通过 s3fs 来挂载 Amazon S3 Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_TEMPLATE_ID")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
+if not TEMPLATE_ID or not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY or not AWS_BUCKET_NAME:
+    raise Exception("environment variable PPIO_TEMPLATE_ID or AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY or AWS_BUCKET_NAME is not set")
+
+MOUNT_DIRECTORY = "/mnt/s3-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 创建 credentials 文件
+# s3fs 会默认从 /root/.passwd-s3fs 中读取 AWS 访问密钥信息，如果使用其他路径，需要在 s3fs 命令中添加该路径。
+sandbox.files.write("/root/.passwd-s3fs", f"{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}")
+
+# 设置 credentials 文件的权限
+sandbox.commands.run("sudo chmod 600 /root/.passwd-s3fs")
+
+# 挂载 Amazon S3 Bucket 到指定目录
+# 重要参数说明：
+# - allow_other: 允许其他用户访问挂载点
+# - endpoint: 指定 S3 bucket 的所在区域
+# 详细参数请参考：https://manpages.ubuntu.com/manpages/noble/en/man1/s3fs.1.html
+mount_options = "allow_other,endpoint=cn-north-1"
+sandbox.commands.run(f"sudo s3fs {AWS_BUCKET_NAME} {MOUNT_DIRECTORY} -o {mount_options}")
+
+# 测试写入文件
+write_result = sandbox.files.write(f"{MOUNT_DIRECTORY}/test-file.txt", "test-file-content")
+
+# 测试读取文件
+content = sandbox.files.read(f"{MOUNT_DIRECTORY}/test-file.txt")
+print("File content:", content)
+
+sandbox.kill()
+​
+阿里云对象存储（OSS）
+可以使用 ossfs 工具将阿里云对象存储（OSS）Bucket 挂载到沙箱中。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作 沙箱模板 时安装 ossfs 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# Install dependencies and customize sandbox
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y wget gdebi-core && \
+    # 从这里复制常用系统的软件包安装地址：https://help.aliyun.com/zh/oss/developer-reference/install-ossfs-1-0
+    wget https://gosspublic.alicdn.com/ossfs/ossfs_1.91.8_ubuntu24.04_amd64.deb &&\
+    gdebi -n ossfs_1.91.8_ubuntu24.04_amd64.deb && \
+    rm ossfs_1.91.8_ubuntu24.04_amd64.deb
+下面展示了如何在沙箱实例中通过 ossfs 来挂载阿里云对象存储（OSS）Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_OSS_TEMPLATE_ID")
+OSS_ACCESS_KEY_ID = os.environ.get("OSS_ACCESS_KEY_ID")
+OSS_ACCESS_KEY_SECRET = os.environ.get("OSS_ACCESS_KEY_SECRET")
+OSS_BUCKET_NAME = os.environ.get("OSS_BUCKET_NAME")
+if not TEMPLATE_ID or not OSS_ACCESS_KEY_ID or not OSS_ACCESS_KEY_SECRET or not OSS_BUCKET_NAME:
+    raise Exception("environment variable PPIO_TEMPLATE_ID or OSS_ACCESS_KEY_ID or OSS_ACCESS_KEY_SECRET or OSS_BUCKET_NAME is not set")
+
+MOUNT_DIRECTORY = "/mnt/oss-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 创建 credentials 文件
+# ossfs 会默认从 /etc/passwd-ossfs 中读取 OSS 访问密钥信息
+# 如果使用其他路径，可以使用 -o passwd_file 参数指定自定义配置文件的路径
+# 更多参数请参考：https://help.aliyun.com/zh/oss/developer-reference/common-options
+sandbox.files.write("/etc/passwd-ossfs", f'{OSS_BUCKET_NAME}:{OSS_ACCESS_KEY_ID}:{OSS_ACCESS_KEY_SECRET}')
+
+# 设置 credentials 文件的权限
+sandbox.commands.run("sudo chmod 600 /etc/passwd-ossfs")
+
+# 挂载 OSS Bucket 到指定目录
+# -o url 必须和 Bucket 的所在区域一致，参考：https://help.aliyun.com/zh/oss/regions-and-endpoints 查看更多区域信息。
+sandbox.commands.run(f"sudo ossfs {OSS_BUCKET_NAME} {MOUNT_DIRECTORY} -o allow_other -o passwd_file=/etc/passwd-ossfs -o url=https://oss-cn-beijing.aliyuncs.com")
+
+# 注意：此处不能通过 sandbox.files.write 方法创建文件。由于 ossfs 将挂载点视为一个 "虚拟的" 超大磁盘空间，sandbox.files.write 方法会尝试获取实际磁盘使用情况并检查空间是否足够，但该信息在虚拟挂载下容易溢出或异常，进而导致误报 "磁盘空间不足" 错误。
+# 测试写入文件
+sandbox.commands.run(f"echo 'test-file-content' > {MOUNT_DIRECTORY}/test-file.txt")
+
+# 测试读取文件
+result = sandbox.commands.run(f"cat {MOUNT_DIRECTORY}/test-file.txt")
+print("File content:", result)
+
+sandbox.kill()
+​
+腾讯云对象存储（COS）
+可以使用 GooseFS-Lite 工具将腾讯云对象存储（COS）Bucket 挂载到沙箱中。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作 沙箱模板 时安装 GooseFS-Lite 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# Install dependencies and customize sandbox
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt install -y curl libfuse-dev wget && \
+    curl -fssL https://downloads.tencentgoosefs.cn/goosefs-lite/install.sh | sh -x && \
+    cd goosefs-lite-* && \
+    bash bin/install.sh && \
+    bash bin/install-jdk.sh https://github.com/Tencent/TencentKona-11/releases/download/kona11.0.22/TencentKona-11.0.22.b1-jdk_linux-x86_64.tar.gz
+下面展示了如何在沙箱实例中通过 GooseFS-Lite 来挂载腾讯云对象存储（COS）Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_COS_TEMPLATE_ID")
+COS_ACCESS_KEY_ID = os.environ.get("COS_ACCESS_KEY_ID")
+COS_SECRET_ACCESS_KEY = os.environ.get("COS_SECRET_ACCESS_KEY")
+COS_BUCKET_NAME = os.environ.get("COS_BUCKET_NAME")
+COS_BUCKET_REGION = os.environ.get("COS_BUCKET_REGION")
+if not TEMPLATE_ID or not COS_ACCESS_KEY_ID or not COS_SECRET_ACCESS_KEY or not COS_BUCKET_NAME or not COS_BUCKET_REGION:
+    raise Exception(
+        "environment variable PPIO_COS_TEMPLATE_ID or COS_ACCESS_KEY_ID or COS_SECRET_ACCESS_KEY or COS_BUCKET_NAME or COS_BUCKET_REGION is not set")
+
+MOUNT_DIRECTORY = "/mnt/cos-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 修改 conf/core-site.xml 文件
+# 配置 COS Bucket 的访问密钥和区域
+cmd_update_core_site_xml = (
+    "sudo sed -i '/<name>fs.cosn.userinfo.secretId<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_ACCESS_KEY_ID+"<\/value>/}' conf/core-site.xml;"
+    "sudo sed -i '/<name>fs.cosn.userinfo.secretKey<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_SECRET_ACCESS_KEY+"<\/value>/}' conf/core-site.xml;"
+    "sudo sed -i '/<name>fs.cosn.bucket.region<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_BUCKET_REGION+"<\/value>/}' conf/core-site.xml"
+)
+
+# 更新 core-site.xml 文件
+sandbox.commands.run(f"cd /goosefs-lite-* && ({cmd_update_core_site_xml})")
+
+# 挂载 COS Bucket 到指定目录
+sandbox.commands.run(f"cd /goosefs-lite-* && sudo ./bin/goosefs-lite mount -o \"allow_other\" {MOUNT_DIRECTORY} cosn://{COS_BUCKET_NAME}/")
+
+# 测试写入文件
+sandbox.files.write(f"{MOUNT_DIRECTORY}/test-file.txt", "test-file-content")
+
+# 测试读取文件
+sandbox.files.read(f"{MOUNT_DIRECTORY}/test-file.txt")
+
+sandbox.kill()
+
+沙箱实例
+挂载对象存储 Bucket
+每个沙箱实例默认分配 20GB 的系统盘存储空间，用于临时存储数据。沙箱关闭后，该存储空间中的所有数据将被自动清理。因此，建议您将需要长期保存的数据存储到独立的云存储服务中。
+沙箱实例分配的存储空间大小后续可能会调整，具体以 计费说明 文档说明为准。
+对象存储（Object Storage）是一种稳定、高性价比、高性能的云存储服务，主流云服务商均提供此类产品。您可以在沙箱中使用云服务商提供的 SDK 或 CLI 工具直接操作对象存储，也可以使用 FUSE 文件系统工具将对象存储 Bucket 挂载到沙箱的指定目录，从而像操作本地文件系统一样使用对象存储。
+FUSE（Filesystem in Userspace）是一个用户空间文件系统框架，它可用于将各种云存储服务 “伪装成” 本地普通文件夹，只需要像操作普通文件夹一样使用它们。
+本文档将介绍如何将主流云服务商提供的对象存储 Bucket 挂载到沙箱中，以便后续使用。
+通过以下方式挂载对象存储 Bucket 到本地目录，通常文件读写性能较差，如果您的业务对文件读写性能敏感，不建议使用这种方式。同时通过这种方式操作对象存储并不是原子性的，也就是存在本地操作成功但对象存储操作失败的风险，进而导致数据丢失。
+因此这种方式比较适用于对读写性能不敏感，且没有频繁写操作的场景。否则建议您优先使用云服务商提供的 SDK 或 CLI 工具在业务逻辑中直接操作对象存储。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+Amazon S3 对象存储
+可以通过 s3fs 工具将 Amazon S3 对象存储 Bucket 挂载到沙箱中。
+您可以在制作 沙箱模板 时在 ppio.Dockerfile 文件中添加安装 s3fs 的命令，或者在沙箱实例内执行安装命令来临时安装。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作沙箱模板时安装 s3fs 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# 注意，安装的 s3fs 版本较低，可能会导致挂载失败，请保证安装的 s3fs 版本高于 1.93
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y s3fs
+下面展示了如何在沙箱实例中通过 s3fs 来挂载 Amazon S3 Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_TEMPLATE_ID")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
+if not TEMPLATE_ID or not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY or not AWS_BUCKET_NAME:
+    raise Exception("environment variable PPIO_TEMPLATE_ID or AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY or AWS_BUCKET_NAME is not set")
+
+MOUNT_DIRECTORY = "/mnt/s3-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 创建 credentials 文件
+# s3fs 会默认从 /root/.passwd-s3fs 中读取 AWS 访问密钥信息，如果使用其他路径，需要在 s3fs 命令中添加该路径。
+sandbox.files.write("/root/.passwd-s3fs", f"{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}")
+
+# 设置 credentials 文件的权限
+sandbox.commands.run("sudo chmod 600 /root/.passwd-s3fs")
+
+# 挂载 Amazon S3 Bucket 到指定目录
+# 重要参数说明：
+# - allow_other: 允许其他用户访问挂载点
+# - endpoint: 指定 S3 bucket 的所在区域
+# 详细参数请参考：https://manpages.ubuntu.com/manpages/noble/en/man1/s3fs.1.html
+mount_options = "allow_other,endpoint=cn-north-1"
+sandbox.commands.run(f"sudo s3fs {AWS_BUCKET_NAME} {MOUNT_DIRECTORY} -o {mount_options}")
+
+# 测试写入文件
+write_result = sandbox.files.write(f"{MOUNT_DIRECTORY}/test-file.txt", "test-file-content")
+
+# 测试读取文件
+content = sandbox.files.read(f"{MOUNT_DIRECTORY}/test-file.txt")
+print("File content:", content)
+
+sandbox.kill()
+​
+阿里云对象存储（OSS）
+可以使用 ossfs 工具将阿里云对象存储（OSS）Bucket 挂载到沙箱中。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作 沙箱模板 时安装 ossfs 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# Install dependencies and customize sandbox
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y wget gdebi-core && \
+    # 从这里复制常用系统的软件包安装地址：https://help.aliyun.com/zh/oss/developer-reference/install-ossfs-1-0
+    wget https://gosspublic.alicdn.com/ossfs/ossfs_1.91.8_ubuntu24.04_amd64.deb &&\
+    gdebi -n ossfs_1.91.8_ubuntu24.04_amd64.deb && \
+    rm ossfs_1.91.8_ubuntu24.04_amd64.deb
+下面展示了如何在沙箱实例中通过 ossfs 来挂载阿里云对象存储（OSS）Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_OSS_TEMPLATE_ID")
+OSS_ACCESS_KEY_ID = os.environ.get("OSS_ACCESS_KEY_ID")
+OSS_ACCESS_KEY_SECRET = os.environ.get("OSS_ACCESS_KEY_SECRET")
+OSS_BUCKET_NAME = os.environ.get("OSS_BUCKET_NAME")
+if not TEMPLATE_ID or not OSS_ACCESS_KEY_ID or not OSS_ACCESS_KEY_SECRET or not OSS_BUCKET_NAME:
+    raise Exception("environment variable PPIO_TEMPLATE_ID or OSS_ACCESS_KEY_ID or OSS_ACCESS_KEY_SECRET or OSS_BUCKET_NAME is not set")
+
+MOUNT_DIRECTORY = "/mnt/oss-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 创建 credentials 文件
+# ossfs 会默认从 /etc/passwd-ossfs 中读取 OSS 访问密钥信息
+# 如果使用其他路径，可以使用 -o passwd_file 参数指定自定义配置文件的路径
+# 更多参数请参考：https://help.aliyun.com/zh/oss/developer-reference/common-options
+sandbox.files.write("/etc/passwd-ossfs", f'{OSS_BUCKET_NAME}:{OSS_ACCESS_KEY_ID}:{OSS_ACCESS_KEY_SECRET}')
+
+# 设置 credentials 文件的权限
+sandbox.commands.run("sudo chmod 600 /etc/passwd-ossfs")
+
+# 挂载 OSS Bucket 到指定目录
+# -o url 必须和 Bucket 的所在区域一致，参考：https://help.aliyun.com/zh/oss/regions-and-endpoints 查看更多区域信息。
+sandbox.commands.run(f"sudo ossfs {OSS_BUCKET_NAME} {MOUNT_DIRECTORY} -o allow_other -o passwd_file=/etc/passwd-ossfs -o url=https://oss-cn-beijing.aliyuncs.com")
+
+# 注意：此处不能通过 sandbox.files.write 方法创建文件。由于 ossfs 将挂载点视为一个 "虚拟的" 超大磁盘空间，sandbox.files.write 方法会尝试获取实际磁盘使用情况并检查空间是否足够，但该信息在虚拟挂载下容易溢出或异常，进而导致误报 "磁盘空间不足" 错误。
+# 测试写入文件
+sandbox.commands.run(f"echo 'test-file-content' > {MOUNT_DIRECTORY}/test-file.txt")
+
+# 测试读取文件
+result = sandbox.commands.run(f"cat {MOUNT_DIRECTORY}/test-file.txt")
+print("File content:", result)
+
+sandbox.kill()
+​
+腾讯云对象存储（COS）
+可以使用 GooseFS-Lite 工具将腾讯云对象存储（COS）Bucket 挂载到沙箱中。
+以下是一个 ppio.Dockerfile 示例，展示了如何在制作 沙箱模板 时安装 GooseFS-Lite 工具。
+
+ppio.Dockerfile
+
+Copy
+# You can use most Debian-based base images
+FROM ubuntu:latest
+
+# Install dependencies and customize sandbox
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt install -y curl libfuse-dev wget && \
+    curl -fssL https://downloads.tencentgoosefs.cn/goosefs-lite/install.sh | sh -x && \
+    cd goosefs-lite-* && \
+    bash bin/install.sh && \
+    bash bin/install-jdk.sh https://github.com/Tencent/TencentKona-11/releases/download/kona11.0.22/TencentKona-11.0.22.b1-jdk_linux-x86_64.tar.gz
+下面展示了如何在沙箱实例中通过 GooseFS-Lite 来挂载腾讯云对象存储（COS）Bucket。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.core import Sandbox
+
+TEMPLATE_ID = os.environ.get("PPIO_COS_TEMPLATE_ID")
+COS_ACCESS_KEY_ID = os.environ.get("COS_ACCESS_KEY_ID")
+COS_SECRET_ACCESS_KEY = os.environ.get("COS_SECRET_ACCESS_KEY")
+COS_BUCKET_NAME = os.environ.get("COS_BUCKET_NAME")
+COS_BUCKET_REGION = os.environ.get("COS_BUCKET_REGION")
+if not TEMPLATE_ID or not COS_ACCESS_KEY_ID or not COS_SECRET_ACCESS_KEY or not COS_BUCKET_NAME or not COS_BUCKET_REGION:
+    raise Exception(
+        "environment variable PPIO_COS_TEMPLATE_ID or COS_ACCESS_KEY_ID or COS_SECRET_ACCESS_KEY or COS_BUCKET_NAME or COS_BUCKET_REGION is not set")
+
+MOUNT_DIRECTORY = "/mnt/cos-bucket"
+
+sandbox = Sandbox.create(TEMPLATE_ID)
+
+# 创建挂载目录
+sandbox.files.make_dir(MOUNT_DIRECTORY)
+
+# 修改 conf/core-site.xml 文件
+# 配置 COS Bucket 的访问密钥和区域
+cmd_update_core_site_xml = (
+    "sudo sed -i '/<name>fs.cosn.userinfo.secretId<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_ACCESS_KEY_ID+"<\/value>/}' conf/core-site.xml;"
+    "sudo sed -i '/<name>fs.cosn.userinfo.secretKey<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_SECRET_ACCESS_KEY+"<\/value>/}' conf/core-site.xml;"
+    "sudo sed -i '/<name>fs.cosn.bucket.region<\/name>/{N;s/<value>[^<]*<\/value>/<value>" +
+    COS_BUCKET_REGION+"<\/value>/}' conf/core-site.xml"
+)
+
+# 更新 core-site.xml 文件
+sandbox.commands.run(f"cd /goosefs-lite-* && ({cmd_update_core_site_xml})")
+
+# 挂载 COS Bucket 到指定目录
+sandbox.commands.run(f"cd /goosefs-lite-* && sudo ./bin/goosefs-lite mount -o \"allow_other\" {MOUNT_DIRECTORY} cosn://{COS_BUCKET_NAME}/")
+
+# 测试写入文件
+sandbox.files.write(f"{MOUNT_DIRECTORY}/test-file.txt", "test-file-content")
+
+# 测试读取文件
+sandbox.files.read(f"{MOUNT_DIRECTORY}/test-file.txt")
+
+sandbox.kill()
+
+箱实例
+克隆沙箱
+现阶段的 AI Agent 在执行复杂任务时面临着一个根本性的限制：“n of 1”问题——AI 和开发者被限制在单一工作环境中进行串行推理。这种模式导致了以下几个关键问题：
+实验冲突与环境污染。当 AI Agent 尝试多种解决方案时，实验性的代码变更可能会干扰开发者的主要工作流程，或者污染当前的运行环境。一旦实验出错，往往只能通过回滚来恢复，无法保留有价值的探索路径。
+无法并行探索多个方案。受限于单一环境，AI Agent 只能按顺序测试不同的解决思路。这种串行模式不仅效率低下，更重要的是限制了 AI 的探索广度——无法同时验证多个并行的假设或实现方案。
+计算能力扩展受限。当面对需要 “广度并行探索” (Wide-Research) 的任务时（例如同时比较 100 个解决方案、批量生成多个实现版本），单一环境的架构从根本上制约了任务的并行化处理能力。
+“沙箱克隆” 功能实现了从 “深度单线探索”（Deep-Research）到 “广度并行探索” (Wide-Research)的转变：
+多时间线探索架构：就像决策树一样，AI Agent 可以从同一个基准状态出发，创建多个独立的沙箱副本，每个副本探索一条不同的解决路径，互不干扰。
+真正的并行计算能力：通过将大任务拆分成批量子任务，AI Agent 能够将计算能力扩展数十倍甚至上百倍，同时处理数十个、上百个探索分支。
+零风险实验环境：克隆出的沙箱完全隔离，AI 可以在其中自由实验、测试各种可能性，而不会影响原始环境或开发者的主工作流程。
+高效的资源利用：虽然可能同时启动多个沙箱实例，但通过动态管理和及时终止不再有价值的分支（沙箱实例），总体计算资源消耗可以保持在合理范围内。
+这种能力使 AI Agent 能够突破当前的性能瓶颈，从提供理论建议转变为交付经过并行验证、实际测试的可靠方案，真正实现自主探索、迭代和解决复杂问题的能力。
+注意以下功能需要 安装 Beta SDK & CLI 才能使用。另外 Beta 版功能在合并到稳定版前，可能会经历多次迭代，因此可能存在不稳定性。如果您在使用过程中遇到任何问题，欢迎 联系我们。
+“沙箱克隆” 功能允许复制正在运行或处于暂停状态的沙箱实例，克隆出的沙箱和原沙箱的文件系统、内存状态保持一致。
+如果您克隆正在运行的沙箱时，被克隆的沙箱将被短暂挂起，这个时间段内该沙箱实例将不可用，挂起时间接近 暂停沙箱 需要的时间。
+参数说明：
+count：要克隆的沙箱实例数量。最小值为 1，最大值不超过平台限制的并发运行的沙箱实例数（参考：沙箱并发限制）；
+strict：是否严格按照 count 参数中指定的数量进行克隆，默认为 false。设置为 true 时，如果克隆成功的数量少于 count，则返回克隆失败错误，其他已经创建成功的沙箱也会被释放。设置为 false 时，返回克隆成功的实际沙箱实例数量。
+timeout(timeoutMs)：克隆沙箱实例的超时时间。如果没指定该参数时，当父沙箱正在运行时，则继承父沙箱的超时时间配置，当父沙箱处于暂停状态时，则使用默认值 5min。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.core import Sandbox
+
+sandbox = Sandbox.create()
+print('Sandbox created', sandbox.sandbox_id)
+
+sbxClones = Sandbox.clone(
+    sandbox.sandbox_id, 
+    count=2, 
+    strict=False, 
+    timeout=60
+)
+print('Sandbox clones created', [sbxClone.sandbox_id for sbxClone in sbxClones])
+
+sandbox.kill()
+for sbxClone in sbxClones:
+    sbxClone.kill()
+同时，您还可以使用 PPIO 沙箱命令行工具来克隆指定的沙箱实例：
+Bash
+
+Copy
+# ppio-sandbox-cli sandbox clone [sandboxID] -c [count] -s [strict] -t [timeout]
+ppio-sandbox-cli sandbox clone 0r0efkbfwzfp9p7qpc1c -c 2
+
+沙箱实例
+闲时释放
+注意以下功能需要 安装 Beta SDK & CLI 才能使用。另外 Beta 版功能在合并到稳定版前，可能会经历多次迭代，因此可能存在不稳定性。如果您在使用过程中遇到任何问题，欢迎 联系我们。
+我们可以为每个沙箱设置一个 timeout（参考 生命周期管理），当沙箱运行时间达到 timeout 时，沙箱将自动释放。但是有些场景下，我们无法明确沙箱预计运行的时间，但我们希望沙箱在不使用时，能够自动释放，以节省成本。此时，您可以使用 “闲时释放” 功能。
+在创建沙箱时，我们可以在 metadata 中设置 idle_timeout 参数（单位：秒，最小为 60）来启用 “闲时释放” 功能。启用后，当系统识别到沙箱在指定的时间范围内没有任何操作时（执行命令、运行代码、操作文件等），系统将会释放该沙箱实例，否则沙箱会持续运行，直到达到系统限制沙箱运行的最大时间（当前默认是 3600s）。
+请参考如下示例：
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.core import Sandbox
+import time
+
+sandbox = Sandbox.create(
+    metadata={"idle_timeout": "60"}  # Minimum time is 60s,You can customize it
+)
+print('Sandbox created', sandbox.sandbox_id)
+
+result = sandbox.commands.run('ls -al')
+print('Command result', result)
+
+print('Waiting for 10 seconds...')
+time.sleep(90)
+
+is_running = sandbox.is_running()
+print('Sandbox is running', is_running)
+
+sandbox.kill()
+
+

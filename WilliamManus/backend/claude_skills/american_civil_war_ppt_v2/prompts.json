@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "title": "The American Civil War 1861-1865",
+    "total_slides": 10,
+    "resolution": "2K",
+    "style": "styles/gradient-glass.md",
+    "generated_at": "2026-03-08T22:27:34.423024"
+  },
+  "slides": [
+    {
+      "slide_number": 1,
+      "page_type": "cover",
+      "content": "封面：美国内战",
+      "prompt": "Create a 16:9 widescreen presentation cover slide with a deeply historical 1860s aesthetic. Background: aged, water-stained parchment paper texture in warm sepia and ochre tones, with faint foxing spots and ink bleed marks. Center top: an ornate Victorian engraving-style American bald eagle with spread wings, rendered in fine cross-hatched ink lines. Below the eagle: bold blackletter/Gothic serif typography reading 'THE AMERICAN CIVIL WAR' — letterpress-printed style, slightly uneven ink distribution as if from an 1861 printing press. Below that in smaller italic serif: 'A Nation Divided — A Nation Reborn'. Bottom banner: a worn ribbon graphic reading '1861 – 1865'. Left and right borders: decorative Victorian column motifs with cannons and rifles. Background vignette: faded battlefield smoke silhouettes. Color palette: sepia, aged cream, dark walnut brown, faded Union blue. No modern elements, no glass, no neon. Pure 19th-century broadsheet aesthetic.",
+      "image_path": "outputs/20260308_222734/images/slide-01.png"
+    },
+    {
+      "slide_number": 2,
+      "page_type": "content",
+      "content": "背景与起源",
+      "prompt": "Create a 16:9 historical presentation slide in the style of an 1861 illustrated newspaper (Harper's Weekly aesthetic). Background: aged yellowed newsprint texture with subtle column grid lines. Top header bar: dark walnut brown with ornate serif title 'ORIGINS OF CONFLICT' in gold-tinted letterpress type. Main content area split: Left 55% — a hand-lettered list in elegant copperplate script on parchment: '• The United States in 1860: 34 states, a fracturing republic' '• Industrial North versus agrarian, slave-holding South' '• Lincoln's election of 1860 ignites the secession crisis' '• Southern states fear federal abolition of slavery' '• December 1860: South Carolina first to secede'. Right 45%: a detailed steel engraving illustration of a map of the United States, hand-drawn cartographic style with shaded relief, showing North and South divided by a thick bold line with small crossed swords symbol. Map has aged brown ink on cream parchment. All typography in period-appropriate serif fonts. No modern design elements.",
+      "image_path": null
+    },
+    {
+      "slide_number": 3,
+      "page_type": "content",
+      "content": "战争根本原因",
+      "prompt": "Create a 16:9 historical presentation slide styled as a Victorian broadsheet layout from the 1860s. Background: cream-white aged paper with subtle linen texture. Decorative ornate border of ivy-and-cannon motifs in dark sepia ink. Title at top center in bold blackletter: 'ROOT CAUSES OF WAR'. Layout: 2x2 grid of four distinct illustrated panels, each with a fine steel-engraving illustration and caption, separated by ornate column dividers. Top-left panel: engraving of enslaved people in a cotton field, caption 'SLAVERY — The Moral Fault Line'. Top-right panel: engraving of a state legislature hall with debate in progress, caption 'STATES' RIGHTS — A Nation Divided in Law'. Bottom-left panel: engraving contrasting a Northern factory and Southern plantation side by side, caption 'ECONOMIC DIVIDE — Industry vs. Agriculture'. Bottom-right panel: engraving of Kansas frontier settlers in conflict, caption 'BLEEDING KANSAS — The Western Territories Aflame'. Ink wash shading throughout. Warm sepia, deep brown, faded navy color palette.",
+      "image_path": "outputs/20260308_222734/images/slide-03.png"
+    },
+    {
+      "slide_number": 4,
+      "page_type": "content",
+      "content": "关键人物",
+      "prompt": "Create a 16:9 historical presentation slide designed like an 1863 illustrated portrait gallery from Harper's Weekly. Background: dark charcoal-grey aged paper, like a formal Victorian bulletin board covered in cloth. Title at top: 'MEN WHO SHAPED THE WAR' in gold letterpress serif. Five oval daguerreotype-style portrait frames arranged in a row — each portrait rendered in authentic sepia-tone daguerreotype photography aesthetic (silvery, high-contrast, formal 1860s photographic style): Portrait 1: Abraham Lincoln, seated, formal suit, melancholic expression. Label below: 'PRESIDENT LINCOLN / Commander of the Union'. Portrait 2: Ulysses S. Grant, in Union uniform, determined expression. Label: 'GEN. GRANT / Union General-in-Chief'. Portrait 3: Robert E. Lee, in Confederate grey, dignified posture. Label: 'GEN. LEE / Confederate Commander'. Portrait 4: Jefferson Davis, formal attire. Label: 'JEFFERSON DAVIS / Confederate President'. Portrait 5: Frederick Douglass, confident expression. Label: 'FREDERICK DOUGLASS / Abolitionist'. Each portrait framed in aged brass oval frame with fine engravings. Pure 19th century aesthetic.",
+      "image_path": "outputs/20260308_222734/images/slide-04.png"
+    },
+    {
+      "slide_number": 5,
+      "page_type": "content",
+      "content": "战争爆发 1861",
+      "prompt": "Create a 16:9 historical presentation slide in the style of an 1861 military dispatch newspaper. Background: off-white aged newsprint with subtle fold creases. Large dramatic steel-engraving illustration across the top third: Confederate cannons firing on Fort Sumter from the shore, with massive plumes of black smoke billowing upward — cross-hatched engraving technique, high contrast, dramatic chiaroscuro. Below the illustration: ornate serif headline 'THE WAR BEGINS — APRIL 12, 1861'. Below that, a two-column newspaper-style layout in period typography: Left column lists key events in dated dispatch format: '12 APRIL 1861 — Confederate artillery opens fire on Fort Sumter, Charleston Harbor' 'JULY 1861 — Confederate forces rout Union at Bull Run; Washington stunned' '11 SOUTHERN STATES — form the Confederate States of America'. Right column: Union strategic map sketch showing the Anaconda Plan — snake wrapping around the Confederacy, hand-drawn cartographic style. Footer: decorative rule lines and a small cannon vignette. Warm sepia and ink-black palette.",
+      "image_path": "outputs/20260308_222734/images/slide-05.png"
+    },
+    {
+      "slide_number": 6,
+      "page_type": "content",
+      "content": "主要战役",
+      "prompt": "Create a 16:9 historical presentation slide styled as a Civil War-era military campaign map and battle report. Background: aged tan parchment, worn at edges. Full-width hand-drawn military campaign map of the Eastern United States in the style of an 1863 Union Army campaign map — cartographic ink lines, compass rose, shaded terrain. Five battle locations marked with crossed-swords symbols and dated annotations: '★ ANTIETAM — Sept 17, 1862 — 22,000 casualties in a single day'. '★ GETTYSBURG — July 1-3, 1863 — Turning point of the war; 51,000 casualties'. '★ VICKSBURG — 1863 — Union seizes control of the Mississippi River'. '★ SHERMAN'S MARCH — 1864 — Sixty thousand troops devastate Georgia'. '★ APPOMATTOX — April 9, 1865 — Lee surrenders; the war ends'. Each marker connected by a dashed campaign route line. Title in ornate cartouche box: 'PRINCIPAL ENGAGEMENTS OF THE WAR'. Legend box in bottom corner. All rendered as fine ink illustration. Deep navy blue, brown, cream color palette.",
+      "image_path": "outputs/20260308_222734/images/slide-06.png"
+    },
+    {
+      "slide_number": 7,
+      "page_type": "content",
+      "content": "废奴宣言",
+      "prompt": "Create a 16:9 historical presentation slide with the gravitas of an official 1863 government proclamation document. Background: aged ivory parchment, thick and formal, with subtle water stains and foxing. Centered at top: ornate eagle seal of the United States, engraved style, flanked by American flags rendered in fine ink. Below the seal: bold formal serif title 'THE EMANCIPATION PROCLAMATION' — styled as official letterpress government printing. Below, justified formal document text in copperplate: 'By the President of the United States of America: That on the first day of January, A.D. 1863, all persons held as slaves within any State in rebellion shall be FOREVER FREE.' Below the quote: four key points in elegant italic serif: '✦ January 1, 1863 — Lincoln's transformative executive order' '✦ Reframes the war: Union preservation becomes moral crusade' '✦ 180,000 Black soldiers join the United States Colored Troops' '✦ Foundation for the 13th Amendment — slavery abolished forever'. Bottom: decorative chain-break engraving motif. Official ink-black and aged gold palette. Deeply dignified and historic in feeling.",
+      "image_path": "outputs/20260308_222734/images/slide-07.png"
+    },
+    {
+      "slide_number": 8,
+      "page_type": "data",
+      "content": "战争代价数据",
+      "prompt": "Create a 16:9 historical presentation slide styled as a Victorian-era statistical broadsheet from 1865. Background: aged newsprint cream with faint column grid. Title at top in heavy blackletter: 'THE TERRIBLE ARITHMETIC OF WAR'. Layout: formal Victorian statistical infographic style. Left half: a large ornate data table with ruled lines and period typography — rows listing: 'SOLDIERS MOBILISED .............. ~3,400,000' 'UNION DEAD ........................ ~360,000' 'CONFEDERATE DEAD .............. ~260,000' 'TOTAL WAR COST .................. $6.2 BILLION' 'DURATION .......................... 4 YEARS'. Each row separated by fine ink rules. Right half: a Victorian-style pictographic chart — columns of tiny soldier silhouette icons in blue (Union) and grey (Confederate) stacked to show relative casualties, rendered as fine woodcut print. Below both: a solemn italic footer quote: 'No trial, save the Revolution, has tested more greatly the character of our Republic.' Ink-black, sepia, and faded red palette. Restrained, mournful aesthetic.",
+      "image_path": "outputs/20260308_222734/images/slide-08.png"
+    },
+    {
+      "slide_number": 9,
+      "page_type": "content",
+      "content": "重建时代",
+      "prompt": "Create a 16:9 historical presentation slide in the style of a Reconstruction-era 1866 illustrated newspaper. Background: slightly brighter cream parchment than previous slides — a new dawn aesthetic. Top: decorative header banner reading 'RECONSTRUCTION OF THE UNION — 1865-1877' in ornate gold serif with a rising sun engraving motif flanking the title. Main layout: three illustrated vignettes side by side, separated by ornate column dividers, each with an engraved illustration above and descriptive text below. Left vignette: engraving of a formal hall with Congress debating, caption: '13th, 14th & 15th Amendments / Abolition — Citizenship — Black Suffrage'. Center vignette: engraving of a Freedmen's Bureau schoolhouse with Black families learning to read, caption: 'Freedmen's Bureau / Education and Economic Rebuilding'. Right vignette: engraving of a night riding scene (abstract, shadowed), caption: 'Violent Resistance / KKK and Black Codes Undermine Progress'. Footer: a solemn black mourning border with text: 'President Lincoln — Assassinated April 14, 1865'. Hopeful yet historically honest tone.",
+      "image_path": "outputs/20260308_222734/images/slide-09.png"
+    },
+    {
+      "slide_number": 10,
+      "page_type": "content",
+      "content": "历史遗产",
+      "prompt": "Create a 16:9 historical presentation closing slide with a timeless, monumental aesthetic — bridging the 1860s past with lasting American legacy. Background: dark navy linen texture with gold letterpress text and engravings. Top: ornate arch motif in gold engraving framing the slide like a memorial monument. Title in large gold serif: 'THE LASTING LEGACY'. Four legacy points arranged in two columns, each prefixed by a small gold engraved icon: '⚖ END OF SLAVERY — The 13th Amendment permanently abolishes slavery in America' '🏛 FEDERAL SUPREMACY — The nation over the states, established in blood' '⚙ INDUSTRIAL TRANSFORMATION — The war accelerates American industrial power' '✊ SEEDS OF CIVIL RIGHTS — The struggle for equality continues into the 20th century'. Center of the slide: a large, faded sepia engraving of a battlefield at sunrise — soldiers as silhouettes — symbolizing sacrifice and dawn. Bottom: full-width gold rule line. Below it, an iconic Lincoln quote in large italic serif: '\"A house divided against itself cannot stand.\" — Abraham Lincoln, 1858'. Final impression: solemn, majestic, historically grounded.",
+      "image_path": "outputs/20260308_222734/images/slide-10.png"
+    }
+  ]
+}

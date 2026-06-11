@@ -1,0 +1,1088 @@
+[
+  {
+    "task_id": "wm_word_grading_docx",
+    "title": "Grade a seeded assignment set and produce a DOCX feedback report",
+    "task_family": "word_docx_grading",
+    "task_type": "document_generation",
+    "complexity": "medium",
+    "prompt": "Review the seeded student submission and rubric materials, assign scores with justification, and generate a Word report under /workspace/eval_outputs/wm_word_grading_docx/grading-report.docx.",
+    "required_sandbox_type": "desktop",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_word_grading_docx/submission.md",
+        "kind": "student_submission"
+      },
+      {
+        "path": "/workspace/eval_seed/wm_word_grading_docx/rubric.json",
+        "kind": "grading_rubric"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_word_grading_docx/grading-report.docx",
+        "kind": "docx_report"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_word_grading_docx/grading-report.docx",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_exists",
+        "path": "/workspace/eval_outputs/wm_word_grading_docx/grading-report.docx",
+        "entry": "word/document.xml",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_contains",
+        "path": "/workspace/eval_outputs/wm_word_grading_docx/grading-report.docx",
+        "entry": "word/document.xml",
+        "contains": [
+          "Overall Score",
+          "Rubric",
+          "Feedback"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "office",
+      "docx",
+      "grading"
+    ]
+  },
+  {
+    "task_id": "wm_html_courseware_generation",
+    "title": "Create interactive HTML courseware from a lesson outline",
+    "task_family": "html_courseware_generation",
+    "task_type": "frontend_generation",
+    "complexity": "medium",
+    "prompt": "Use the seeded lesson outline and assets to build an interactive HTML courseware package under /workspace/eval_outputs/wm_html_courseware_generation/ with a main index.html, clear sections, and at least one interactive quiz element.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_html_courseware_generation/lesson-outline.md",
+        "kind": "lesson_outline"
+      },
+      {
+        "path": "/workspace/eval_seed/wm_html_courseware_generation/assets/",
+        "kind": "lesson_assets"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_html_courseware_generation/index.html",
+        "kind": "html_entrypoint"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_html_courseware_generation/index.html",
+        "deterministic": true
+      },
+      {
+        "type": "html_contains_selectors",
+        "path": "/workspace/eval_outputs/wm_html_courseware_generation/index.html",
+        "selectors": [
+          "main",
+          "section",
+          "button",
+          "[data-quiz]"
+        ],
+        "deterministic": true
+      },
+      {
+        "type": "html_contains_text",
+        "path": "/workspace/eval_outputs/wm_html_courseware_generation/index.html",
+        "contains": [
+          "Learning Objectives",
+          "Quiz"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "html",
+      "courseware",
+      "education"
+    ]
+  },
+  {
+    "task_id": "wm_html_to_ppt_conversion",
+    "title": "Convert seeded HTML lesson content into a slide deck",
+    "task_family": "html_to_ppt_conversion",
+    "task_type": "document_generation",
+    "complexity": "medium",
+    "prompt": "Transform the seeded HTML lesson into a slide deck and save it to /workspace/eval_outputs/wm_html_to_ppt_conversion/lesson-deck.pptx with a title slide and multiple content slides.",
+    "required_sandbox_type": "desktop",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_html_to_ppt_conversion/lesson.html",
+        "kind": "source_html"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_html_to_ppt_conversion/lesson-deck.pptx",
+        "kind": "pptx_deck"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_html_to_ppt_conversion/lesson-deck.pptx",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_exists",
+        "path": "/workspace/eval_outputs/wm_html_to_ppt_conversion/lesson-deck.pptx",
+        "entry": "[Content_Types].xml",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_count_at_least",
+        "path": "/workspace/eval_outputs/wm_html_to_ppt_conversion/lesson-deck.pptx",
+        "prefix": "ppt/slides/slide",
+        "minimum": 3,
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "slides",
+      "pptx",
+      "conversion"
+    ]
+  },
+  {
+    "task_id": "wm_manim_animation_render",
+    "title": "Create and render a short Manim explainer animation",
+    "task_family": "manim_animation_render",
+    "task_type": "animation_generation",
+    "complexity": "complex",
+    "prompt": "Write a Manim scene based on the seeded explainer brief and render it to /workspace/eval_outputs/wm_manim_animation_render/explainer.mp4.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_manim_animation_render/brief.md",
+        "kind": "animation_brief"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_manim_animation_render/scene.py",
+        "kind": "source_code"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_manim_animation_render/explainer.mp4",
+        "kind": "video"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_manim_animation_render/scene.py",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_manim_animation_render/explainer.mp4",
+        "deterministic": true
+      },
+      {
+        "type": "file_size_at_least",
+        "path": "/workspace/eval_outputs/wm_manim_animation_render/explainer.mp4",
+        "minimum_bytes": 10240,
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 1200,
+    "tags": [
+      "manim",
+      "animation",
+      "video"
+    ]
+  },
+  {
+    "task_id": "wm_csv_exec_report",
+    "title": "Analyze seeded CSV data and write an executive report",
+    "task_family": "csv_analysis_reporting",
+    "task_type": "data_reporting",
+    "complexity": "simple",
+    "prompt": "Analyze the seeded CSV, compute the requested summary metrics, and write a markdown report to /workspace/eval_outputs/wm_csv_exec_report/report.md.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_csv_exec_report/input.csv",
+        "kind": "csv_data"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_csv_exec_report/report.md",
+        "kind": "markdown_report"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_csv_exec_report/report.md",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_csv_exec_report/report.md",
+        "contains": [
+          "Executive Summary",
+          "Total Rows",
+          "Average"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "csv",
+      "analysis",
+      "report"
+    ]
+  },
+  {
+    "task_id": "wm_xlsx_gradebook_formulas",
+    "title": "Build an XLSX gradebook with formulas and summary sheet",
+    "task_family": "xlsx_gradebook_generation",
+    "task_type": "document_generation",
+    "complexity": "medium",
+    "prompt": "Generate an XLSX gradebook from the seeded roster and scores, including formulas and a summary sheet, at /workspace/eval_outputs/wm_xlsx_gradebook_formulas/gradebook.xlsx.",
+    "required_sandbox_type": "desktop",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_xlsx_gradebook_formulas/roster.csv",
+        "kind": "roster"
+      },
+      {
+        "path": "/workspace/eval_seed/wm_xlsx_gradebook_formulas/scores.csv",
+        "kind": "scores"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_xlsx_gradebook_formulas/gradebook.xlsx",
+        "kind": "xlsx_workbook"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_xlsx_gradebook_formulas/gradebook.xlsx",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_exists",
+        "path": "/workspace/eval_outputs/wm_xlsx_gradebook_formulas/gradebook.xlsx",
+        "entry": "xl/workbook.xml",
+        "deterministic": true
+      },
+      {
+        "type": "zip_entry_contains",
+        "path": "/workspace/eval_outputs/wm_xlsx_gradebook_formulas/gradebook.xlsx",
+        "entry": "xl/workbook.xml",
+        "contains": [
+          "Summary"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "xlsx",
+      "gradebook",
+      "formulas"
+    ]
+  },
+  {
+    "task_id": "wm_python_cli_json_to_csv",
+    "title": "Implement a Python CLI to transform JSON into CSV",
+    "task_family": "python_cli_transformation",
+    "task_type": "code_generation",
+    "complexity": "simple",
+    "prompt": "Create a Python CLI that reads the seeded JSON and writes a normalized CSV to /workspace/eval_outputs/wm_python_cli_json_to_csv/output.csv using /workspace/eval_outputs/wm_python_cli_json_to_csv/transform.py as the entrypoint.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_python_cli_json_to_csv/input.json",
+        "kind": "json_input"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_python_cli_json_to_csv/transform.py",
+        "kind": "source_code"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_python_cli_json_to_csv/output.csv",
+        "kind": "csv_output"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_python_cli_json_to_csv/transform.py",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_python_cli_json_to_csv/output.csv",
+        "deterministic": true
+      },
+      {
+        "type": "command_exit_zero",
+        "argv": [
+          "python",
+          "/workspace/eval_outputs/wm_python_cli_json_to_csv/transform.py",
+          "/workspace/eval_seed/wm_python_cli_json_to_csv/input.json",
+          "/workspace/eval_outputs/wm_python_cli_json_to_csv/recheck.csv"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "python",
+      "cli",
+      "csv"
+    ]
+  },
+  {
+    "task_id": "wm_seeded_bugfix_with_tests",
+    "title": "Repair a seeded Python package and make the tests pass",
+    "task_family": "seeded_bugfix_repair",
+    "task_type": "bugfix",
+    "complexity": "medium",
+    "prompt": "Fix the seeded Python package in place and produce a corrected copy under /workspace/eval_outputs/wm_seeded_bugfix_with_tests/project so that the seeded pytest suite passes.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_seeded_bugfix_with_tests/project/",
+        "kind": "broken_project"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_seeded_bugfix_with_tests/project/",
+        "kind": "fixed_project"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "directory_exists",
+        "path": "/workspace/eval_outputs/wm_seeded_bugfix_with_tests/project/",
+        "deterministic": true
+      },
+      {
+        "type": "command_exit_zero",
+        "cwd": "/workspace/eval_outputs/wm_seeded_bugfix_with_tests/project",
+        "argv": [
+          "pytest",
+          "-q"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "bugfix",
+      "pytest",
+      "python"
+    ]
+  },
+  {
+    "task_id": "wm_local_fastapi_summary_app",
+    "title": "Create a local FastAPI app with health and summary endpoints",
+    "task_family": "local_api_generation",
+    "task_type": "code_generation",
+    "complexity": "medium",
+    "prompt": "Build a FastAPI app from the seeded requirements and save it under /workspace/eval_outputs/wm_local_fastapi_summary_app/ with an app entrypoint exposing /health and /summary.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_local_fastapi_summary_app/spec.md",
+        "kind": "api_spec"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_local_fastapi_summary_app/main.py",
+        "kind": "api_entrypoint"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_local_fastapi_summary_app/main.py",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_local_fastapi_summary_app/main.py",
+        "contains": [
+          "/health",
+          "/summary",
+          "FastAPI"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "fastapi",
+      "api",
+      "local_service"
+    ]
+  },
+  {
+    "task_id": "wm_static_dashboard_from_csv",
+    "title": "Build a local static dashboard from seeded CSV data",
+    "task_family": "static_dashboard_generation",
+    "task_type": "frontend_generation",
+    "complexity": "medium",
+    "prompt": "Create a static dashboard from the seeded CSV data with an index.html entrypoint under /workspace/eval_outputs/wm_static_dashboard_from_csv/.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_static_dashboard_from_csv/input.csv",
+        "kind": "csv_data"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_static_dashboard_from_csv/index.html",
+        "kind": "html_entrypoint"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_static_dashboard_from_csv/index.html",
+        "deterministic": true
+      },
+      {
+        "type": "html_contains_selectors",
+        "path": "/workspace/eval_outputs/wm_static_dashboard_from_csv/index.html",
+        "selectors": [
+          "#dashboard",
+          "canvas, svg"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "dashboard",
+      "html",
+      "csv"
+    ]
+  },
+  {
+    "task_id": "wm_multifile_course_microsite",
+    "title": "Build a multi-page course microsite with navigation",
+    "task_family": "multifile_microsite_generation",
+    "task_type": "frontend_generation",
+    "complexity": "medium",
+    "prompt": "Create a small multi-page course microsite from the seeded content and save it under /workspace/eval_outputs/wm_multifile_course_microsite/ with an index page and at least two linked subpages.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_multifile_course_microsite/content/",
+        "kind": "site_content"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_multifile_course_microsite/index.html",
+        "kind": "site_entrypoint"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_multifile_course_microsite/pages/",
+        "kind": "site_pages"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_multifile_course_microsite/index.html",
+        "deterministic": true
+      },
+      {
+        "type": "directory_exists",
+        "path": "/workspace/eval_outputs/wm_multifile_course_microsite/pages/",
+        "deterministic": true
+      },
+      {
+        "type": "html_contains_links",
+        "path": "/workspace/eval_outputs/wm_multifile_course_microsite/index.html",
+        "minimum_links": 2,
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "microsite",
+      "html",
+      "navigation"
+    ]
+  },
+  {
+    "task_id": "wm_pdf_table_extraction_csv",
+    "title": "Extract seeded PDF table data into CSV",
+    "task_family": "pdf_table_extraction",
+    "task_type": "document_processing",
+    "complexity": "medium",
+    "prompt": "Extract the seeded table data from the provided PDF and write a clean CSV to /workspace/eval_outputs/wm_pdf_table_extraction_csv/output.csv.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_pdf_table_extraction_csv/source.pdf",
+        "kind": "pdf_document"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_pdf_table_extraction_csv/output.csv",
+        "kind": "csv_output"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_pdf_table_extraction_csv/output.csv",
+        "deterministic": true
+      },
+      {
+        "type": "csv_row_count_at_least",
+        "path": "/workspace/eval_outputs/wm_pdf_table_extraction_csv/output.csv",
+        "minimum_rows": 3,
+        "deterministic": true
+      },
+      {
+        "type": "csv_header_contains",
+        "path": "/workspace/eval_outputs/wm_pdf_table_extraction_csv/output.csv",
+        "contains": [
+          "item",
+          "value"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "pdf",
+      "table_extraction",
+      "csv"
+    ]
+  },
+  {
+    "task_id": "wm_local_docs_synthesis_brief",
+    "title": "Synthesize seeded local documents into a cited brief",
+    "task_family": "local_docs_synthesis",
+    "task_type": "research_synthesis",
+    "complexity": "medium",
+    "prompt": "Read the seeded local documents and write a cited markdown brief to /workspace/eval_outputs/wm_local_docs_synthesis_brief/brief.md that references the provided source files only.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_local_docs_synthesis_brief/sources/",
+        "kind": "source_documents"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_local_docs_synthesis_brief/brief.md",
+        "kind": "markdown_brief"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_local_docs_synthesis_brief/brief.md",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_local_docs_synthesis_brief/brief.md",
+        "contains": [
+          "## Summary",
+          "Sources"
+        ],
+        "deterministic": true
+      },
+      {
+        "type": "text_matches_regex",
+        "path": "/workspace/eval_outputs/wm_local_docs_synthesis_brief/brief.md",
+        "pattern": "\\[(source|doc)-[0-9]+\\]",
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "research",
+      "synthesis",
+      "citations"
+    ]
+  },
+  {
+    "task_id": "wm_browser_form_workflow_export",
+    "title": "Complete a seeded browser form workflow and export results",
+    "task_family": "browser_form_workflow",
+    "task_type": "browser_automation",
+    "complexity": "medium",
+    "prompt": "Use the seeded local form workflow, complete the required fields, and export the results to /workspace/eval_outputs/wm_browser_form_workflow_export/submission.json.",
+    "required_sandbox_type": "browser",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_browser_form_workflow_export/form-app/",
+        "kind": "local_web_app"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_browser_form_workflow_export/submission.json",
+        "kind": "json_export"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_browser_form_workflow_export/submission.json",
+        "deterministic": true
+      },
+      {
+        "type": "json_has_keys",
+        "path": "/workspace/eval_outputs/wm_browser_form_workflow_export/submission.json",
+        "keys": [
+          "student_name",
+          "course",
+          "status"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 900,
+    "tags": [
+      "browser",
+      "form",
+      "automation"
+    ]
+  },
+  {
+    "task_id": "wm_zip_bundle_with_manifest",
+    "title": "Produce a ZIP bundle with manifest and generated artifacts",
+    "task_family": "zip_bundle_packaging",
+    "task_type": "packaging",
+    "complexity": "simple",
+    "prompt": "Package the seeded deliverables into /workspace/eval_outputs/wm_zip_bundle_with_manifest/bundle.zip and include a manifest.json describing the contents.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_zip_bundle_with_manifest/input_files/",
+        "kind": "bundle_inputs"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_zip_bundle_with_manifest/bundle.zip",
+        "kind": "zip_archive"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_zip_bundle_with_manifest/manifest.json",
+        "kind": "manifest"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_zip_bundle_with_manifest/bundle.zip",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_zip_bundle_with_manifest/manifest.json",
+        "deterministic": true
+      },
+      {
+        "type": "json_has_keys",
+        "path": "/workspace/eval_outputs/wm_zip_bundle_with_manifest/manifest.json",
+        "keys": [
+          "bundle_name",
+          "artifacts"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "zip",
+      "manifest",
+      "packaging"
+    ]
+  },
+  {
+    "task_id": "wm_slide_speaker_notes_pack",
+    "title": "Create speaker notes for a seeded slide outline",
+    "task_family": "speaker_notes_generation",
+    "task_type": "document_generation",
+    "complexity": "simple",
+    "prompt": "Use the seeded slide outline to generate speaker notes under /workspace/eval_outputs/wm_slide_speaker_notes_pack/notes.md with one section per slide.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_slide_speaker_notes_pack/outline.md",
+        "kind": "slide_outline"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_slide_speaker_notes_pack/notes.md",
+        "kind": "speaker_notes"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_slide_speaker_notes_pack/notes.md",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_slide_speaker_notes_pack/notes.md",
+        "contains": [
+          "Slide 1",
+          "Slide 2"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "slides",
+      "notes",
+      "presentation"
+    ]
+  },
+  {
+    "task_id": "wm_seeded_comparison_brief",
+    "title": "Write a structured comparison brief from seeded local materials",
+    "task_family": "seeded_comparison_brief",
+    "task_type": "research_synthesis",
+    "complexity": "medium",
+    "prompt": "Read the seeded comparison materials and write a structured markdown brief to /workspace/eval_outputs/wm_seeded_comparison_brief/brief.md with strengths, weaknesses, and recommendation sections.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_seeded_comparison_brief/materials/",
+        "kind": "comparison_materials"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_seeded_comparison_brief/brief.md",
+        "kind": "comparison_brief"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_seeded_comparison_brief/brief.md",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_seeded_comparison_brief/brief.md",
+        "contains": [
+          "Strengths",
+          "Weaknesses",
+          "Recommendation"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "comparison",
+      "brief",
+      "research"
+    ]
+  },
+  {
+    "task_id": "wm_publication_chart_render",
+    "title": "Generate a publication-ready chart from seeded data",
+    "task_family": "chart_render_generation",
+    "task_type": "data_visualization",
+    "complexity": "simple",
+    "prompt": "Generate a publication-ready chart from the seeded data and save it to /workspace/eval_outputs/wm_publication_chart_render/chart.svg.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_publication_chart_render/data.csv",
+        "kind": "chart_data"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_publication_chart_render/chart.svg",
+        "kind": "svg_chart"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_publication_chart_render/chart.svg",
+        "deterministic": true
+      },
+      {
+        "type": "text_contains",
+        "path": "/workspace/eval_outputs/wm_publication_chart_render/chart.svg",
+        "contains": [
+          "<svg",
+          "text"
+        ],
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 600,
+    "tags": [
+      "chart",
+      "svg",
+      "visualization"
+    ]
+  },
+  {
+    "task_id": "wm_regular_multistep_artifact_workflow",
+    "title": "Produce multiple coordinated artifacts in regular mode",
+    "task_family": "regular_multistep_artifact_workflow",
+    "task_type": "document_generation",
+    "complexity": "complex",
+    "prompt": "Use the seeded materials to produce a coordinated artifact bundle in regular mode under /workspace/eval_outputs/wm_regular_multistep_artifact_workflow/ including a summary markdown, a chart image, and an archive manifest.",
+    "required_sandbox_type": "code",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_regular_multistep_artifact_workflow/materials/",
+        "kind": "workflow_materials"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/summary.md",
+        "kind": "summary"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/chart.png",
+        "kind": "chart"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/manifest.json",
+        "kind": "manifest"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/summary.md",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/chart.png",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_regular_multistep_artifact_workflow/manifest.json",
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 1200,
+    "tags": [
+      "multi_step",
+      "regular_mode",
+      "artifacts"
+    ]
+  },
+  {
+    "task_id": "wm_office_bundle_capstone",
+    "title": "Produce an office-style capstone bundle from seeded inputs",
+    "task_family": "office_bundle_capstone",
+    "task_type": "multi_step_workflow",
+    "complexity": "complex",
+    "prompt": "From the seeded planning materials, produce an office-style bundle under /workspace/eval_outputs/wm_office_bundle_capstone/ containing a docx summary, a slide deck, and a zip archive of deliverables.",
+    "required_sandbox_type": "desktop",
+    "resume_strategy": "fresh",
+    "runtime_mode_flags": {
+      "execution_mode": "regular",
+      "shadow_clone_mode": "off",
+      "sandbox_bootstrap": "cold_start"
+    },
+    "seed_inputs": [
+      {
+        "path": "/workspace/eval_seed/wm_office_bundle_capstone/materials/",
+        "kind": "office_bundle_inputs"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/summary.docx",
+        "kind": "docx_report"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/deck.pptx",
+        "kind": "pptx_deck"
+      },
+      {
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/deliverables.zip",
+        "kind": "zip_archive"
+      }
+    ],
+    "success_criteria": [
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/summary.docx",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/deck.pptx",
+        "deterministic": true
+      },
+      {
+        "type": "file_exists",
+        "path": "/workspace/eval_outputs/wm_office_bundle_capstone/deliverables.zip",
+        "deterministic": true
+      }
+    ],
+    "timeout_seconds": 1200,
+    "tags": [
+      "office",
+      "capstone",
+      "bundle"
+    ]
+  }
+]

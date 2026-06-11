@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配置测试</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-left: 3px solid #00ff00;
+        }
+        .error {
+            border-left-color: #ff0000;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>RAG 系统配置测试</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        const resultsDiv = document.getElementById('results');
+
+        function addResult(text, isError = false) {
+            const div = document.createElement('div');
+            div.className = 'result' + (isError ? ' error' : '');
+            div.textContent = text;
+            resultsDiv.appendChild(div);
+        }
+
+        // 检查环境变量
+        addResult('VITE_MILVUS_API_URL = ' + import.meta.env.VITE_MILVUS_API_URL);
+        addResult('VITE_CHAT_API_URL = ' + import.meta.env.VITE_CHAT_API_URL);
+        addResult('VITE_EXTRACTION_API_URL = ' + import.meta.env.VITE_EXTRACTION_API_URL);
+        addResult('VITE_CHUNK_API_URL = ' + import.meta.env.VITE_CHUNK_API_URL);
+
+        // 测试 config 模块
+        import('/src/config.ts').then(module => {
+            addResult('\n--- Config 模块值 ---');
+            addResult('config.milvusApiUrl = ' + module.config.milvusApiUrl);
+            addResult('config.chatApiUrl = ' + module.config.chatApiUrl);
+            addResult('config.extractionApiUrl = ' + module.config.extractionApiUrl);
+            addResult('config.chunkApiUrl = ' + module.config.chunkApiUrl);
+
+            // 测试 API 连接
+            addResult('\n--- 测试 API 连接 ---');
+            const testUrl = module.config.milvusApiUrl + '/stats/all';
+            addResult('测试 URL: ' + testUrl);
+
+            fetch(testUrl)
+                .then(response => {
+                    addResult('HTTP 状态: ' + response.status);
+                    addResult('Content-Type: ' + response.headers.get('content-type'));
+                    return response.text();
+                })
+                .then(text => {
+                    addResult('响应前100字符: ' + text.substring(0, 100));
+                    try {
+                        const json = JSON.parse(text);
+                        addResult('✓ JSON 解析成功');
+                        addResult('数据: ' + JSON.stringify(json, null, 2));
+                    } catch (e) {
+                        addResult('✗ JSON 解析失败: ' + e.message, true);
+                        addResult('完整响应: ' + text, true);
+                    }
+                })
+                .catch(error => {
+                    addResult('✗ 请求失败: ' + error.message, true);
+                });
+        }).catch(error => {
+            addResult('✗ 无法加载 config 模块: ' + error.message, true);
+        });
+    </script>
+</body>
+</html>

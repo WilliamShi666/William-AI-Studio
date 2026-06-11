@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "title": "The American Civil War (1861–1865)",
+    "total_slides": 10,
+    "resolution": "2K",
+    "style": "styles/gradient-glass.md",
+    "generated_at": "2026-03-08T19:38:00.585593"
+  },
+  "slides": [
+    {
+      "slide_number": 1,
+      "page_type": "cover",
+      "content": "Title: The American Civil War\nSubtitle: A Nation Divided, A Nation Reborn\n1861 – 1865",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a cover page based on visual balance aesthetics.\nPlace a large complex 3D glass object in the center, overlaid with bold text:\n\nTitle: The American Civil War\nSubtitle: A Nation Divided, A Nation Reborn\n1861 – 1865\n\nBackground with extended aurora waves.",
+      "image_path": "outputs/20260308_193800/images/slide-01.png"
+    },
+    {
+      "slide_number": 2,
+      "page_type": "content",
+      "content": "Background & Origins\n- The United States in 1860: 34 states, deep political fractures\n- North vs. South: Industrial economy vs. agrarian slave economy\n- The election of Abraham Lincoln (1860) as the tipping point\n- Southern states feared federal interference with slavery\n- December 1860: South Carolina becomes the first state to secede",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nBackground & Origins\n- The United States in 1860: 34 states, deep political fractures\n- North vs. South: Industrial economy vs. agrarian slave economy\n- The election of Abraham Lincoln (1860) as the tipping point\n- Southern states feared federal interference with slavery\n- December 1860: South Carolina becomes the first state to secede",
+      "image_path": null
+    },
+    {
+      "slide_number": 3,
+      "page_type": "content",
+      "content": "Root Causes of the War\n- Slavery: 4 million enslaved African Americans in the South\n- States' Rights: Southern states asserted the right to nullify federal law\n- Economic Divide: Tariffs favored Northern industry, hurt Southern agriculture\n- Territorial Expansion: Fierce debate over slavery in new western territories\n- Bleeding Kansas & the breakdown of political compromise",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nRoot Causes of the War\n- Slavery: 4 million enslaved African Americans in the South\n- States' Rights: Southern states asserted the right to nullify federal law\n- Economic Divide: Tariffs favored Northern industry, hurt Southern agriculture\n- Territorial Expansion: Fierce debate over slavery in new western territories\n- Bleeding Kansas & the breakdown of political compromise",
+      "image_path": "outputs/20260308_193800/images/slide-03.png"
+    },
+    {
+      "slide_number": 4,
+      "page_type": "content",
+      "content": "Key Figures\n- Abraham Lincoln: 16th President, preserved the Union, issued Emancipation Proclamation\n- Ulysses S. Grant: Union General-in-Chief, relentless offensive commander\n- Robert E. Lee: Confederate General, brilliant tactician, symbol of Southern valor\n- Jefferson Davis: President of the Confederate States of America\n- Frederick Douglass: Escaped slave, abolitionist, advisor to Lincoln",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nKey Figures\n- Abraham Lincoln: 16th President, preserved the Union, issued Emancipation Proclamation\n- Ulysses S. Grant: Union General-in-Chief, relentless offensive commander\n- Robert E. Lee: Confederate General, brilliant tactician, symbol of Southern valor\n- Jefferson Davis: President of the Confederate States of America\n- Frederick Douglass: Escaped slave, abolitionist, advisor to Lincoln",
+      "image_path": "outputs/20260308_193800/images/slide-04.png"
+    },
+    {
+      "slide_number": 5,
+      "page_type": "content",
+      "content": "The War Begins (1861)\n- April 12, 1861: Confederate forces fire on Fort Sumter, South Carolina — war begins\n- 11 Southern states form the Confederate States of America\n- First Battle of Bull Run (July 1861): Shock victory for the Confederacy\n- Both sides expected a short war — they were wrong\n- Union strategy: Anaconda Plan — blockade Southern ports, control the Mississippi River",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nThe War Begins (1861)\n- April 12, 1861: Confederate forces fire on Fort Sumter, South Carolina — war begins\n- 11 Southern states form the Confederate States of America\n- First Battle of Bull Run (July 1861): Shock victory for the Confederacy\n- Both sides expected a short war — they were wrong\n- Union strategy: Anaconda Plan — blockade Southern ports, control the Mississippi River",
+      "image_path": "outputs/20260308_193800/images/slide-05.png"
+    },
+    {
+      "slide_number": 6,
+      "page_type": "content",
+      "content": "Major Battles\n- Battle of Antietam (Sept 1862): Bloodiest single day — 22,000 casualties\n- Battle of Gettysburg (July 1–3, 1863): Turning point; 51,000 total casualties\n- Siege of Vicksburg (1863): Union gains control of the Mississippi River\n- Sherman's March to the Sea (1864): Total war strategy devastates the South\n- Appomattox Court House (April 9, 1865): Lee surrenders to Grant — war ends",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nMajor Battles\n- Battle of Antietam (Sept 1862): Bloodiest single day — 22,000 casualties\n- Battle of Gettysburg (July 1–3, 1863): Turning point; 51,000 total casualties\n- Siege of Vicksburg (1863): Union gains control of the Mississippi River\n- Sherman's March to the Sea (1864): Total war strategy devastates the South\n- Appomattox Court House (April 9, 1865): Lee surrenders to Grant — war ends",
+      "image_path": "outputs/20260308_193800/images/slide-06.png"
+    },
+    {
+      "slide_number": 7,
+      "page_type": "content",
+      "content": "The Emancipation Proclamation\n- Issued by President Lincoln on January 1, 1863\n- Declared all enslaved people in Confederate states 'forever free'\n- Reframed the war: from preserving the Union to ending slavery\n- 180,000 Black soldiers joined the Union Army (United States Colored Troops)\n- Paved the way for the 13th Amendment (1865): Abolition of slavery nationwide",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nThe Emancipation Proclamation\n- Issued by President Lincoln on January 1, 1863\n- Declared all enslaved people in Confederate states 'forever free'\n- Reframed the war: from preserving the Union to ending slavery\n- 180,000 Black soldiers joined the Union Army (United States Colored Troops)\n- Paved the way for the 13th Amendment (1865): Abolition of slavery nationwide",
+      "image_path": "outputs/20260308_193800/images/slide-07.png"
+    },
+    {
+      "slide_number": 8,
+      "page_type": "data",
+      "content": "The Human Cost of War\nTotal soldiers: ~3.4 million (both sides)\nUnion deaths: ~360,000\nConfederate deaths: ~260,000\nCivilian casualties: ~50,000+\nTotal cost: ~$6.2 billion (1860s dollars)\nDuration: 4 years, 3 weeks, 6 days\nBattles fought: Over 10,000 engagements",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a data/summary page using split-screen design.\nLeft side: typeset the following text.\nRight side: floating large glowing 3D data visualization:\n\nThe Human Cost of War\nTotal soldiers: ~3.4 million (both sides)\nUnion deaths: ~360,000\nConfederate deaths: ~260,000\nCivilian casualties: ~50,000+\nTotal cost: ~$6.2 billion (1860s dollars)\nDuration: 4 years, 3 weeks, 6 days\nBattles fought: Over 10,000 engagements",
+      "image_path": "outputs/20260308_193800/images/slide-08.png"
+    },
+    {
+      "slide_number": 9,
+      "page_type": "content",
+      "content": "Reconstruction Era (1865–1877)\n- Rebuilding the South and reintegrating Confederate states\n- 13th, 14th & 15th Amendments: Abolition, citizenship, and Black voting rights\n- Freedmen's Bureau: Assisted formerly enslaved people with education and employment\n- Resistance: Rise of the Ku Klux Klan, Black Codes, and systemic oppression\n- Lincoln assassinated April 14, 1865 — a devastating blow to moderate Reconstruction",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a content page using Bento grid layout.\nOrganize the following content in modular rounded rectangle containers.\nContainer material must be frosted glass with blur effect:\n\nReconstruction Era (1865–1877)\n- Rebuilding the South and reintegrating Confederate states\n- 13th, 14th & 15th Amendments: Abolition, citizenship, and Black voting rights\n- Freedmen's Bureau: Assisted formerly enslaved people with education and employment\n- Resistance: Rise of the Ku Klux Klan, Black Codes, and systemic oppression\n- Lincoln assassinated April 14, 1865 — a devastating blow to moderate Reconstruction",
+      "image_path": "outputs/20260308_193800/images/slide-09.png"
+    },
+    {
+      "slide_number": 10,
+      "page_type": "content",
+      "content": "Legacy & Impact\n- Ended slavery and transformed American democracy\n- Federal government supremacy over states firmly established\n- Industrialization accelerated in the post-war United States\n- The war's memory: Lost Cause mythology vs. historical truth\n- Foundation of civil rights struggles: from 1865 to the Civil Rights Movement of the 1960s\n- The Civil War remains the defining moment of American national identity",
+      "prompt": "风格ID\ngradient-glass\n\nPlease generate a data/summary page using split-screen design.\nLeft side: typeset the following text.\nRight side: floating large glowing 3D data visualization:\n\nLegacy & Impact\n- Ended slavery and transformed American democracy\n- Federal government supremacy over states firmly established\n- Industrialization accelerated in the post-war United States\n- The war's memory: Lost Cause mythology vs. historical truth\n- Foundation of civil rights struggles: from 1865 to the Civil Rights Movement of the 1960s\n- The Civil War remains the defining moment of American national identity",
+      "image_path": "outputs/20260308_193800/images/slide-10.png"
+    }
+  ]
+}

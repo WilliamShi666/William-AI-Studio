@@ -1,0 +1,24 @@
+python-dotenv==1.1.1
+fastapi==0.116.2
+structlog==25.4.0
+asyncpg==0.30.0
+redis==6.4.0
+PyJWT==2.10.1
+bcrypt==4.3.0
+sentry_sdk==2.38.0
+dramatiq==1.18.0
+google-adk==1.12.0
+litellm==1.77.1
+langfuse>=3.0,<4.0
+croniter==6.0.0
+e2b-desktop==1.7.1b1
+browser-use==0.7.4
+e2b-code-interpreter==1.5.2
+playwright==1.55.0
+tavily-python==0.7.12
+ppio-sandbox==1.1.1b3
+# Optional for LTM sidecar. Keep baseline installs stable on Python 3.10.
+# If you need ReMe on Python 3.10, install manually:
+#   pip install --no-deps reme-ai==0.2.0.0
+reme-ai==0.2.0.0; python_version >= "3.11"
+oss2

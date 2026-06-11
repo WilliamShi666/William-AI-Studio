@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "title": "Vectors & Planes in 3D Space",
+    "total_slides": 10,
+    "resolution": "2K",
+    "style": "styles/gradient-glass.md",
+    "generated_at": "2026-03-09T11:41:24.820659"
+  },
+  "slides": [
+    {
+      "slide_number": 1,
+      "page_type": "cover",
+      "content": "Cover",
+      "prompt": "An educational mathematics presentation cover slide, 16:9 widescreen. Background: deep navy blue with a subtle 3D coordinate grid fading into darkness, evoking an advanced academic textbook. Center: a vivid 3D geometric illustration — a translucent blue plane floating in space, with an orange arrow labeled 'n' perpendicular to it (the normal vector), and a green line intersecting the plane. The geometry is rendered with soft glow and depth. Overlaid text, fully legible in white bold serif: Large title 'VECTORS & PLANES IN 3D SPACE'. Below: subtitle 'Lines, Planes, Angles & Distances' in medium white regular serif. Bottom: 'A-Level Further Mathematics' in small light grey. Top-left corner: a small icon of xyz coordinate axes. The overall style is clean, modern, and mathematically precise — like a Cambridge textbook cover.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-01.png"
+    },
+    {
+      "slide_number": 2,
+      "page_type": "content",
+      "content": "Forms of the Equation of a Plane",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'FORMS OF THE EQUATION OF A PLANE'. Layout: left 45% shows a 3D diagram — a translucent teal plane in xyz space, with a red normal vector n pointing perpendicularly out of the plane, and a position vector a from origin to a point on the plane, with the xyz axes clearly labeled. Right 55%: white text panel on slightly lighter navy background with clearly legible content organized as three sections:\n\nFORM 1 — Cartesian Form:\nax + by + cz = d\nwhere (a, b, c) is the normal vector to the plane\n\nFORM 2 — Scalar Product Form:\nr · n = p\nwhere n is the normal vector and p is a scalar constant\n\nFORM 3 — Vector/Parametric Form:\nr = a + λb + μc\nwhere a is a point on the plane, b and c are direction vectors lying in the plane, λ and μ are parameters\n\nNote: Any form can be converted to another — expand r · n to get Cartesian form.\n\nAll formulas in large, clear, high-contrast text. Math symbols must be fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-02.png"
+    },
+    {
+      "slide_number": 3,
+      "page_type": "content",
+      "content": "The Vector Product (Cross Product)",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'THE VECTOR PRODUCT (CROSS PRODUCT)'. Layout: left 45% shows a 3D geometric diagram — two orange/yellow vectors a and b originating from the same point, with the angle θ clearly labeled between them. A bright green arrow labeled 'a × b' points perpendicularly upward using the right-hand rule. The diagram includes a curved arc for θ and dotted reference lines. Right 55%: white text panel with clearly legible content:\n\nMagnitude Form:\n|a × b| = |a||b| sin θ\nwhere θ is the angle between vectors a and b\n\nComponent Form (a × b):\ni component:  (a₂b₃ − a₃b₂)\nj component:  (a₃b₁ − a₁b₃)\nk component:  (a₁b₂ − a₂b₁)\n\nAs a determinant:\na × b = | i   j   k  |\n        | a₁  a₂  a₃ |\n        | b₁  b₂  b₃ |\n\nKey Properties:\n• a × b is perpendicular to BOTH a and b\n• a × b = −(b × a)  (anti-commutative)\n• If a × b = 0, then a and b are parallel\n• |a × b| = area of parallelogram formed by a and b\n\nAll formulas large, bold where appropriate, fully legible in white/light text.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-03.png"
+    },
+    {
+      "slide_number": 4,
+      "page_type": "content",
+      "content": "Relationships Between a Line and a Plane",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'LINE AND PLANE: THREE RELATIONSHIPS'. Layout: three equal columns, each showing one case. Each column has a 3D diagram on top and a text description below.\n\nLeft column — diagram: a translucent teal plane with a red line lying flat WITHIN the plane. Text below clearly reads:\nCASE 1: LINE LIES IN PLANE\n• Every point of the line satisfies the plane equation\n• Direction vector b is perpendicular to normal n\n• Test: b · n = 0 AND a point on line satisfies r · n = p\n\nMiddle column — diagram: a translucent teal plane with a red line running parallel but NOT touching the plane. Text below clearly reads:\nCASE 2: LINE PARALLEL TO PLANE\n• Line never intersects the plane\n• Direction vector b is perpendicular to normal n\n• Test: b · n = 0 BUT point on line does NOT satisfy r · n = p\n\nRight column — diagram: a translucent teal plane with a red line piercing through it at a visible intersection point (yellow dot). Text below clearly reads:\nCASE 3: LINE INTERSECTS PLANE\n• One unique point of intersection\n• b · n ≠ 0\n• Find point: substitute parametric line r = a + λb into plane equation, solve for λ\n\nAll text fully legible in white. Column dividers as thin light lines.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-04.png"
+    },
+    {
+      "slide_number": 5,
+      "page_type": "content",
+      "content": "Finding the Intersection of a Line and a Plane",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'INTERSECTION OF A LINE AND A PLANE'. Layout: left 40% shows a 3D diagram — a translucent teal plane, a red line r = a + λb passing through it, the intersection point marked as a bright yellow dot labeled 'P', and dashed lines showing the geometry. Right 60%: white text on slightly lighter navy background, fully legible content:\n\nMETHOD — Step by Step:\n\nStep 1: Write the line in parametric form\n  r = a + λb\n  i.e.  x = a₁ + λb₁\n        y = a₂ + λb₂\n        z = a₃ + λb₃\n\nStep 2: Substitute into the plane equation\n  ax + by + cz = d\n  → Solve for the parameter λ\n\nStep 3: Substitute λ back into line equations\n  → Find coordinates of intersection point P\n\nWORKED EXAMPLE:\nLine: r = (1, 2, 0) + λ(1, −1, 2)\nPlane: 2x + y + z = 7\n\nSubstitute:\n2(1+λ) + (2−λ) + (2λ) = 7\n2 + 2λ + 2 − λ + 2λ = 7\n3λ = 3  →  λ = 1\n\nPoint P = (2, 1, 2)  ✓\n\nAll steps clearly numbered and legible. Example in a highlighted box.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-05.png"
+    },
+    {
+      "slide_number": 6,
+      "page_type": "content",
+      "content": "Foot of Perpendicular from a Point to a Plane",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'FOOT OF PERPENDICULAR: POINT TO PLANE'. Layout: left 40%: a clear 3D diagram — a translucent teal plane, a point A floating above the plane labeled 'A', a vertical red dashed line dropping perpendicularly from A down to the plane, and the foot of the perpendicular labeled 'F' as a yellow dot on the plane. The normal vector n shown aligned with the perpendicular line. Distance labeled 'd'. Right 60%: white text, fully legible:\n\nKEY IDEA:\nThe perpendicular from A to the plane is parallel to the normal vector n of the plane.\n\nMETHOD:\nStep 1: Write the perpendicular line through A:\n  r = a + λn\n  (where a is position vector of A, n is normal to plane)\n\nStep 2: Find where this line meets the plane\n  Substitute r = a + λn into plane equation\n  → Solve for λ\n\nStep 3: Foot F = a + λn\n\nPERPENDICULAR DISTANCE from A to plane:\n  d = |a · n̂ − p|\n  where n̂ = n/|n| is the unit normal\n  and the plane equation is r · n̂ = p\n\nEquivalently (Cartesian form ax + by + cz = d):\n  distance = |ax₀ + by₀ + cz₀ − d| / √(a²+b²+c²)\n  where (x₀, y₀, z₀) is point A\n\nAll formulas large, clear, and fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-06.png"
+    },
+    {
+      "slide_number": 7,
+      "page_type": "content",
+      "content": "Angles Between Lines and Planes",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'ANGLES: LINE–PLANE AND PLANE–PLANE'. Layout: two equal rows.\n\nTop half — ANGLE BETWEEN A LINE AND A PLANE:\nLeft: 3D diagram — translucent teal plane, a red line entering from the side at an angle, the acute angle α labeled between the line and the plane surface, and the normal vector n shown. The complement angle (90°−α) shown between line and normal.\nRight: clearly legible white text:\n  sin α = |b · n| / (|b| |n|)\n  where b = direction vector of line\n        n = normal vector of plane\n  Note: we use |b · n| to ensure an acute angle\n  (angle between line and plane = 90° − angle between line and normal)\n\nDividing horizontal line separates the two sections.\n\nBottom half — ANGLE BETWEEN TWO PLANES:\nLeft: 3D diagram — two intersecting translucent planes (teal and orange), the dihedral angle θ labeled between them at the line of intersection. The two normal vectors n₁ and n₂ shown with the angle between them.\nRight: clearly legible white text:\n  cos θ = |n₁ · n₂| / (|n₁| |n₂|)\n  where n₁ and n₂ are normals to the two planes\n  Note: angle between planes = angle between their normals\n  (or supplement, take the acute angle)\n\nAll formulas and labels fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-07.png"
+    },
+    {
+      "slide_number": 8,
+      "page_type": "content",
+      "content": "Line of Intersection of Two Planes",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'LINE OF INTERSECTION OF TWO PLANES'. Layout: left 42% shows a vivid 3D diagram — two large intersecting translucent planes (one teal, one orange/amber), their line of intersection shown as a bright green line running through both. The two normal vectors n₁ (blue arrow) and n₂ (orange arrow) shown perpendicular to their respective planes. An arc showing the angle between n₁ and n₂. Right 58%: white text, fully legible:\n\nKEY IDEA:\nThe line of intersection lies in BOTH planes simultaneously.\n\nFINDING THE LINE — Method:\n\nStep 1: Direction vector of intersection line\n  d = n₁ × n₂\n  (cross product of the two normal vectors)\n  Because d is perpendicular to both normals, it lies in both planes.\n\nStep 2: Find one point on the line\n  Set one coordinate to a convenient value (e.g. z = 0)\n  Solve the two plane equations simultaneously for x and y\n  → gives point (x₀, y₀, 0)\n\nStep 3: Write the line equation\n  r = (x₀, y₀, 0) + λ(n₁ × n₂)\n\nEXAMPLE:\nPlane 1: x + 2y + z = 3\nPlane 2: 2x − y + 3z = 1\nn₁ = (1, 2, 1),  n₂ = (2, −1, 3)\nd = n₁ × n₂ = (7, −1, −5)\nSet z=0: solve x+2y=3, 2x−y=1 → (1,1,0)\nLine: r = (1,1,0) + λ(7,−1,−5)\n\nAll text and formulas large, clear, fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-08.png"
+    },
+    {
+      "slide_number": 9,
+      "page_type": "content",
+      "content": "Shortest Distance Between Skew Lines",
+      "prompt": "An educational mathematics slide, 16:9 widescreen. Background: dark navy blue. Top: full-width title bar with bold white text 'SHORTEST DISTANCE BETWEEN SKEW LINES'. Layout: left 42%: a clear 3D diagram — two red/orange skew lines (not parallel, not intersecting) floating in 3D space at different heights. A short bright green line segment connecting the two lines at the closest points, labeled 'd' for the shortest distance. The common perpendicular direction vector n = b₁ × b₂ shown as a yellow arrow. Points A on line 1 and B on line 2 marked. Right 58%: white text, fully legible:\n\nDEFINITION:\nSkew lines are non-parallel lines that do NOT intersect.\nThe shortest distance is along the common perpendicular.\n\nFORMULA:\nGiven two skew lines:\n  Line 1: r = a + λb₁\n  Line 2: r = c + μb₂\n\nShortest distance d:\n  d = |(c − a) · (b₁ × b₂)| / |b₁ × b₂|\n\nMETHOD (Foot Points Approach):\nStep 1: Let P = a + λb₁ (point on Line 1)\n        Let Q = c + μb₂ (point on Line 2)\nStep 2: PQ must be perpendicular to BOTH lines:\n        PQ · b₁ = 0\n        PQ · b₂ = 0\nStep 3: Solve the two equations for λ and μ\nStep 4: d = |PQ|\n\nCOMMON PERPENDICULAR LINE:\nDirection: n = b₁ × b₂\nThe common perpendicular connects the two foot points P and Q.\n\nAll formulas bold and fully legible in white.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-09.png"
+    },
+    {
+      "slide_number": 10,
+      "page_type": "data",
+      "content": "Summary",
+      "prompt": "An educational mathematics summary/reference slide, 16:9 widescreen. Background: deep navy blue with very subtle geometric grid lines. Top: full-width header bar — bold white text 'KEY RESULTS — VECTORS & PLANES SUMMARY'. Layout: two-column grid of formula cards, each card a slightly lighter navy rounded rectangle.\n\nCard 1 — PLANE EQUATIONS:\nax + by + cz = d  (Cartesian)\nr · n = p  (Scalar product)\nr = a + λb + μc  (Parametric)\n\nCard 2 — VECTOR PRODUCT:\n|a × b| = |a||b| sin θ\nComponents: (a₂b₃−a₃b₂, a₃b₁−a₁b₃, a₁b₂−a₂b₁)\na × b ⊥ both a and b\n\nCard 3 — LINE–PLANE INTERSECTION:\nSubstitute r = a + λb into plane equation, solve for λ\n\nCard 4 — DISTANCE: POINT TO PLANE:\nd = |ax₀+by₀+cz₀−d| / √(a²+b²+c²)\n\nCard 5 — ANGLE: LINE AND PLANE:\nsin α = |b · n| / (|b||n|)\n\nCard 6 — ANGLE: TWO PLANES:\ncos θ = |n₁ · n₂| / (|n₁||n₂|)\n\nCard 7 — INTERSECTION OF TWO PLANES:\nDirection d = n₁ × n₂\nFind point by setting z = 0 and solving simultaneously\n\nCard 8 — SKEW LINES DISTANCE:\nd = |(c−a)·(b₁×b₂)| / |b₁×b₂|\n\nBottom banner in gold/amber: 'Remember: always check whether lines/planes are parallel first (use dot product with normals and direction vectors).'\n\nAll text in each card must be large, clearly spaced, and fully legible. White text on card backgrounds. Title of each card in bold colour-coded header (cyan or amber).",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/vectors_planes_courseware/images/slide-10.png"
+    }
+  ]
+}

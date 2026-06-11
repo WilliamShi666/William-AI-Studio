@@ -1,0 +1,31 @@
+import_config: default.yaml
+
+# ReMe config template for Qdrant Cloud or any HTTPS Qdrant endpoint.
+# Duplicate this file to `reme_qdrant_cloud.yaml`, fill real values, and keep
+# the concrete file out of git if it contains secrets.
+#
+# Recommended pairing:
+# - AGENTSCOPE_LTM_REME_CONFIG_PATH=agentscope_integration/memory/long_term/reme_qdrant_cloud.yaml
+# - AGENTSCOPE_LTM_GLOBAL_WORKSPACE uses a project-specific prefix to avoid collisions
+#   when sharing the same remote Qdrant instance across projects.
+
+vector_store:
+  default:
+    backend: qdrant
+    embedding_model: default
+    params:
+      url: "https://your-qdrant-cluster.example.com:6333"
+      api_key: "replace-with-qdrant-api-key"
+      # Keep distance omitted due flowllm/qdrant-client compatibility in
+      # current runtime. QdrantVectorStore then uses backend default (Cosine).
+
+flow:
+  # Quality-speed balance: use dedicated remote reranker (not chat-LLM rerank).
+  retrieve_task_memory:
+    flow_content: BuildQueryOp() >> RecallVectorStoreOp() >> DashScopeTextRerankOp(model_name='qwen3-vl-rerank', top_k=10, timeout_seconds=2.5, fail_open=True) >> MergeMemoryOp()
+
+  add_tool_call_result:
+    flow_content: ParseToolCallResultOp(max_history_tool_call_cnt=150, evaluation_sleep_interval=0.3) >> UpdateVectorStoreOp()
+
+  summary_tool_memory:
+    flow_content: SummaryToolMemoryOp(recent_call_count=30, summary_sleep_interval=0.3) >> UpdateVectorStoreOp()

@@ -1,0 +1,18 @@
+# Default ownership for the first public release candidate.
+* @maintainers
+
+# Product areas
+/WilliamManus/ @maintainers
+/cc-flow-src/ @maintainers
+/multimodalrag/ @maintainers
+
+# Release, governance, and security-sensitive files
+/.github/ @maintainers
+/scripts/ @maintainers
+/deploy/ @maintainers
+/SECURITY.md @maintainers
+/LICENSE @maintainers
+/THIRD_PARTY_NOTICES.md @maintainers
+
+# Public dataset tooling and manifests
+/multimodalrag/datasets/ @maintainers

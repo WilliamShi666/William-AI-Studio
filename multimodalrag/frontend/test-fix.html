@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: #0a0e27;
+            color: #e8eaed;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        .test-button {
+            padding: 12px 16px;
+            background: linear-gradient(to right, #00d4ff, #0066ff);
+            color: #0a0e27;
+            border: none;
+            border-radius: 12px;
+            position: relative;
+        }
+        .test-button span {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>测试文字重叠</h1>
+    <div class="test-button">
+        <span>仪表盘</span>
+    </div>
+    <p>如果这里的文字没有重叠，说明问题在React组件中</p>
+</body>
+</html>

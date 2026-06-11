@@ -1,0 +1,235 @@
+文件系统
+概览
+每个沙箱都有一套完全隔离的文件系统。当前我们为沙箱提供固定 5 GB 大小的存储空间。
+接下来，我们会展示如何基于 SDK 来操作沙箱的文件系统，包括：
+文件读写
+监视目录变化
+文件上传
+文件下载
+
+文件系统
+文件读写
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+读取文件
+您可以使用 files.read() 方法从沙箱文件系统中读取文件。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 在沙箱内创建一个文件用于测试
+file_path_in_sandbox = '/tmp/test-file'
+sandbox.files.write(file_path_in_sandbox, "test-file-content")
+
+file_content = sandbox.files.read(file_path_in_sandbox)
+print(file_content)
+
+sandbox.kill()
+​
+写入单个文件
+您可以使用 files.write() 方法将单个文件写入沙箱文件系统。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 在沙箱内创建一个文件用于测试
+file_path_in_sandbox = '/tmp/test-file'
+result = sandbox.files.write(file_path_in_sandbox, "test-file-content")
+print(result)
+
+sandbox.kill()
+​
+写入多个文件
+您也可以使用 files.write() 方法将多个文件写入沙箱文件系统。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+result = sandbox.files.write_files([
+    { "path": "/tmp/test-file-1", "data": "file content 1" },
+    { "path": "/tmp/test-file-2", "data": "file content 2" }
+])
+print(result)
+
+sandbox.kill()
+
+文件系统
+监视目录变化
+本节演示如何监视目录下文件的变化。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, FilesystemEventType
+
+sandbox = Sandbox.create()
+dirname = '/tmp'
+
+# 监视目录的变化
+handle = sandbox.files.watch_dir(dirname)
+# 触发文件写入事件
+sandbox.files.write(f"{dirname}/test-file", "test-file-content")
+
+# 获取自上次调用 `get_new_events()` 以来的最新事件
+events = handle.get_new_events()
+for event in events:
+  print(f"got event: {event.type} - {event.name}")
+  if event.type == FilesystemEventType.WRITE:
+    print(f"wrote to file {event.name}")
+
+# 停止监视
+handle.stop()
+
+sandbox.kill()
+​
+递归监视
+如果需要监视到目录下子文件夹（包括多级嵌套的文件夹）内容的变化，您可以使用 recursive 参数启用 “递归监视”。
+当快速创建新文件夹时（例如多级的文件夹路径），除了 CREATE 之外的事件可能不会被触发。为了避免这种行为，请提前创建所需的文件夹结构。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox, FilesystemEventType
+
+sandbox = Sandbox.create()
+dirname = '/tmp'
+
+# 监视目录的变化
+handle = sandbox.files.watch_dir(dirname, recursive=True)
+# 触发文件写入事件
+sandbox.files.write(f"{dirname}/test-folder/test-file", "test-file-content")
+
+# 获取自上次 `get_new_events()` 调用以来的最新事件
+events = handle.get_new_events()
+for event in events:
+  print(f"got event: {event.type} - {event.name}")
+  if event.type == FilesystemEventType.WRITE:
+    print(f"wrote to file {event.name}")
+
+# 停止监视
+handle.stop()
+
+sandbox.kill()
+
+文件系统
+文件上传
+我们可以将本地文件上传到沙箱内。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+​
+上传单个文件
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 从本地文件系统读取文件内容
+local_file_path = '../local-test-file'
+with open(local_file_path, "rb") as file:
+  # 将文件上传到沙箱
+  file_path_in_sandbox = '/tmp/test-file'
+  result = sandbox.files.write(file_path_in_sandbox, file)
+  print(result)
+
+sandbox.kill()
+​
+上传目录/多个文件
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+import os
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+def read_directory_files(directory_path):
+    files = []
+    
+    # 遍历目录中的所有文件
+    for filename in os.listdir(directory_path):
+        file_path = os.path.join(directory_path, filename)
+        
+        # 如果是一个目录，则跳过
+        if os.path.isfile(file_path):
+            # 以二进制模式读取文件内容
+            with open(file_path, "rb") as file:
+                files.append({
+                    'path': file_path,
+                    'data': file.read()
+                })
+    return files
+
+local_directory_path = '../local-test-dir'
+files = read_directory_files(local_directory_path)
+print(files)
+# 输出示例：
+# [{'path': '../local-test-dir/local-test-file-1', 'data': b'test-file-content'}, {'path': '../local-test-dir/local-test-file-2', 'data': b'test-file-content'}]
+
+# 指定上传到沙箱里的文件路径
+for file in files:
+    file['path'] = file['path'].replace('../local-test-dir', '/tmp')
+
+result = sandbox.files.write_files(files)
+print(result)
+# 输出示例：
+# [WriteInfo(name='local-test-file-1', type='file', path='/tmp/local-test-file-1'), WriteInfo(name='local-test-file-2', type='file', path='/tmp/local-test-file-2')]
+
+sandbox.kill()
+
+文件系统
+文件下载
+我们可以将文件从沙箱内下载到本地。
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 在沙箱内创建一个文件用于测试
+file_path_in_sandbox = '/tmp/test-file'
+sandbox.files.write(file_path_in_sandbox, "test-file-content")
+
+# 从沙箱读取文件内容
+content = sandbox.files.read(file_path_in_sandbox)
+
+# 将文件内容写入本地文件系统
+local_file_path = './local-test-file'
+with open(local_file_path, 'w') as file:
+  file.write(content)
+
+sandbox.kill()

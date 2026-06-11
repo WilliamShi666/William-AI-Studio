@@ -1,0 +1,14 @@
+# Optional dependencies for the AgentScope-based debate service.
+#
+# Install these in a separate virtual environment from the default Roys Legion
+# backend until the grpc/opentelemetry dependency set is reconciled with
+# pymilvus==2.3.4 in requirements.txt.
+#
+# Known resolver issue as of 2026-06-10:
+# - pymilvus==2.3.4 requires grpcio>=1.49.1,<=1.58.0.
+# - agentscope==1.0.21 pulls opentelemetry OTLP gRPC packages that require
+#   grpcio>=1.63.2.
+#
+# For the first public source candidate, the debate service is documented as an
+# optional component rather than part of the default backend install smoke.
+agentscope==1.0.21

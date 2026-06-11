@@ -1,0 +1,1058 @@
+@import 'tailwindcss';
+@import './tw-animate.css';
+
+/* Tailwind CSS 4: 指定要扫描的源文件路径 */
+@source "../components/**/*.{js,ts,jsx,tsx}";
+@source "../hooks/**/*.{js,ts,jsx,tsx}";
+@source "../lib/**/*.{js,ts,jsx,tsx}";
+@source "../contexts/**/*.{js,ts,jsx,tsx}";
+@source "../providers/**/*.{js,ts,jsx,tsx}";
+@source "./**/*.{js,ts,jsx,tsx}";
+
+@plugin 'tailwind-scrollbar';
+@plugin 'tailwind-scrollbar-hide';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  /* ===== 颜色映射 ===== */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* 侧边栏 */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  /* 图表 */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  /* 核心组件 */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* 新增: 分层卡片颜色 */
+  --color-card-elevated: var(--card-elevated);
+  --color-card-prominent: var(--card-prominent);
+
+  /* 新增: 边框变体 */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-glow: var(--border-glow);
+  --color-input-border: var(--input-border);
+
+  /* 新增: 语义色彩 */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  /* ===== 圆角系统 - Apple 风格更大圆角 ===== */
+  --radius-sm: calc(var(--radius) - 4px);        /* 8px */
+  --radius-md: calc(var(--radius) - 2px);        /* 10px */
+  --radius-lg: var(--radius);                     /* 12px */
+  --radius-xl: calc(var(--radius) + 4px);        /* 16px */
+  --radius-2xl: calc(var(--radius) + 8px);       /* 20px */
+  --radius-3xl: calc(var(--radius) + 12px);      /* 24px */
+
+  /* ===== 阴影系统映射 ===== */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-float: var(--shadow-float);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
+  --animate-slide-down: slide-down 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  --animate-slide-up: slide-up 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  --scaleIn: scaleIn 200ms ease;
+  --scaleOut: scaleOut 200ms ease;
+  --fadeIn: fadeIn 200ms ease;
+  --fadeOut: fadeOut 200ms ease;
+  --enterFromLeft: enterFromLeft 250ms ease;
+  --enterFromRight: enterFromRight 250ms ease;
+  --exitToLeft: exitToLeft 250ms ease;
+  --exitToRight: exitToRight 250ms ease;
+  --animate-elliptical-orbit: elliptical-orbit 20s linear infinite;
+  --animate-shadow-clone-spin: shadow-clone-spin 780ms linear infinite;
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes shadow-clone-spin {
+    from {
+      transform: translateZ(0) rotate(0deg);
+    }
+    to {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg))
+        translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg))
+        translateY(calc(var(--radius) * 1px))
+        rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes slide-down {
+    from {
+      height: 0px;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0px;
+    }
+  }
+
+  /* Add this to your globals.css */
+  @keyframes enterFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(200px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes enterFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-200px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes exitToRight {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(200px);
+    }
+  }
+
+  @keyframes exitToLeft {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-200px);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: rotateX(-30deg) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: rotateX(0deg) scale(1);
+    }
+  }
+
+  @keyframes scaleOut {
+    from {
+      opacity: 1;
+      transform: rotateX(0deg) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: rotateX(-10deg) scale(0.95);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes elliptical-orbit {
+    from {
+      transform: rotate(var(--angle, 0) deg)
+        translate(var(--h-radius, 160px), 0)
+        rotate(calc(var(--angle, 0) deg * -1));
+    }
+    to {
+      transform: rotate(calc(var(--angle, 0) deg + 360deg))
+        translate(var(--h-radius, 160px), 0)
+        rotate(calc((var(--angle, 0) deg + 360deg) * -1));
+    }
+  }
+
+  @keyframes shiny-text {
+    0%,
+    90%,
+    100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%,
+    60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+}
+
+:root {
+  /* ===== Warm Paper Light Mode - Notion Inspired ===== */
+
+  /* 背景层级 - 暖灰色 (#F7F7F5) -> 稍深一点 (#F2F2F0) 以更好搭配侧边栏 */
+  --background: oklch(0.96 0.003 95);           /* Adjusted to be slightly darker */
+  --foreground: oklch(0.28 0.015 75);            /* Notion黑 #37352F */
+
+  /* 卡片 - 纯白悬浮感 */
+  --card: oklch(1 0 0);                          /* 纯白 #FFFFFF */
+  --card-foreground: oklch(0.28 0.015 75);
+
+  /* 弹出层 */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.28 0.015 75);
+
+  /* 主色调 - 靛蓝紫 (#5B4EFA) */
+  --primary: oklch(0.52 0.26 275);
+  --primary-foreground: oklch(1 0 0);
+
+  /* 次要色 */
+  --secondary: oklch(0.58 0.2 300);
+  --secondary-foreground: oklch(1 0 0);
+
+  /* 静音色 - 暖灰调 */
+  --muted: oklch(0.96 0.003 95);
+  --muted-foreground: oklch(0.58 0.008 265);
+
+  /* 强调色 */
+  --accent: oklch(0.97 0.003 95);
+  --accent-foreground: oklch(0.28 0.015 75);
+
+  /* 语义色彩 */
+  --destructive: oklch(0.63 0.24 25);            /* Red ~#FF3B30 */
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.68 0.2 145);                /* Green ~#34C759 */
+  --warning: oklch(0.8 0.18 85);                 /* Orange ~#FF9500 */
+
+  /* 边框 - 暖色调淡分隔线 rgba(0,0,0,0.06) */
+  --border: oklch(0 0 0 / 6%);
+  --border-subtle: oklch(0 0 0 / 4%);
+
+  /* 输入框 */
+  --input: oklch(0.98 0.002 95);
+  --input-border: oklch(0 0 0 / 10%);
+
+  /* 强调色环 - 靛蓝紫 */
+  --ring: oklch(0.52 0.26 275 / 40%);
+
+  /* 图表色彩 */
+  --chart-1: oklch(0.52 0.26 275);               /* Indigo */
+  --chart-2: oklch(0.68 0.2 145);                /* Green */
+  --chart-3: oklch(0.58 0.2 300);                /* Purple */
+  --chart-4: oklch(0.8 0.18 85);                 /* Orange */
+  --chart-5: oklch(0.63 0.24 25);                /* Red */
+
+  /* 圆角系统 - 更大更柔和 */
+  --radius: 0.75rem;                              /* 12px 基础 */
+
+  /* 侧边栏 - 稍深的暖灰 (#EBEBE9) */
+  --sidebar: oklch(0.935 0.004 95 / 90%);
+  --sidebar-foreground: oklch(0.28 0.015 75);
+  --sidebar-primary: oklch(0.52 0.26 275);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0 0 0 / 4%);
+  --sidebar-accent-foreground: oklch(0.28 0.015 75);
+  --sidebar-border: oklch(0 0 0 / 6%);
+  --sidebar-ring: oklch(0.52 0.26 275 / 40%);
+
+  /* ===== 暖色调弥散阴影系统 (hue 75) ===== */
+  --shadow-xs: 0 1px 2px oklch(0.4 0.015 75 / 4%);
+  --shadow-sm: 0 4px 12px -2px oklch(0.4 0.015 75 / 8%);
+  --shadow-md: 0 8px 24px -6px oklch(0.4 0.015 75 / 10%);
+  --shadow-lg: 0 12px 40px -8px oklch(0.4 0.015 75 / 12%);
+  --shadow-xl: 0 20px 60px -12px oklch(0.4 0.015 75 / 15%);
+  --shadow-float: 0 10px 40px -10px oklch(0.4 0.015 75 / 8%);
+}
+
+.dark {
+  /* ===== Scheme C: Soft Reading (Warm/Carbon) ===== */
+
+  /* 背景层级 - Material Dark (#121212) */
+  --background: oklch(0.14 0 0);                 /* #121212 */
+  --foreground: oklch(0.95 0 0);                 /* Soft White */
+
+  /* 卡片 - (#1E1E1E) */
+  --card: oklch(0.18 0 0);                       /* #1E1E1E */
+  --card-foreground: oklch(0.95 0 0);
+
+  /* 二级浮层 - (#242424) */
+  --card-elevated: oklch(0.21 0 0);              /* #242424 */
+
+  /* 三级浮层 */
+  --card-prominent: oklch(0.25 0 0);
+
+  /* 弹出层 */
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+
+  /* 主色调 - 保持亮蓝 (#4D9CFF) */
+  --primary: oklch(0.68 0.18 245);
+  --primary-foreground: oklch(0.13 0.015 250);
+
+  /* 次要色 */
+  --secondary: oklch(0.65 0.18 280);
+  --secondary-foreground: oklch(0.95 0 0);
+
+  /* 静音色 */
+  --muted: oklch(0.21 0 0);                      /* #242424 */
+  --muted-foreground: oklch(0.63 0 0);
+
+  /* 强调色 */
+  --accent: oklch(0.21 0 0);
+  --accent-foreground: oklch(0.95 0 0);
+
+  /* 语义色彩 - Dark mode 版本 */
+  --destructive: oklch(0.65 0.24 25);            /* ~#FF453A */
+  --destructive-foreground: oklch(0.95 0 0);
+  --success: oklch(0.72 0.2 145);                /* ~#30D158 */
+  --warning: oklch(0.82 0.18 85);                /* ~#FF9F0A */
+
+  /* 边框 - 更柔和 */
+  --border: oklch(1 0 0 / 8%);
+  --border-subtle: oklch(1 0 0 / 5%);
+  --border-glow: oklch(0.6 0.05 250 / 12%);
+
+  /* 输入框 - (#1E1E1E) */
+  --input: oklch(0.18 0 0);
+  --input-border: oklch(1 0 0 / 10%);
+
+  /* 强调色环 */
+  --ring: oklch(0.68 0.18 245 / 50%);
+
+  /* 图表色彩 - Dark mode */
+  --chart-1: oklch(0.68 0.18 245);               /* Blue */
+  --chart-2: oklch(0.72 0.2 145);                /* Green */
+  --chart-3: oklch(0.65 0.18 280);               /* Purple */
+  --chart-4: oklch(0.82 0.18 85);                /* Orange */
+  --chart-5: oklch(0.65 0.24 25);                /* Red */
+
+  /* 侧边栏 - (#181818) */
+  --sidebar: oklch(0.16 0 0 / 95%);              /* #181818 */
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.68 0.18 245);
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(1 0 0 / 5%);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.68 0.18 245 / 50%);
+
+  /* ===== 深色模式阴影 - 移除或极简 ===== */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 30%);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 30%);
+  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 30%);
+  --shadow-float: 0 0 0 1px oklch(1 0 0 / 8%);
+}
+
+@layer base {
+  /* 全局过渡优化 - Apple 风格平滑过渡 */
+  * {
+    @apply border-border outline-ring/50;
+    transition-property: background-color, border-color, box-shadow, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 选择文本颜色 - Apple Blue */
+  ::selection {
+    background-color: oklch(0.55 0.22 255 / 30%);
+    color: inherit;
+  }
+
+  .dark ::selection {
+    background-color: oklch(0.62 0.22 255 / 40%);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    zoom: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'palt', 'ss01' on, 'cv01' on;
+  }
+
+  /* 标题样式 - Apple SF Pro 风格 */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* Apple 风格滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.5 0 0 / 20%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.5 0 0 / 35%);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: oklch(0.8 0 0 / 20%);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.8 0 0 / 35%);
+  }
+
+  /* Add font fallbacks for CJK characters */
+  .cjk-text,
+  .prose p,
+  .prose li,
+  .prose table td,
+  .prose table th,
+  .markdown-content {
+    font-family:
+      var(--font-sans),
+      ui-sans-serif,
+      -apple-system,
+      'Segoe UI',
+      'Helvetica Neue',
+      'Noto Sans',
+      'Noto Sans CJK JP',
+      'Noto Sans CJK KR',
+      'Noto Sans CJK SC',
+      'Noto Sans CJK TC',
+      sans-serif;
+    line-height: 1.7;
+  }
+
+  /* Specific handling for monospace/code with CJK character support */
+  code,
+  pre,
+  .font-mono {
+    font-family:
+      var(--font-mono), ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+      Consolas, 'Liberation Mono', 'Courier New', monospace,
+      'Noto Sans Mono CJK JP', 'Noto Sans Mono CJK KR', 'Noto Sans Mono CJK SC',
+      'Noto Sans Mono CJK TC';
+  }
+}
+
+/* ===== Apple 风格工具类 ===== */
+
+/* 毛玻璃效果 */
+.glass {
+  background: oklch(1 0 0 / 70%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .glass {
+  background: oklch(0.20 0.02 250 / 70%);
+}
+
+/* Landing/Login 页面文字 - 保持原来的深色 */
+.landing-page-text {
+  --foreground: oklch(0.13 0.004 285);
+  --muted-foreground: oklch(0.55 0.01 285);
+  --card-foreground: oklch(0.13 0.004 285);
+}
+
+.dark .landing-page-text {
+  --foreground: oklch(0.95 0.003 250);
+  --muted-foreground: oklch(0.63 0.015 240);
+  --card-foreground: oklch(0.95 0.003 250);
+}
+
+/* Apple 风格按钮按压效果 */
+.apple-press {
+  transition: transform 150ms ease-out;
+}
+
+.apple-press:active {
+  transform: scale(0.97);
+}
+
+/* 悬浮卡片效果 */
+.card-hover {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dark .card-hover:hover {
+  box-shadow: none;
+  border-color: oklch(0.55 0.08 240 / 18%);
+}
+
+/* Custom styles for Markdown chat content */
+.prose.chat-markdown {
+  /* Ensure reasonable spacing */
+  & > * + * {
+    margin-top: 0.75em;
+  }
+
+  /* Fix headings to be more compact in chat context */
+  & h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+  }
+
+  & h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    line-height: 1.3;
+  }
+
+  & h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+  }
+
+  & h4,
+  & h5,
+  & h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+  }
+
+  /* Improve lists */
+  & ul,
+  & ol {
+    padding-left: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ol {
+    list-style-type: decimal;
+  }
+
+  & li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  & li > ul,
+  & li > ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  /* Fix code blocks */
+  & pre {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0.75em 1em;
+    /* background 95 */
+    background-color: theme('colors.background/95');
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+  }
+
+  & pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.9em;
+    color: inherit;
+    font-family: var(--font-mono);
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  /* Fix inline code to ensure it wraps when needed */
+  & code:not([class*='language-']) {
+    padding: 0.2em 0.4em;
+    font-size: 0.85em;
+    font-family: var(--font-mono);
+    background-color: theme('colors.background/95');
+    border-radius: 3px;
+    word-break: break-word;
+  }
+
+  /* Fix tables */
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+    font-size: 0.9em;
+  }
+
+  & th {
+    background-color: theme('colors.slate.100');
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5em 0.75em;
+  }
+
+  & td {
+    padding: 0.5em 0.75em;
+    border: 1px solid theme('colors.slate.200');
+  }
+
+  /* Fix blockquotes */
+  & blockquote {
+    border-left: 3px solid theme('colors.slate.300');
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+    color: theme('colors.slate.600');
+  }
+
+  /* Dark mode specific overrides */
+  .dark & {
+    /* Code blocks in dark mode */
+    & pre {
+      background-color: theme('colors.background/95');
+      /* border: 1px solid theme('colors.zinc.700'); */
+    }
+
+    & code:not([class*='language-']) {
+      background-color: theme('colors.background/95');
+      color: theme('colors.zinc.200');
+      /* border: 1px solid theme('colors.zinc.700'); */
+    }
+
+    /* Tables in dark mode */
+    & th {
+      background-color: theme('colors.zinc.800');
+      border-color: theme('colors.zinc.700');
+    }
+
+    & td {
+      border-color: theme('colors.zinc.700');
+    }
+
+    /* Blockquotes in dark mode */
+    & blockquote {
+      border-left-color: theme('colors.zinc.600');
+      color: theme('colors.zinc.400');
+    }
+
+    /* Syntax highlighting in dark mode */
+    & .hljs-keyword,
+    & .hljs-selector-tag,
+    & .hljs-built_in,
+    & .hljs-name,
+    & .hljs-tag {
+      color: theme('colors.blue.400');
+    }
+
+    & .hljs-string,
+    & .hljs-title,
+    & .hljs-section,
+    & .hljs-attribute,
+    & .hljs-literal,
+    & .hljs-template-tag,
+    & .hljs-template-variable,
+    & .hljs-type,
+    & .hljs-addition {
+      color: theme('colors.green.400');
+    }
+
+    & .hljs-comment,
+    & .hljs-quote,
+    & .hljs-deletion,
+    & .hljs-meta {
+      color: theme('colors.zinc.500');
+    }
+
+    & .hljs-keyword,
+    & .hljs-selector-tag,
+    & .hljs-literal,
+    & .hljs-title,
+    & .hljs-section,
+    & .hljs-doctag,
+    & .hljs-type,
+    & .hljs-name,
+    & .hljs-strong {
+      font-weight: bold;
+    }
+  }
+}
+
+.bg-pattern-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .bg-pattern-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-checker-pattern {
+  background-image: linear-gradient(45deg, #f3f4f6 25%, transparent 25%),
+    linear-gradient(-45deg, #f3f4f6 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f3f4f6 75%),
+    linear-gradient(-45deg, transparent 75%, #f3f4f6 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: #ffffff;
+}
+
+.dark .bg-checker-pattern-dark {
+  background-image: linear-gradient(45deg, rgba(39, 39, 42, 0.7) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(39, 39, 42, 0.7) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(39, 39, 42, 0.7) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(39, 39, 42, 0.7) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: rgba(24, 24, 27, 0.7);
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@theme {
+  --animate-shimmer: shimmer 1s infinite;
+  --animate-gradient-shift: gradient-shift 2s ease infinite;
+}
+
+.animate-shimmer {
+  @apply relative overflow-hidden rounded-md;
+  @apply bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10;
+  background-size: 200% 200%;
+  animation: var(--animate-gradient-shift);
+}
+
+.animate-shimmer::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-full;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: var(--animate-shimmer);
+  width: 100%;
+  transform: translateX(-100%);
+}
+
+.animate-shimmer-gray {
+  @apply relative overflow-hidden rounded-md;
+  @apply bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200;
+  background-size: 200% 200%;
+  animation: var(--animate-gradient-shift);
+}
+
+.animate-shimmer-gray::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-full;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: var(--animate-shimmer);
+  width: 100%;
+  transform: translateX(-100%);
+}
+
+@theme inline {
+  --animate-shiny-text: shiny-text 5s infinite;
+
+  @keyframes shiny-text {
+    0%,
+    90%,
+    100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%,
+    60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+}
+
+/* File Writing Indicator Animation */
+@keyframes shimmer-text {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer-text {
+  animation: shimmer-text 3s linear infinite;
+}
+
+@keyframes file-writing-dot-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.75;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.55),
+      0 0 18px rgba(0, 114, 255, 0.35);
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 18px rgba(0, 198, 255, 0.85),
+      0 0 30px rgba(0, 114, 255, 0.55);
+    border-radius: 42% 58% 52% 48%;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.75;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.55),
+      0 0 18px rgba(0, 114, 255, 0.35);
+    border-radius: 50%;
+  }
+}
+
+@keyframes file-writing-dot-halo {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+}
+
+@keyframes file-writing-dot-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.file-writing-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #00c6ff 0%, #0072ff 70%);
+  animation: file-writing-dot-pulse 1.8s ease-in-out infinite;
+}
+
+.file-writing-dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(0, 198, 255, 0.5), rgba(0, 114, 255, 0));
+  filter: blur(12px);
+  animation: file-writing-dot-halo 1.8s ease-in-out infinite;
+}
+
+.file-writing-dot::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 60%);
+  opacity: 0.7;
+  animation: file-writing-dot-spin 1.6s linear infinite;
+}
+
+@layer utilities {
+  .tool-panel {
+    --tool-panel-surface: color-mix(in oklch, var(--background) 70%, var(--card) 30%);
+    --tool-panel-surface-edge: color-mix(in oklch, var(--background) 82%, var(--card) 18%);
+    --tool-panel-surface-subtle: color-mix(in oklch, var(--tool-panel-surface) 90%, var(--card) 10%);
+    --tool-panel-surface-hover: color-mix(in oklch, var(--tool-panel-surface) 82%, var(--card) 18%);
+  }
+
+  .dark .tool-panel {
+    --tool-panel-surface: color-mix(in oklch, var(--card) 78%, var(--background) 22%);
+    --tool-panel-surface-edge: color-mix(in oklch, var(--card) 88%, var(--background) 12%);
+    --tool-panel-surface-subtle: color-mix(in oklch, var(--tool-panel-surface) 85%, var(--card) 15%);
+    --tool-panel-surface-hover: color-mix(in oklch, var(--tool-panel-surface) 85%, var(--card) 15%);
+  }
+
+  .tool-panel-surface {
+    background: linear-gradient(
+      180deg,
+      var(--tool-panel-surface-edge, var(--card)) 0%,
+      var(--tool-panel-surface, var(--card)) 100%
+    );
+  }
+
+  .tool-panel-surface-subtle {
+    background: var(--tool-panel-surface-subtle, var(--card));
+  }
+
+  .tool-panel [data-slot="card"] {
+    background: var(--tool-panel-surface, var(--card));
+  }
+
+  .tool-panel .tool-panel-item:hover {
+    background-color: var(--tool-panel-surface-hover, var(--muted));
+  }
+}
+
+/* ===== Edge browser compatibility ===== */
+/* Tailwind v4 named group-hover uses :is(:where(...):hover *) which Edge */
+/* may not support. These fallback rules use simple descendant selectors. */
+
+/* Sidebar: show expand button on header hover */
+.group\/sidebar-header:hover .group-hover\/sidebar-header\:opacity-0 {
+  opacity: 0;
+}
+.group\/sidebar-header:hover .group-hover\/sidebar-header\:opacity-100 {
+  opacity: 1;
+}
+.group\/sidebar-header:hover .group-hover\/sidebar-header\:pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* Nav: show three-dots menu on row hover */
+.group\/row:hover .group-hover\/row\:opacity-100 {
+  opacity: 1;
+}
+
+/* Sidebar wrapper: show rail chevron on wrapper hover */
+.group\/sidebar-wrapper:hover .group-hover\/sidebar-wrapper\:opacity-100 {
+  opacity: 1;
+}

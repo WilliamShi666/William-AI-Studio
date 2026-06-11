@@ -1,0 +1,48 @@
+运行代码
+Python Code Interpreter 示例
+我们基于 PPIO LLM API 和 Agent Sandbox 实现一个简单的 Python Code Interpreter，其能将自然语言描述转换为可执行的 Python 代码，并在安全的沙箱环境中运行，最终返回经过 LLM 总结后的执行结果。
+该示例实现了以下功能特性：
+AI 代码生成：使用 PPIO LLM API（本示例基于 DeepSeek V3.2）基于自然语言生成 Python 代码；
+安全执行：使用 PPIO Agent Sandbox 在隔离环境中运行 AI 生成的代码；
+自动调试：代码执行出错时，自动分析错误并尝试修复；
+通过本示例，为您展示了如何在实际场景下使用 PPIO 的 Agent Sandbox 和 LLM API 服务。
+您可以在这里 https://github.com/ppinfralab/PPIO-collab/tree/main/examples/python-code-interpreter 找到完整文档和代码。
+
+运行代码
+Python Code Interpreter 示例
+我们基于 PPIO LLM API 和 Agent Sandbox 实现一个简单的 Python Code Interpreter，其能将自然语言描述转换为可执行的 Python 代码，并在安全的沙箱环境中运行，最终返回经过 LLM 总结后的执行结果。
+该示例实现了以下功能特性：
+AI 代码生成：使用 PPIO LLM API（本示例基于 DeepSeek V3.2）基于自然语言生成 Python 代码；
+安全执行：使用 PPIO Agent Sandbox 在隔离环境中运行 AI 生成的代码；
+自动调试：代码执行出错时，自动分析错误并尝试修复；
+通过本示例，为您展示了如何在实际场景下使用 PPIO 的 Agent Sandbox 和 LLM API 服务。
+您可以在这里 https://github.com/ppinfralab/PPIO-collab/tree/main/examples/python-code-interpreter 找到完整文档和代码。
+
+运行代码
+Python Code Interpreter 示例
+我们基于 PPIO LLM API 和 Agent Sandbox 实现一个简单的 Python Code Interpreter，其能将自然语言描述转换为可执行的 Python 代码，并在安全的沙箱环境中运行，最终返回经过 LLM 总结后的执行结果。
+该示例实现了以下功能特性：
+AI 代码生成：使用 PPIO LLM API（本示例基于 DeepSeek V3.2）基于自然语言生成 Python 代码；
+安全执行：使用 PPIO Agent Sandbox 在隔离环境中运行 AI 生成的代码；
+自动调试：代码执行出错时，自动分析错误并尝试修复；
+通过本示例，为您展示了如何在实际场景下使用 PPIO 的 Agent Sandbox 和 LLM API 服务。
+您可以在这里 https://github.com/ppinfralab/PPIO-collab/tree/main/examples/python-code-interpreter 找到完整文档和代码。
+
+命令行工具
+关闭运行中的沙箱
+您可以使用 PPIO 沙箱命令行工具关闭单个或所有正在运行的沙箱。
+在运行本文档中命令行相关的示例代码前，请参考 教程 来进行安装 PPIO 沙箱命令行工具，并完成 认证。
+​
+关闭单个沙箱
+要关闭单个沙箱，请运行以下命令：
+Bash
+
+Copy
+ppio-sandbox-cli sandbox kill <sandbox-id>
+​
+关闭所有沙箱
+要关闭所有正在运行的沙箱，请运行以下命令：
+Bash
+
+Copy
+ppio-sandbox-cli sandbox kill --all

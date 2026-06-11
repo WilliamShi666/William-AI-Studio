@@ -1,0 +1,848 @@
+/* Updated: 2025-10-15 Fix text overlap issue */
+@import 'katex/dist/katex.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #162032;
+  --background-secondary: #253448;
+  --background-tertiary: #3D4E65;
+  --foreground: #D4DCE8;
+  --card: rgba(37, 52, 72, 0.35);
+  --card-foreground: #D4DCE8;
+  --popover: rgba(22, 32, 50, 0.95);
+  --popover-foreground: #D4DCE8;
+  --primary: #38BDF8;
+  --primary-dark: #0EA5E9;
+  --primary-glow: rgba(56, 189, 248, 0.2);
+  --primary-foreground: #0F1724;
+  --secondary: rgba(51, 65, 85, 0.5);
+  --secondary-foreground: #CBD5E1;
+  --muted: rgba(80, 95, 115, 0.35);
+  --muted-foreground: #7A8BA0;
+  --accent: rgba(56, 189, 248, 0.1);
+  --accent-foreground: #38BDF8;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #10b981;
+  --success-foreground: #0F1724;
+  --warning: #f59e0b;
+  --warning-foreground: #0F1724;
+  --border: rgba(56, 189, 248, 0.15);
+  --border-secondary: rgba(148, 163, 184, 0.1);
+  --input: transparent;
+  --input-background: rgba(37, 52, 72, 0.35);
+  --switch-background: rgba(71, 85, 105, 0.5);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #38BDF8;
+  --chart-1: #38BDF8;
+  --chart-2: #0EA5E9;
+  --chart-3: #8b5cf6;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+  --radius: 0.75rem;
+  --sidebar: #1A2540;
+  --sidebar-foreground: #D4DCE8;
+  --sidebar-primary: #38BDF8;
+  --sidebar-primary-foreground: #0F1724;
+  --sidebar-accent: rgba(56, 189, 248, 0.1);
+  --sidebar-accent-foreground: #38BDF8;
+  --sidebar-border: rgba(255, 255, 255, 0.03);
+  --sidebar-ring: #38BDF8;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.2);
+  --shadow-glow-strong: 0 0 40px rgba(56, 189, 248, 0.4);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background: radial-gradient(circle at 50% 0%, #1e3060 0%, #0c1528 60%, #081020 100%);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(22, 32, 50, 0.4);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.2);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.4);
+  }
+}
+
+/* Glassmorphism utility classes */
+@layer utilities {
+  .glass {
+    background: rgba(37, 52, 72, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(56, 189, 248, 0.10);
+  }
+
+  .glass-strong {
+    background: rgba(37, 52, 72, 0.5);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(56, 189, 248, 0.18);
+  }
+
+  .glow {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  }
+
+  .glow-hover {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+    border: 1px solid transparent;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #38BDF8, #0EA5E9);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.6);
+    }
+  }
+}
+
+.katex {
+  color: inherit;
+}
+
+.katex-display {
+  overflow-x: auto;
+  padding: 0.25rem 0;
+}
+
+html {
+  font-size: var(--font-size);
+  overflow-x: hidden;
+}
+
+/* Ensure proper layout */
+#root {
+  min-height: 100vh;
+}
+
+/* Prevent content from being cut off */
+main {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* ============ Roys Theme (Oxford Blue / Midnight) ============ */
+.theme-roys {
+  background: radial-gradient(
+    circle at 50% 0%,
+    #243d73 0%,       /* Brighter Oxford Blue Center */
+    #132750 100%      /* Brighter Edge Color */
+  ) !important;
+  background-attachment: fixed !important;
+}
+
+/* ============ OCR 2.0 白色主题 ============ */
+.theme-v2 {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #f0f2f5 100%) !important;
+}
+
+/* 玻璃效果 - 白色主题 */
+.theme-v2 .glass {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 102, 255, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.theme-v2 .glass-strong {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(0, 102, 255, 0.25) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 文字渐变 */
+.theme-v2 .text-gradient {
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* 渐变边框卡片 */
+.theme-v2 .gradient-border {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 102, 255, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 文字颜色修复 - 主要文字 */
+.theme-v2 {
+  color: #1a1a1a;
+}
+
+.theme-v2 h1,
+.theme-v2 h2,
+.theme-v2 h3,
+.theme-v2 h4,
+.theme-v2 p,
+.theme-v2 span,
+.theme-v2 div {
+  color: #1a1a1a;
+}
+
+/* 次要文字 */
+.theme-v2 .text-sm,
+.theme-v2 small {
+  color: #6b7280;
+}
+
+/* 数字/统计 */
+.theme-v2 .text-4xl,
+.theme-v2 .text-3xl,
+.theme-v2 .text-2xl,
+.theme-v2 .text-xl {
+  color: #0066ff !important;
+  font-weight: 600 !important;
+}
+
+/* 按钮样式 */
+.theme-v2 button {
+  color: #1a1a1a;
+}
+
+/* 渐变按钮文字为白色 */
+.theme-v2 .bg-gradient-to-r,
+.theme-v2 .bg-gradient-to-r button,
+.theme-v2 .bg-gradient-to-r * {
+  color: #ffffff !important;
+}
+
+/* Sidebar导航按钮 */
+.theme-v2 .bg-blue-500,
+.theme-v2 .bg-blue-600 {
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%) !important;
+  color: #ffffff !important;
+}
+
+/* 取消发光动画 */
+.theme-v2 .animate-pulse-glow {
+  animation: none !important;
+}
+
+/* 悬停效果 */
+.theme-v2 .gradient-border:hover {
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.15) !important;
+  border-color: rgba(0, 102, 255, 0.3) !important;
+}
+
+/* ============ 文字可读性优化 ============ */
+
+/* 输入框文字 - 深石板色 */
+.theme-v2 textarea {
+  color: #0f172a !important;
+}
+
+/* 输入框占位符 - 保持柔和灰 */
+.theme-v2 textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Select下拉框 - 知识库选择器 */
+.theme-v2 select {
+  color: #475569 !important;
+}
+
+.theme-v2 select option {
+  color: #1e293b !important;
+  background: #ffffff !important;
+}
+
+/* Prose内容区域（模型输出） - 温和深色 */
+.theme-v2 .prose {
+  color: #1e293b !important;
+}
+
+.theme-v2 .prose p,
+.theme-v2 .prose li,
+.theme-v2 .prose td,
+.theme-v2 .prose th,
+.theme-v2 .prose ul,
+.theme-v2 .prose ol {
+  color: #1e293b !important;
+}
+
+.theme-v2 .prose h1,
+.theme-v2 .prose h2,
+.theme-v2 .prose h3 {
+  color: #0066ff !important;
+}
+
+.theme-v2 .prose strong {
+  color: #0066ff !important;
+}
+
+.theme-v2 .prose em {
+  color: #059669 !important;
+}
+
+.theme-v2 .prose code {
+  color: #059669 !important;
+  background: rgba(0, 102, 255, 0.08) !important;
+}
+
+.theme-v2 .prose blockquote {
+  color: #64748b !important;
+  border-left-color: #0066ff !important;
+}
+
+/* 覆盖硬编码的 text-[#e8eaed] 类（浅灰白 → 深色） */
+.theme-v2 [class*="text-[#e8eaed]"],
+.theme-v2 .text-\[\#e8eaed\] {
+  color: #1e293b !important;
+}
+
+/* 覆盖硬编码的 text-[#94a3b8] 类（中灰 → 次要灰蓝） */
+.theme-v2 [class*="text-[#94a3b8]"],
+.theme-v2 .text-\[\#94a3b8\] {
+  color: #64748b !important;
+}
+
+/* 覆盖硬编码的 text-[#64748b] 类（已经是合适的颜色，保持） */
+.theme-v2 [class*="text-[#64748b]"],
+.theme-v2 .text-\[\#64748b\] {
+  color: #94a3b8 !important;
+}
+
+/* 覆盖硬编码的 text-[#00d4ff] 类（青蓝 → 蓝色） */
+.theme-v2 [class*="text-[#00d4ff]"],
+.theme-v2 .text-\[\#00d4ff\] {
+  color: #0066ff !important;
+}
+
+/* 覆盖硬编码的 text-[#00ff88] 类（绿色 → 翡翠绿） */
+.theme-v2 [class*="text-[#00ff88]"],
+.theme-v2 .text-\[\#00ff88\] {
+  color: #059669 !important;
+}
+
+/* New compatibility rules for Deep Slate theme updates */
+/* Text colors */
+.theme-v2 [class*="text-[#E2E8F0]"],
+.theme-v2 .text-\[\#E2E8F0\] {
+  color: #1e293b !important;
+}
+
+.theme-v2 [class*="text-[#94A3B8]"],
+.theme-v2 .text-\[\#94A3B8\] {
+  color: #64748b !important;
+}
+
+.theme-v2 [class*="text-[#64748B]"],
+.theme-v2 .text-\[\#64748B\] {
+  color: #94a3b8 !important;
+}
+
+.theme-v2 [class*="text-[#38BDF8]"],
+.theme-v2 .text-\[\#38BDF8\] {
+  color: #0066ff !important;
+}
+
+.theme-v2 [class*="text-[#34D399]"],
+.theme-v2 .text-\[\#34D399\] {
+  color: #059669 !important;
+}
+
+.theme-v2 [class*="text-[#0F172A]"],
+.theme-v2 .text-\[\#0F172A\] {
+  color: #0f172a !important;
+}
+
+/* Backgrounds & Borders */
+.theme-v2 [class*="bg-[#38BDF8]"],
+.theme-v2 .bg-\[\#38BDF8\] {
+  background-color: #0066ff !important;
+}
+
+.theme-v2 [class*="border-[#38BDF8]"],
+.theme-v2 .border-\[\#38BDF8\] {
+  border-color: #0066ff !important;
+}
+
+/* Sidebar Override */
+.theme-v2 .bg-\[\#131B2E\] {
+  background-color: #ffffff !important;
+}
+
+/* Gradient fix */
+.theme-v2 .from-\[\#38BDF8\] {
+  --tw-gradient-from: #0066ff !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.theme-v2 .to-\[\#0EA5E9\] {
+  --tw-gradient-to: #0052cc !important;
+}
+
+/* Specific overrides */
+/* Icons inside colored buttons/badges usually need to be white in v2 */
+.theme-v2 .bg-gradient-to-r .text-\[\#0F172A\],
+.theme-v2 .bg-gradient-to-br .text-\[\#0F172A\] {
+  color: #ffffff !important;
+}
+
+/* Time and secondary text */
+.theme-v2 .text-xs {
+  color: #94a3b8 !important;
+}
+
+/* 标签文字（表单） */
+.theme-v2 label {
+  color: #64748b !important;
+}
+
+/* 输入框和设置面板的文字 */
+.theme-v2 input[type="number"],
+.theme-v2 input[type="password"],
+.theme-v2 input[type="text"] {
+  color: #0f172a !important;
+}
+
+/* 引用来源文件名 */
+.theme-v2 .glass-strong span {
+  color: #1e293b !important;
+}
+
+/* ============ 暖色主题 (Warm Cream / Day Mode) ============ */
+.theme-warm {
+  background: linear-gradient(135deg, #FDFBF7 0%, #F5F0E8 50%, #EDE6DA 100%) !important;
+  background-attachment: fixed !important;
+  color: #2C1810;
+}
+
+/* --- 暖色：玻璃效果 --- */
+.theme-warm .glass {
+  background: rgba(255, 252, 247, 0.85) !important;
+  border-color: rgba(180, 160, 130, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(120, 100, 70, 0.08) !important;
+}
+
+.theme-warm .glass-strong {
+  background: rgba(255, 252, 247, 0.92) !important;
+  border-color: rgba(180, 160, 130, 0.3) !important;
+  box-shadow: 0 2px 12px rgba(120, 100, 70, 0.1) !important;
+}
+
+/* --- 暖色：文字渐变 --- */
+.theme-warm .text-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* --- 暖色：渐变边框卡片 --- */
+.theme-warm .gradient-border {
+  background: rgba(255, 252, 247, 0.9) !important;
+  border-color: rgba(180, 160, 130, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(120, 100, 70, 0.08) !important;
+}
+
+.theme-warm .gradient-border::before {
+  background: linear-gradient(135deg, #38BDF8, #2563EB) !important;
+}
+
+.theme-warm .gradient-border:hover {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
+}
+
+/* --- 暖色：主要文字颜色 --- */
+.theme-warm h1,
+.theme-warm h2,
+.theme-warm h3,
+.theme-warm h4,
+.theme-warm p,
+.theme-warm span,
+.theme-warm div {
+  color: #2C1810;
+}
+
+/* --- 暖色：次要文字 --- */
+.theme-warm .text-sm,
+.theme-warm small {
+  color: #6B5B4E;
+}
+
+/* --- 暖色：数字/统计 --- */
+.theme-warm .text-4xl,
+.theme-warm .text-3xl,
+.theme-warm .text-2xl,
+.theme-warm .text-xl {
+  color: #2563EB !important;
+  font-weight: 600 !important;
+}
+
+/* --- 暖色：按钮 --- */
+.theme-warm button {
+  color: #2C1810;
+}
+
+.theme-warm .bg-gradient-to-r,
+.theme-warm .bg-gradient-to-r button,
+.theme-warm .bg-gradient-to-r * {
+  color: #ffffff !important;
+}
+
+/* --- 暖色：取消发光动画 --- */
+.theme-warm .animate-pulse-glow {
+  animation: none !important;
+}
+
+/* --- 暖色：滚动条 --- */
+.theme-warm ::-webkit-scrollbar-track {
+  background: rgba(237, 230, 218, 0.6);
+}
+
+.theme-warm ::-webkit-scrollbar-thumb {
+  background: rgba(180, 160, 130, 0.4);
+  border-radius: 4px;
+}
+
+.theme-warm ::-webkit-scrollbar-thumb:hover {
+  background: rgba(180, 160, 130, 0.6);
+}
+
+/* --- 暖色：输入框 --- */
+.theme-warm textarea {
+  color: #2C1810 !important;
+  background: rgba(255, 252, 247, 0.9) !important;
+}
+
+.theme-warm textarea::placeholder {
+  color: #9C8B7E !important;
+}
+
+.theme-warm input[type="number"],
+.theme-warm input[type="password"],
+.theme-warm input[type="text"] {
+  color: #2C1810 !important;
+  background: rgba(255, 252, 247, 0.9) !important;
+}
+
+.theme-warm select {
+  color: #6B5B4E !important;
+}
+
+.theme-warm select option {
+  color: #2C1810 !important;
+  background: #FDFBF7 !important;
+}
+
+.theme-warm label {
+  color: #6B5B4E !important;
+}
+
+/* --- 暖色：Prose内容区域 --- */
+.theme-warm .prose {
+  color: #2C1810 !important;
+}
+
+.theme-warm .prose p,
+.theme-warm .prose li,
+.theme-warm .prose td,
+.theme-warm .prose th,
+.theme-warm .prose ul,
+.theme-warm .prose ol {
+  color: #2C1810 !important;
+}
+
+.theme-warm .prose h1,
+.theme-warm .prose h2,
+.theme-warm .prose h3 {
+  color: #2563EB !important;
+}
+
+.theme-warm .prose strong {
+  color: #2563EB !important;
+}
+
+.theme-warm .prose em {
+  color: #059669 !important;
+}
+
+.theme-warm .prose code {
+  color: #059669 !important;
+  background: rgba(37, 99, 235, 0.08) !important;
+}
+
+.theme-warm .prose blockquote {
+  color: #6B5B4E !important;
+  border-left-color: #2563EB !important;
+}
+
+/* --- 暖色：硬编码颜色覆盖 --- */
+/* 浅灰白文字 → 暖深棕 */
+.theme-warm [class*="text-[#CBD5E1]"],
+.theme-warm .text-\[\#CBD5E1\],
+.theme-warm [class*="text-[#E2E8F0]"],
+.theme-warm .text-\[\#E2E8F0\],
+.theme-warm [class*="text-[#e8eaed]"],
+.theme-warm .text-\[\#e8eaed\] {
+  color: #2C1810 !important;
+}
+
+/* 中灰文字 → 暖中棕 */
+.theme-warm [class*="text-[#94A3B8]"],
+.theme-warm .text-\[\#94A3B8\],
+.theme-warm [class*="text-[#94a3b8]"],
+.theme-warm .text-\[\#94a3b8\] {
+  color: #6B5B4E !important;
+}
+
+/* 深灰文字 → 暖浅棕 */
+.theme-warm [class*="text-[#64748B]"],
+.theme-warm .text-\[\#64748B\],
+.theme-warm [class*="text-[#64748b]"],
+.theme-warm .text-\[\#64748b\] {
+  color: #9C8B7E !important;
+}
+
+/* 天蓝强调 → 深蓝 */
+.theme-warm [class*="text-[#38BDF8]"],
+.theme-warm .text-\[\#38BDF8\] {
+  color: #2563EB !important;
+}
+
+/* 绿色强调 → 翡翠绿 */
+.theme-warm [class*="text-[#34D399]"],
+.theme-warm .text-\[\#34D399\] {
+  color: #059669 !important;
+}
+
+.theme-warm [class*="text-[#00d4ff]"],
+.theme-warm .text-\[\#00d4ff\] {
+  color: #2563EB !important;
+}
+
+.theme-warm [class*="text-[#00ff88]"],
+.theme-warm .text-\[\#00ff88\] {
+  color: #059669 !important;
+}
+
+/* --- 暖色：背景和边框覆盖 --- */
+.theme-warm [class*="bg-[#38BDF8]"],
+.theme-warm .bg-\[\#38BDF8\] {
+  background-color: #2563EB !important;
+}
+
+.theme-warm [class*="border-[#38BDF8]"],
+.theme-warm .border-\[\#38BDF8\] {
+  border-color: #2563EB !important;
+}
+
+/* Sidebar背景覆盖 */
+.theme-warm .bg-\[\#131B2E\],
+.theme-warm .bg-\[\#1A2540\] {
+  background-color: #F0EBE3 !important;
+}
+
+/* 侧边栏透明背景覆盖 */
+.theme-warm .bg-\[\#0f1c38\]\/60,
+.theme-warm .bg-\[\#152347\]\/60 {
+  background-color: rgba(240, 235, 227, 0.95) !important;
+}
+
+/* --- 暖色：渐变修复 --- */
+.theme-warm .from-\[\#38BDF8\] {
+  --tw-gradient-from: #38BDF8 !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.theme-warm .to-\[\#0EA5E9\] {
+  --tw-gradient-to: #2563EB !important;
+}
+
+/* 渐变按钮内图标保持白色 */
+.theme-warm .bg-gradient-to-r .text-\[\#0F172A\],
+.theme-warm .bg-gradient-to-br .text-\[\#0F172A\],
+.theme-warm .bg-gradient-to-r .text-\[\#0F1724\],
+.theme-warm .bg-gradient-to-br .text-\[\#0F1724\] {
+  color: #ffffff !important;
+}
+
+/* --- 暖色：时间和次要文字 --- */
+.theme-warm .text-xs {
+  color: #9C8B7E !important;
+}
+
+/* --- 暖色：引用来源文件名 --- */
+.theme-warm .glass-strong span {
+  color: #2C1810 !important;
+}
+
+/* --- 暖色：边框颜色 --- */
+.theme-warm [class*="border-[rgba(255,255,255"] {
+  border-color: rgba(180, 160, 130, 0.15) !important;
+}
+
+.theme-warm [class*="border-[rgba(56,189,248"] {
+  border-color: rgba(37, 99, 235, 0.2) !important;
+}

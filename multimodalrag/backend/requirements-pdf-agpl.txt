@@ -1,0 +1,12 @@
+# Optional fast PDF extraction dependencies.
+#
+# PyMuPDF, MuPDF, and PyMuPDF4LLM are dual-licensed under AGPL or a commercial
+# Artifex license. They are intentionally kept out of the default backend
+# requirements so a normal fresh-clone install does not automatically pull AGPL
+# dependencies.
+#
+# Install only if your use case complies with AGPL obligations or you have an
+# appropriate commercial license.
+PyMuPDF>=1.23.16,<1.24.0
+pymupdf4llm==0.0.1
+pdf4llm==0.0.9

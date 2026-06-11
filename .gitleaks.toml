@@ -1,0 +1,12 @@
+title = "William's AI Studio gitleaks configuration"
+
+[allowlist]
+description = "Reviewed false positives for public model aliases, placeholders, and deterministic test IDs."
+regexes = [
+  '''qwen3\.[5-7]-plus''',
+  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.\.\.''',
+  '''<DEEPSEEK_API_KEY>''',
+  '''invalid-recipient-1''',
+  '''broadcast-pivot-1''',
+  '''task-progress-invalidated'''
+]

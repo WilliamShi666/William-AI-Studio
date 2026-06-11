@@ -1,0 +1,60 @@
+# Environment files (敏感信息)
+.env
+.env.*
+!.env.example
+!.env.production.example
+.env.local
+.env.scripts
+
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Build outputs
+.next/
+/out/
+/build
+dist/
+*.egg-info/
+
+# IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# Testing
+coverage/
+.pytest_cache/
+htmlcov/
+
+# Database
+*.db
+*.sqlite3
+state.json
+
+# Workspace
+/workspace/
+/threads/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Temporary files
+*.tmp
+.cache/

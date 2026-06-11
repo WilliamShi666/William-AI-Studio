@@ -1,0 +1,107 @@
+name: Public Readiness
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  hygiene:
+    name: Candidate hygiene and secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Public candidate hygiene
+        run: python scripts/check_public_candidate.py .
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml
+
+  python-smoke:
+    name: Python syntax and dependency smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile public Python sources
+        run: |
+          python -m compileall -q \
+            WilliamManus/backend \
+            multimodalrag/backend \
+            scripts
+
+      - name: Install Roys Alpha backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r WilliamManus/backend/requirements.txt
+
+      - name: Roys Alpha backend smoke test
+        working-directory: WilliamManus/backend
+        env:
+          ROYS_ALPHA_BACKEND_SMOKE_MODE: "true"
+          ENV_MODE: local
+          JWT_SECRET_KEY: test-smoke-mode-secret-value-with-enough-length
+        run: python -m pytest tests/test_api_smoke_mode.py -q
+
+      - name: Roys Legion default dependency dry-run
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --dry-run -r multimodalrag/backend/requirements.txt
+
+  frontend-build:
+    name: Frontend install and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Build Roys Alpha frontend
+        working-directory: WilliamManus/frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Roys Legion frontend
+        working-directory: multimodalrag/frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Claude Code UI
+        working-directory: cc-flow-src
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build

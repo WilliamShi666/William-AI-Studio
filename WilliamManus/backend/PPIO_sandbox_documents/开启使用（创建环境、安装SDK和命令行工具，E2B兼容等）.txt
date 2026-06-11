@@ -1,0 +1,214 @@
+Agent 沙箱服务
+Agent 沙箱是一款专为 AI Agent 场景设计的新一代运行时基础设施，提供了一个安全隔离的云端沙箱环境来执行 AI 生成的代码。这种沙盒环境可以防止 AI Agent 访问或篡改系统之外的资源，确保其行为不会对系统造成损害。
+​
+产品特性
+安全隔离。沙箱间具备系统级隔离能力，保障沙箱内数据与执行环境的安全。
+快速启动。启动时间低于 200ms，并可大规模并发创建，适用于有高并发要求的 AI 应用场景。
+多语言执行环境。支持运行 Python、JavaScript、C++ 等多种编程语言代码，满足多样化的 AI 任务需求。
+快速暂停和恢复。可以随时暂停沙箱并且在后续需要时恢复该沙箱，文件系统和进程状态也会被恢复。
+后台执行。支持后台执行任务，适合需要等待结果的场景。
+方便集成到应用。无缝衔接主流的 AI Agent 框架和工具，支持代码自动生成与执行闭环。
+​
+适用场景
+AI 数据分析处理与可视化；
+Code Agent 的代码执行环境；
+Computer Use Agent 的云端虚拟桌面环境；
+或联系我们的 解决方案工程师 了解如何接入到您的业务场景。
+​
+产品计费
+Agent 沙箱支持 vCPU 与内存按秒独立计费，按需使用、灵活计费。存储与模版（Template）当前免费。详情请参见 计费说明。
+​
+产品使用
+您可以通过 SDK 或者命令行工具启动和管理 Agent 沙箱。详情请参见 快速上手。
+
+
+开始使用
+创建您的第一个 Agent 沙箱
+​
+注册 PPIO 账号
+如果您之前没有 PPIO 账号，请通过 https://ppio.com/user/register 先进行注册，详情请参考 新手指引。
+​
+创建 API 密钥
+通过 PPIO API 密钥管理 页面，您可以创建 API 密钥并保存好 API 密钥的值用于后续步骤。
+​
+安装 SDK
+您可以通过在终端执行以下命令来安装 SDK。
+
+JavaScript & TypeScript SDK
+
+Python SDK
+
+Copy
+npm i ppio-sandbox dotenv
+​
+配置环境变量
+在您的项目文件夹新建 .env 文件（如果之前不存在的话），并配置 API 密钥。
+通过这种方式，对于 JavaScript 和 TypeScript 项目，需要在项目中引入 dotenv/config 包；对于 Python 项目，需要在项目中引入 dotenv 库，并调用 load_dotenv 方法来加载环境变量。
+.env
+
+Copy
+PPIO_API_KEY=sk_*** # 通过前面步骤获取的 API 密钥
+或者您在运行代码的命令行终端中，通过设置环境变量来配置 API 密钥。
+Bash
+
+Copy
+export PPIO_API_KEY=sk_*** # 通过前面步骤获取的 API 密钥
+​
+编写代码来启动 Agent 沙箱
+下面通过一个简单的实例来展示如何通过 SDK 来创建一个沙箱，并运行指定命令；
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+# main.py
+from dotenv import load_dotenv
+from ppio_sandbox.code_interpreter import Sandbox
+
+# The .env file should be located in the project root directory
+# dotenv will automatically look for .env in the current working directory
+load_dotenv()
+
+# Or 
+# You can set the environment variable in the command line
+# export PPIO_API_KEY=sk_***
+
+sbx = Sandbox.create()
+execution = sbx.run_code("print('hello world')")
+print(execution.logs)
+
+files = sbx.files.list("/")
+print(files)
+
+# 不再使用时，关闭沙箱
+sbx.kill()
+执行以下命令来运行上面代码：
+
+index.ts
+
+main.py
+
+Copy
+npx tsx ./index.ts
+
+
+开始使用
+安装 SDK 和命令行工具
+PPIO Agent 沙箱服务为您提供了官方稳定版 SDK（目前支持 Python 及 JavaScript & TypeScript）以及配套的命令行工具，可帮助您便捷地集成沙箱能力到您的业务中。以下介绍这些组件的安装方法。
+​
+安装稳定版 SDK
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+pip install ppio-sandbox
+​
+安装稳定版命令行工具
+
+Bash
+
+Copy
+npm i -g ppio-sandbox-cli
+同时，某些新的高级特性我们会首先在 Beta 版本的 SDK 和命令行工具中推出，您可以通过以下方式进行安装。Beta 版本的 SDK 和命令行工具在经过充分的验证后，会定期同步更新到稳定版。如果您在使用过程中遇到任何问题，欢迎 联系我们。
+​
+安装 Beta 版 SDK
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+pip install --pre ppio-sandbox
+​
+安装 Beta 版命令行工具
+
+Bash
+
+Copy
+npm i -g ppio-sandbox-cli@beta
+
+开始使用
+E2B 兼容
+PPIO Agent 沙箱服务提供了 E2B 兼容的 API，如果您已经在使用 E2B 沙箱并希望切换到 PPIO Agent 沙箱，您可以使用特定版本的 E2B SDK 和 CLI 来操控 PPIO Agent 沙箱。当然，我们建议使用 PPIO Agent Sandbox SDK 来访问所有功能。
+​
+安装
+​
+Code Interpreter SDK
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+pip install e2b-code-interpreter==1.2.0b5
+​
+Core SDK
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+pip install e2b==1.2.0b6
+​
+Desktop SDK
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+pip install e2b-desktop==1.7.1b1
+​
+CLI
+
+Bash
+
+Copy
+npm i -g @e2b/cli@v1.9.2
+​
+配置环境变量
+您需要在运行代码前设置如下环境变量，来指定使用 PPIO Agent 沙箱服务。
+Bash
+
+Copy
+export E2B_DOMAIN=sandbox.ppio.cn
+export E2B_API_KEY="<Your PPIO API Key>"
+​
+示例
+下面示例展示了如何通过 E2B SDK 来操控 PPIO Agent 沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from e2b_code_interpreter import Sandbox
+# or from e2b import Sandbox
+# or from e2b_desktop import Sandbox
+
+sbx = Sandbox.create()
+execution = sbx.commands.run('ls -l')
+print(execution)
+
+sbx.kill()
+下面示例展示了如何使用 E2B CLI 来操控 PPIO Agent 沙箱。
+
+Bash
+
+Copy
+export E2B_DOMAIN=sandbox.ppio.cn
+# Authentication in CLI
+e2b auth login
+
+# Start sandbox and connect to terminal
+e2b sandbox spawn <template-id>
+
+# List sandboxes
+e2b sandbox list
+
+# Shutdown running sandboxes
+e2b sandbox kill <sandbox-id>

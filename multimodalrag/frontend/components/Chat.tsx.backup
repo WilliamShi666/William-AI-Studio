@@ -1,0 +1,334 @@
+import { Plus, ChevronDown, Paperclip, Mic, Send, Bot, User, X, ChevronUp, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+export function Chat() {
+  const [message, setMessage] = useState('');
+  const [expandedCitation, setExpandedCitation] = useState<number | null>(null);
+  const [selectedConversation, setSelectedConversation] = useState(1);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+
+  const conversations = [
+    { id: 1, title: 'RAG系统使用指南', timestamp: '刚刚', active: true },
+    { id: 2, title: '文档提取模式对比', timestamp: '2小时前', active: false },
+    { id: 3, title: 'API接口说明', timestamp: '昨天', active: false },
+  ];
+
+  const messages = [
+    {
+      id: 1,
+      role: 'user',
+      content: 'RAG系统的主要用途是什么？',
+      timestamp: '14:23',
+    },
+    {
+      id: 2,
+      role: 'assistant',
+      content: 'RAG（检索增强生成）系统的主要用途是通过结合信息检索和生成模型来提供更准确、更可靠的回答。它可以从大量文档中检索相关信息，然后基于这些信息生成回答。',
+      timestamp: '14:23',
+      citations: [
+        {
+          id: 1,
+          filename: 'API_Reference_v2.pdf',
+          page: 3,
+          similarity: 0.94,
+          rerank: 0.96,
+          preview: 'RAG systems combine the power of retrieval and generation...',
+        },
+        {
+          id: 2,
+          filename: 'product_guide.pdf',
+          page: 12,
+          similarity: 0.89,
+          rerank: 0.92,
+          preview: 'The main applications of RAG include question answering...',
+        },
+        {
+          id: 3,
+          filename: 'technical_docs.pdf',
+          page: 7,
+          similarity: 0.87,
+          rerank: 0.88,
+          preview: 'Retrieval-Augmented Generation enhances accuracy...',
+        },
+      ],
+    },
+  ];
+
+  return (
+    <div className="flex h-[calc(100vh-64px)]">
+      {/* Left Sidebar - Conversation History */}
+      <div className="w-[280px] glass-strong border-r border-[rgba(0,212,255,0.15)] flex flex-col">
+        <div className="p-4 border-b border-[rgba(0,212,255,0.15)] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles size={18} className="text-[#00d4ff]" />
+            <h3 className="text-[#e8eaed]">对话历史</h3>
+          </div>
+          <motion.button 
+            className="w-8 h-8 rounded-lg glass hover:bg-[rgba(0,212,255,0.1)] flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_10px_rgba(0,212,255,0.3)]"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Plus size={18} className="text-[#00d4ff]" />
+          </motion.button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-2 space-y-1">
+          {conversations.map((conv) => (
+            <motion.button
+              key={conv.id}
+              onClick={() => setSelectedConversation(conv.id)}
+              whileHover={{ x: 4 }}
+              className={`w-full p-3 rounded-xl text-left transition-all duration-300 relative overflow-hidden group ${
+                selectedConversation === conv.id
+                  ? 'bg-gradient-to-r from-[#00d4ff] to-[#0066ff] text-[#0a0e27] shadow-[0_0_15px_rgba(0,212,255,0.4)]'
+                  : 'hover:bg-[rgba(0,212,255,0.05)] text-[#e8eaed]'
+              }`}
+            >
+              {selectedConversation === conv.id && (
+                <motion.div
+                  layoutId="activeConversation"
+                  className="absolute inset-0 bg-gradient-to-r from-[#00d4ff] to-[#0066ff] rounded-xl"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <div className="flex items-start gap-2 relative z-10">
+                {conv.active && (
+                  <motion.div 
+                    className="w-2 h-2 bg-[#00ff88] rounded-full mt-1.5"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="truncate mb-1">{conv.title}</div>
+                  <div className={`text-xs ${selectedConversation === conv.id ? 'text-[#0a0e27] opacity-70' : 'text-[#94a3b8]'}`}>
+                    {conv.timestamp}
+                  </div>
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col bg-[rgba(10,14,39,0.3)]">
+        {/* Top Bar */}
+        <div className="h-16 glass border-b border-[rgba(0,212,255,0.15)] px-6 flex items-center justify-between">
+          <motion.button 
+            className="px-4 py-2 glass-strong border border-[rgba(0,212,255,0.2)] rounded-xl hover:bg-[rgba(0,212,255,0.1)] flex items-center gap-2 text-[#e8eaed] transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+          >
+            知识库: 产品文档
+            <ChevronDown size={16} className="text-[#00d4ff]" />
+          </motion.button>
+
+          <input
+            type="text"
+            defaultValue="RAG系统使用指南"
+            className="text-center px-4 py-1 glass rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-[#00d4ff] text-[#e8eaed] hover:bg-[rgba(0,212,255,0.05)]"
+          />
+
+          <motion.button 
+            className="w-8 h-8 rounded-xl glass hover:bg-[rgba(0,212,255,0.1)] flex items-center justify-center transition-all"
+            whileHover={{ scale: 1.1 }}
+          >
+            <ChevronDown size={18} className="text-[#00d4ff]" />
+          </motion.button>
+        </div>
+
+        {/* File Upload Section */}
+        <div className="glass-strong border-b border-[rgba(0,212,255,0.15)] p-4">
+          <motion.div 
+            className="border-2 border-dashed border-[rgba(0,212,255,0.2)] rounded-xl p-4 text-center hover:border-[rgba(0,212,255,0.4)] hover:bg-[rgba(0,212,255,0.05)] transition-all duration-300 cursor-pointer group"
+            whileHover={{ scale: 1.01 }}
+          >
+            <p className="text-[#94a3b8] group-hover:text-[#00d4ff] transition-colors">📎 上传文件/图片（可选）- 拖拽或点击上传</p>
+            <AnimatePresence>
+              {uploadedFiles.length > 0 && (
+                <motion.div 
+                  className="flex gap-2 mt-3 justify-center flex-wrap"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  {uploadedFiles.map((file, index) => (
+                    <motion.div 
+                      key={index} 
+                      className="px-3 py-1 glass-strong rounded-full flex items-center gap-2 text-sm text-[#e8eaed] border border-[rgba(0,212,255,0.2)]"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                    >
+                      📄 {file}
+                      <button onClick={() => setUploadedFiles(uploadedFiles.filter((_, i) => i !== index))}>
+                        <X size={14} className="text-[#ff3b5c] hover:text-[#ff6080]" />
+                      </button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+
+        {/* Messages Container */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <AnimatePresence>
+            {messages.map((msg, index) => (
+              <motion.div 
+                key={msg.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                {msg.role === 'assistant' ? (
+                  // AI Message
+                  <div className="flex gap-3 items-start">
+                    <motion.div 
+                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00d4ff] to-[#0066ff] flex items-center justify-center flex-shrink-0 shadow-lg animate-pulse-glow"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <Bot size={22} className="text-[#0a0e27]" />
+                    </motion.div>
+
+                    <div className="flex-1 max-w-[70%]">
+                      <motion.div 
+                        className="glass-strong rounded-2xl p-5 shadow-lg border border-[rgba(0,212,255,0.2)]"
+                        whileHover={{ scale: 1.01 }}
+                      >
+                        <p className="text-[#e8eaed]">{msg.content}</p>
+                      </motion.div>
+
+                      {/* Citations */}
+                      {msg.citations && (
+                        <div className="mt-3">
+                          <motion.button
+                            onClick={() => setExpandedCitation(expandedCitation === msg.id ? null : msg.id)}
+                            className="text-[#00d4ff] text-sm flex items-center gap-1 hover:text-[#00ffaa] transition-colors px-3 py-1.5 glass rounded-lg border border-[rgba(0,212,255,0.2)]"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            📚 引用来源 [{msg.citations.length}个]
+                            <motion.div
+                              animate={{ rotate: expandedCitation === msg.id ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ChevronDown size={14} />
+                            </motion.div>
+                          </motion.button>
+
+                          <AnimatePresence>
+                            {expandedCitation === msg.id && (
+                              <motion.div 
+                                className="mt-3 space-y-2"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                              >
+                                {msg.citations.map((citation, idx) => (
+                                  <motion.div
+                                    key={citation.id}
+                                    className="glass-strong border border-[rgba(0,212,255,0.2)] rounded-xl p-4 text-sm hover:border-[rgba(0,212,255,0.4)] transition-all"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    whileHover={{ x: 4 }}
+                                  >
+                                    <div className="flex items-center gap-2 mb-2">
+                                      <span className="text-[#e8eaed]">📄 {citation.filename}</span>
+                                      <span className="text-[#94a3b8]">- 第{citation.page}页</span>
+                                    </div>
+                                    <div className="flex gap-2 mb-3">
+                                      <span className="px-2 py-1 bg-[rgba(0,212,255,0.1)] text-[#00d4ff] rounded-lg text-xs border border-[rgba(0,212,255,0.2)]">
+                                        相似度: {citation.similarity}
+                                      </span>
+                                      <span className="px-2 py-1 bg-[rgba(0,255,136,0.1)] text-[#00ff88] rounded-lg text-xs border border-[rgba(0,255,136,0.2)]">
+                                        重排序: {citation.rerank}
+                                      </span>
+                                    </div>
+                                    <div className="text-[#94a3b8] text-xs">
+                                      {citation.preview}
+                                    </div>
+                                  </motion.div>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      )}
+
+                      <div className="text-[#94a3b8] text-xs mt-2">{msg.timestamp}</div>
+                    </div>
+                  </div>
+                ) : (
+                  // User Message
+                  <div className="flex gap-3 items-start justify-end">
+                    <div className="max-w-[70%]">
+                      <motion.div 
+                        className="bg-gradient-to-r from-[#00d4ff] to-[#0066ff] text-[#0a0e27] rounded-2xl p-5 shadow-[0_0_20px_rgba(0,212,255,0.4)] relative overflow-hidden"
+                        whileHover={{ scale: 1.01 }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 hover:opacity-20 shimmer" />
+                        <p className="relative z-10">{msg.content}</p>
+                      </motion.div>
+                      <div className="text-[#94a3b8] text-xs mt-2 text-right">{msg.timestamp}</div>
+                    </div>
+
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#6366f1] flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <User size={22} className="text-white" />
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Input Area */}
+        <div className="glass-strong border-t border-[rgba(0,212,255,0.15)] p-4">
+          <div className="flex gap-3 items-end">
+            <div className="flex-1 relative">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="💬 输入你的问题..."
+                className="w-full min-h-[56px] max-h-[200px] px-4 py-3 glass-strong border border-[rgba(0,212,255,0.2)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00d4ff] focus:border-[#00d4ff] resize-none text-[#e8eaed] placeholder-[#94a3b8] transition-all duration-300"
+                rows={1}
+              />
+              <div className="absolute bottom-3 right-3 text-xs text-[#94a3b8]">
+                {message.length}/2000
+              </div>
+            </div>
+
+            <motion.button 
+              className="w-12 h-12 rounded-xl glass-strong border border-[rgba(0,212,255,0.2)] hover:bg-[rgba(0,212,255,0.1)] hover:border-[rgba(0,212,255,0.4)] flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,212,255,0.3)] group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Mic size={20} className="text-[#94a3b8] group-hover:text-[#00d4ff] transition-colors" />
+            </motion.button>
+
+            <motion.button 
+              className="w-12 h-12 rounded-xl glass-strong border border-[rgba(0,212,255,0.2)] hover:bg-[rgba(0,212,255,0.1)] hover:border-[rgba(0,212,255,0.4)] flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,212,255,0.3)] group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Paperclip size={20} className="text-[#94a3b8] group-hover:text-[#00d4ff] transition-colors" />
+            </motion.button>
+
+            <motion.button 
+              className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#0066ff] text-[#0a0e27] hover:shadow-[0_0_25px_rgba(0,212,255,0.6)] flex items-center justify-center flex-shrink-0 transition-all duration-300 relative overflow-hidden group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 shimmer" />
+              <Send size={20} className="relative z-10" />
+            </motion.button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

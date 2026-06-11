@@ -1,0 +1,277 @@
+openapi: 3.0.3
+info:
+  title: Multi-Agent Debate Service API
+  version: 1.0.0
+  description: |
+    HTTP API for the multi-agent debate workflow built on AgentScope.
+
+    This service runs structured three-round debates between:
+
+    - Affirmative (Proposition) debater
+    - Opposition debater
+    - Moderator / judge agent
+
+    The debate is inspired by British parliamentary style but simplified to two sides
+    and at most three rounds:
+
+    1. Opening / Main Case
+    2. Rebuttals & Additional Arguments
+    3. Evaluation / Weighing (no new arguments allowed)
+
+    The goal of this service is to help users explore a motion from different
+    perspectives and generate structured, multi-round arguments. The moderator may
+    optionally propose a synthesized viewpoint, but that is meant as a reference,
+    not as a unique "correct" answer.
+  contact:
+    name: MultimodalRAG Maintainers
+
+servers:
+  - url: http://localhost:8602
+    description: Local development (multi-agent debate service)
+
+tags:
+  - name: System
+    description: Health and system-level endpoints.
+  - name: Debate
+    description: Multi-agent debate workflows.
+
+paths:
+  /health:
+    get:
+      tags: [System]
+      summary: Health check
+      operationId: getHealth
+      responses:
+        "200":
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /debates/run:
+    post:
+      tags: [Debate]
+      summary: Run a multi-agent debate for a given topic
+      operationId: runDebate
+      description: |
+        Runs a structured multi-agent debate on a given topic using two debater
+        agents (Affirmative and Opposition) and one moderator/judge agent.
+
+        The service proceeds round by round. After each round, the moderator
+        decides whether the debate is finished. If the moderator decides to stop
+        early, remaining rounds are skipped.
+
+        This endpoint is synchronous: it returns the full debate transcript and
+        moderator decisions once the debate has either reached the maximum number
+        of rounds or been stopped early by the moderator.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DebateRunRequest"
+            examples:
+              simple:
+                summary: Minimal request
+                value:
+                  topic: "人工智能在未来二十年内会整体提升而非削弱人类的创造力。"
+              withModel:
+                summary: Specify model name
+                value:
+                  topic: "Whether AI will benefit humanity in the long run."
+                  model_name: "qwen3-max"
+      responses:
+        "200":
+          description: Debate completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DebateRunResponse"
+              examples:
+                finishedInTwoRounds:
+                  summary: Debate finished early in Round 2
+                  value:
+                    topic: "人工智能在未来二十年内会整体提升而非削弱人类的创造力。"
+                    max_rounds: 3
+                    total_rounds_run: 2
+                    finished_early: true
+                    model_name: "qwen3-max"
+                    rounds:
+                      - round_id: 1
+                        label: "Opening / Main Case"
+                        affirmative_speech: "正方：定义辩题、给出支持该观点的主要论点……"
+                        opposition_speech: "反方：简要回应正方设定，并提出主要反对理由……"
+                        judge:
+                          finished: false
+                          notes: "双方已经给出了基本立场，但论证还不够充分，可以继续下一轮。"
+                      - round_id: 2
+                        label: "Rebuttals & Additional Arguments"
+                        affirmative_speech: "正方：针对反方论点进行反驳，并补充支持观点的论据……"
+                        opposition_speech: "反方：系统地回应正方的反驳，并进一步强化反方立场……"
+                        judge:
+                          finished: true
+                          notes: "双方主要论点已经充分展开，可以在此基础上整理观点。"
+                          suggested_answer: "综合双方观点，可以认为在合理引导和规范条件下，AI 将在整体上提升人类的创造力，但需要重视教育与伦理配套。"
+        "400":
+          description: Invalid request (e.g. empty topic or unsupported parameter).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Rate limit exceeded or upstream model quota error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Unexpected server or upstream model error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        service:
+          type: string
+          example: multiagent_debaters
+        version:
+          type: string
+          example: 1.0.0
+
+    DebateRunRequest:
+      type: object
+      required:
+        - topic
+      properties:
+        topic:
+          type: string
+          description: |
+            Debate topic / motion. If omitted or empty, the service may fall back
+            to a default internal topic.
+        model_name:
+          type: string
+          description: |
+            Underlying LLM model name to be used by the debater and moderator
+            agents. For example, "qwen3-max".
+          default: qwen3-max
+
+    DebateRunResponse:
+      type: object
+      required:
+        - topic
+        - max_rounds
+        - total_rounds_run
+        - finished_early
+        - rounds
+      properties:
+        topic:
+          type: string
+          description: Debate topic / motion actually used by the service.
+        max_rounds:
+          type: integer
+          format: int32
+          description: Maximum rounds allowed for this debate.
+          example: 3
+        total_rounds_run:
+          type: integer
+          format: int32
+          description: Number of rounds that were actually executed.
+          example: 2
+        finished_early:
+          type: boolean
+          description: |
+            Whether the moderator decided to stop before reaching `max_rounds`.
+        model_name:
+          type: string
+          description: Underlying LLM model name used by the agents.
+          example: qwen3-max
+        rounds:
+          type: array
+          description: Per-round transcript and moderator decisions.
+          items:
+            $ref: "#/components/schemas/DebateRound"
+
+    DebateRound:
+      type: object
+      required:
+        - round_id
+        - label
+        - affirmative_speech
+        - opposition_speech
+        - judge
+      properties:
+        round_id:
+          type: integer
+          format: int32
+          description: 1-based round index.
+          example: 1
+        label:
+          type: string
+          description: Human-readable round label.
+          example: Opening / Main Case
+        affirmative_speech:
+          type: string
+          description: |
+            Full text of the Affirmative debater's speech for this round,
+            generated by the underlying LLM.
+        opposition_speech:
+          type: string
+          description: |
+            Full text of the Opposition debater's speech for this round,
+            generated by the underlying LLM.
+        judge:
+          $ref: "#/components/schemas/DebateJudgeDecision"
+
+    DebateJudgeDecision:
+      type: object
+      required:
+        - finished
+      properties:
+        finished:
+          type: boolean
+          description: |
+            Whether the moderator considers the debate process sufficiently
+            developed at this round and chooses to stop further rounds.
+        notes:
+          type: string
+          nullable: true
+          description: |
+            Optional natural-language notes from the moderator explaining how
+            the debate has progressed so far (e.g., which arguments are central,
+            what remains unclear).
+        suggested_answer:
+          type: string
+          nullable: true
+          description: |
+            Optional synthesized viewpoint proposed by the moderator, based on
+            the full debate so far. This is intended as a reference perspective
+            to inspire further thinking, not as a unique correct answer.
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Short machine-readable error code.
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Topic must not be empty.
+        details:
+          type: object
+          nullable: true
+          additionalProperties: true
+          description: Optional structured error details.

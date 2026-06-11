@@ -1,0 +1,6 @@
+paddleocr
+fastapi
+uvicorn
+requests
+html2text
+Pillow

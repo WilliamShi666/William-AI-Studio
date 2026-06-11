@@ -1,0 +1,8 @@
+transformers==4.46.3
+tokenizers==0.20.3
+img2pdf
+einops
+easydict
+addict 
+Pillow
+numpy

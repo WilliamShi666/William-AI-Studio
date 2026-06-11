@@ -1,0 +1,19 @@
+# This is a config for PPIO Sandbox template.
+# You can use template ID (5iwky193kz9r0woswit9) or template name (agent-skills-v12) to create a sandbox:
+
+# Python SDK
+# from ppio_sandbox.core import Sandbox, AsyncSandbox
+# sandbox = Sandbox.create("agent-skills-v12") # Sync sandbox
+# sandbox = await AsyncSandbox.create("agent-skills-v12") # Async sandbox
+
+# JS SDK
+# import { Sandbox } from 'ppio-sandbox'
+# const sandbox = await Sandbox.create('agent-skills-v12')
+
+team_id = "77e91ecb-211d-4978-abeb-b5ef79cda745"
+memory_mb = 8_192
+cpu_count = 8
+start_cmd = "/root/.jupyter/start-up.sh"
+dockerfile = "ppio.Dockerfile"
+template_name = "agent-skills-v12"
+template_id = "5iwky193kz9r0woswit9"

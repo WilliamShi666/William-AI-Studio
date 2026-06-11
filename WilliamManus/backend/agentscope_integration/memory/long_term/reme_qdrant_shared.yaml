@@ -1,0 +1,24 @@
+import_config: default.yaml
+
+# ReMe config override for multi-worker shared vector storage.
+# This file keeps all default ReMe flows and only overrides vector store + a few
+# tool-memory tuning parameters for production stability.
+
+vector_store:
+  default:
+    backend: qdrant
+    embedding_model: default
+    # NOTE: Keep distance omitted due flowllm/qdrant-client compatibility in
+    # current runtime. QdrantVectorStore then uses backend default (Cosine).
+
+flow:
+  # Quality-speed balance: use dedicated remote reranker (not chat-LLM rerank).
+  # Keep merged task query mode to avoid per-keyword serial blow-up.
+  retrieve_task_memory:
+    flow_content: BuildQueryOp() >> RecallVectorStoreOp() >> DashScopeTextRerankOp(model_name='qwen3-vl-rerank', top_k=10, timeout_seconds=2.5, fail_open=True) >> MergeMemoryOp()
+
+  add_tool_call_result:
+    flow_content: ParseToolCallResultOp(max_history_tool_call_cnt=150, evaluation_sleep_interval=0.3) >> UpdateVectorStoreOp()
+
+  summary_tool_memory:
+    flow_content: SummaryToolMemoryOp(recent_call_count=30, summary_sleep_interval=0.3) >> UpdateVectorStoreOp()

@@ -1,0 +1,22 @@
+packages:
+  - "client"
+  - "server"
+allowBuilds:
+  electron-winstaller: true
+  esbuild: true
+  node-pty: true
+  electron: true
+minimumReleaseAgeExclude:
+  - picomatch@4.0.4
+  - path-to-regexp@8.4.0
+  - postcss@8.5.10
+  - qs@6.15.2
+  - tmp@0.2.6
+  - shell-quote@1.8.4
+overrides:
+  path-to-regexp@>=8.0.0 <8.4.0: ^8.4.0
+  picomatch@>=4.0.0 <4.0.4: ^4.0.4
+  postcss@<8.5.10: ^8.5.10
+  qs@>=6.11.1 <=6.15.1: ^6.15.2
+  shell-quote@>=1.1.0 <=1.8.3: ^1.8.4
+  tmp@<0.2.6: ^0.2.6

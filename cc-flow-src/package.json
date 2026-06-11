@@ -1,0 +1,40 @@
+{
+  "name": "claude-code-ui",
+  "private": true,
+  "version": "0.1.0",
+  "author": "Claude Code UI",
+  "productName": "Claude Code UI",
+  "description": "Desktop Claude Code UI for visual AI coding workflows",
+  "main": "electron/dist/main.js",
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter server build && pnpm --filter client build",
+    "start": "pnpm --filter server start",
+    "lint": "pnpm --filter \"*\" lint",
+    "format": "prettier --write \"**/*.{ts,tsx,json,css}\"",
+    "dev:desktop": "concurrently -n server,client,electron -c blue,green,magenta \"pnpm --filter server dev\" \"pnpm --filter client dev\" \"wait-on http://localhost:5174/api/health && cross-env VITE_DEV_SERVER_URL=http://localhost:5174 electron .\"",
+    "build:electron": "tsc -p electron/tsconfig.json",
+    "build:desktop": "pnpm build && pnpm build:electron",
+    "pack:dir": "pnpm build:desktop && node scripts/pack-desktop-dir.cjs",
+    "pack:linux": "pnpm pack:dir",
+    "pack:win": "pnpm build:desktop && electron-builder --win nsis --config electron-builder.yml",
+    "pack:mac": "pnpm build:desktop && electron-builder --mac dmg --config electron-builder.yml"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.12",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^42.2.0",
+    "electron-builder": "^26.15.2",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0",
+    "wait-on": "^9.0.10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "node-pty",
+      "electron"
+    ]
+  }
+}

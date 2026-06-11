@@ -1,0 +1,81 @@
+name: Bug report
+description: Report a reproducible problem in William's AI Studio.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Do not include secrets, private URLs, tokens, cookies, or full `.env` files.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Roys Alpha
+        - Claude Code UI
+        - Roys Legion
+        - Roys Legion Demo Dataset
+        - Documentation
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest steps that reproduce the issue.
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, Node/Python versions, browser, Docker version, and relevant local services.
+      placeholder: |
+        OS:
+        Node:
+        Python:
+        Browser:
+        Docker:
+        Milvus/Redis/PostgreSQL:
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or screenshots
+      description: Remove tokens, cookies, private URLs, IPs, account IDs, and file contents that are not needed.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: hygiene
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets, tokens, cookies, private URLs, and full `.env` contents from this report.
+          required: true

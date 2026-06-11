@@ -1,0 +1,75 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build outputs
+.next/
+dist/
+build/
+*.tsbuildinfo
+*.egg-info/
+release/
+out/
+coverage/
+
+# Environment
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+.env.local
+.env.*.local
+.env.development
+.env.development.local
+.env.production
+
+# Logs
+*.log
+*.log.*
+logs/
+wm-backend-log.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+*.egg
+*.eggs
+.Python
+pip-log.txt
+
+# Milvus data (large binary files - keep in separate backup)
+*/backend/Database/milvus_server/data/
+*/backend/Database/milvus_server/volumes/
+multimodalrag/backend/output/
+multimodalrag/backend/runtime/
+runtime/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.venv-lfv3/
+.worktrees/
+.gstack/
+.gitnexus/
+.playwright-mcp/
+.opencode/
+node_modules/
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z

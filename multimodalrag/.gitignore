@@ -1,0 +1,13 @@
+# MinerU related files
+minerU/
+backend/mineru_visualizations/
+
+# Large database files
+backend/Database/milvus_server/data/
+
+# Environment files
+*.env
+.env.local
+**/__pycache__/
+*.pyc
+backend/pids/*.pid

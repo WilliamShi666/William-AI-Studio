@@ -1,0 +1,70 @@
+执行终端命令
+在沙箱中执行命令
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+您可以使用 commands.run() 方法在沙箱内运行终端命令。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+result = sandbox.commands.run('ls -al')
+print(result)
+
+sandbox.kill()
+
+执行终端命令
+流式输出结果
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+要在命令执行时流式输出结果，请在 JavaScript 中向 commands.run() 方法传递 onStdout、onStderr 回调，或在 Python 中向 commands.run() 方法传递 on_stdout、on_stderr 回调。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+result = sandbox.commands.run('echo hello; sleep 1; echo world',
+                              on_stdout=lambda data: print(
+                                  data),
+                              on_stderr=lambda data: print(data))
+
+print(result)
+
+sandbox.kill()
+在沙箱中执行命令
+执行终端命令
+在后台运行命令
+在运行本文档中的示例代码前，请确保您已正确配置环境变量，详情请参考 配置环境变量。
+要在后台运行命令，请向 commands.run() 方法开启 background 选项，启用后，运行 commands.run() 方法会立即返回，命令将继续在沙箱中运行。使用 commands.kill() 方法可以终止该命令。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+sandbox = Sandbox.create()
+
+# 在后台运行命令
+command = sandbox.commands.run('echo hello; sleep 10; echo world', background=True)
+
+# 获取命令运行在后台的 stdout 和 stderr。
+# 您可以在单独的线程中运行此代码，或使用 command.wait() 等待命令被执行完。
+for stdout, stderr, _ in command:
+    if stdout:
+        print(stdout)
+    if stderr:
+        print(stderr)
+
+# 终止命令
+command.kill()
+sandbox.kill()

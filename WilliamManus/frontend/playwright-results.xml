@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="126.209171">
+<testsuite name="thread/shadow-clone-v2-acceptance.spec.ts" timestamp="2026-06-04T12:22:57.110Z" hostname="chromium" tests="1" failures="0" skipped="0" time="125.341" errors="0">
+<testcase name="Shadow Clone V2 acceptance › shows true natural-language output and generated file cards in actual chat panels" classname="thread/shadow-clone-v2-acceptance.spec.ts" time="125.341">
+</testcase>
+</testsuite>
+</testsuites>

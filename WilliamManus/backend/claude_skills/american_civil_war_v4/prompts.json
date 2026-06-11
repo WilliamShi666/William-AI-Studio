@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "title": "The American Civil War 1861-1865",
+    "total_slides": 10,
+    "resolution": "2K",
+    "style": "styles/gradient-glass.md",
+    "generated_at": "2026-03-09T11:24:34.597012"
+  },
+  "slides": [
+    {
+      "slide_number": 1,
+      "page_type": "cover",
+      "content": "Cover slide",
+      "prompt": "An educational presentation cover slide in 16:9 widescreen format. Overall visual style: aged parchment texture background with sepia tones and faint watercolor ink washes, evoking 1860s America. Layout: centered composition. At the very top, a detailed steel engraving illustration of the American Capitol building with dramatic storm clouds. Below the illustration, large bold title text clearly rendered: 'THE AMERICAN CIVIL WAR' in dark serif font on a cream banner. Below that, subtitle text: '1861 – 1865' in large numerals. Bottom line in smaller italic serif: 'A Nation Divided — A Nation Reborn'. Left and right edges decorated with thin Victorian ornamental border lines. The text must be crisp, large, and fully legible against the background.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-01.png"
+    },
+    {
+      "slide_number": 2,
+      "page_type": "content",
+      "content": "Origins of Conflict",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: cream parchment background with aged texture, sepia ink tones, evoking 1860s America. Layout: left side occupies 40% width — a steel engraving illustration of a Southern cotton plantation with enslaved workers in fields. Right side occupies 60% — white semi-transparent text panel with clear modern typography. The right panel contains: large bold title at top 'ORIGINS OF CONFLICT' in dark serif font. Below, clearly rendered bullet points in readable dark text:\n• Slavery: 4 million enslaved people in the South\n• States' Rights vs. Federal Authority\n• Economic divide: industrial North vs. agrarian South\n• Election of Abraham Lincoln, November 1860\n• 11 Southern states secede to form the Confederacy\nAll text must be large, clear, and fully legible. A thin decorative Victorian horizontal rule separates the title from the bullets.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-02.png"
+    },
+    {
+      "slide_number": 3,
+      "page_type": "content",
+      "content": "Key Figures",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: dark walnut-brown background with subtle aged texture, evoking a Victorian portrait gallery. Layout: title bar at the top spanning full width with large bold text 'KEY FIGURES OF THE CIVIL WAR' in gold-colored serif font on dark background. Below the title, five portrait cards arranged in a row: each card shows a small oval daguerreotype-style portrait (monochrome sepia photograph) above a text label. From left to right — Card 1: portrait of Abraham Lincoln, label text 'Abraham Lincoln / Union President'; Card 2: Jefferson Davis, label 'Jefferson Davis / Confederate President'; Card 3: Ulysses S. Grant, label 'Ulysses S. Grant / Union General'; Card 4: Robert E. Lee, label 'Robert E. Lee / Confederate General'; Card 5: Frederick Douglass, label 'Frederick Douglass / Abolitionist'. Each name and title must be clearly legible in white or cream serif text below each portrait.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-03.png"
+    },
+    {
+      "slide_number": 4,
+      "page_type": "content",
+      "content": "The War Begins",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: aged newspaper front-page aesthetic — cream yellowed paper texture, letterpress printing feel, sepia ink tones. Layout: large bold headline text at top spanning full width: 'THE WAR BEGINS: FORT SUMTER, APRIL 1861' in blackletter newspaper headline font, fully legible. Below headline, a horizontal rule divider. Content area split: left 55% contains clearly readable text in modern serif — 4 key facts as labeled items:\n▸ April 12, 1861 — Confederate forces open fire on Fort Sumter\n▸ 33 hours of continuous bombardment\n▸ Union garrison forced to surrender\n▸ President Lincoln calls for 75,000 volunteers\nRight 45%: a detailed steel engraving of Fort Sumter under bombardment — cannon smoke, ships in harbor, flag flying. Bottom caption text: 'The first shots of the Civil War — Charleston Harbor, South Carolina'. All text fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-04.png"
+    },
+    {
+      "slide_number": 5,
+      "page_type": "content",
+      "content": "Major Battles",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: aged military map aesthetic — sepia watercolor parchment background, hand-drawn cartographic style, evoking an 1863 Army Corps map. Layout: right 45% shows a simplified hand-drawn map of the Eastern USA with battle site icons (crossed swords) marking 5 locations. Left 55%: dark semi-transparent panel with clearly legible white text. Title at top: 'MAJOR BATTLES 1861–1865' in large bold serif. Below, a structured table of 5 battles clearly rendered:\n\nBull Run (1861) — Confederate victory; shocked the North\nAntietam (Sept 1862) — Bloodiest single day: 22,717 casualties\nGettysburg (July 1863) — Union turning point; 51,000 casualties\nVicksburg (July 1863) — Union controls the Mississippi River\nSherman's March (1864) — Total war strategy; Atlanta to Savannah\n\nAll battle names in bold, descriptions in regular weight. Text must be fully readable.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-05.png"
+    },
+    {
+      "slide_number": 6,
+      "page_type": "content",
+      "content": "Emancipation Proclamation",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: official government document aesthetic — cream parchment with aged water stains, warm candlelight ambiance, evoking an 1863 proclamation scroll. Layout: left 40% shows an illustration of a formal proclamation document with a Federal eagle seal and Abraham Lincoln's signature. Right 60%: clean text panel with clear typography. Title: 'THE EMANCIPATION PROCLAMATION' in large bold dark serif, fully legible. Below, clearly readable body text:\n\nDate: January 1, 1863\nIssued by: President Abraham Lincoln\n\nKey Points:\n• Declared freedom for all enslaved people in Confederate states\n• Transformed the war into a moral crusade against slavery\n• Authorized Black men to serve in the Union Army\n• 180,000 Black soldiers ultimately served in the Union forces\n\nQuote clearly rendered: '...all persons held as slaves...shall be then, thenceforward, and forever free.' All text large and fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-06.png"
+    },
+    {
+      "slide_number": 7,
+      "page_type": "content",
+      "content": "The Human Cost",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: somber Victorian memorial aesthetic — dark charcoal and muted sepia tones, aged paper texture, evoking a 19th century memorial publication. Layout: top title spanning full width — 'THE HUMAN COST OF WAR' in large bold serif, fully legible in white/cream on dark header bar. Below, two-column layout:\n\nLeft column — clearly readable statistics in large text:\nTotal Deaths: 620,000 – 750,000\n• Union deaths: ~360,000\n• Confederate deaths: ~260,000\n• Disease killed more than combat\n• More deaths than all prior US wars combined\n• Millions of civilians displaced\n\nRight column — a simple visual comparison: two vertical bars labeled 'Union' (blue) and 'Confederate' (grey), height proportional to casualties, with numbers labeled clearly. Below the bars, a silhouette row of crosses representing scale. All text and numbers must be large and fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-07.png"
+    },
+    {
+      "slide_number": 8,
+      "page_type": "content",
+      "content": "Surrender at Appomattox",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: warm ochre and sepia tones with aged illustration texture, evoking a Harper's Weekly period painting. Layout: right 45% shows a detailed period illustration of the McLean House parlor — General Lee seated at a table signing, General Grant standing opposite, officers attending. Victorian interior with afternoon light. Left 55%: text panel with clear readable typography on light cream background. Title: 'SURRENDER AT APPOMATTOX' in large bold dark serif. Below, clearly legible key facts:\n\nDate: April 9, 1865\nLocation: McLean House, Appomattox Court House, Virginia\n\n• General Robert E. Lee surrenders to General Ulysses S. Grant\n• Terms: Confederate soldiers paroled and sent home\n• Soldiers allowed to keep their horses\n• Lee's Army of Northern Virginia ceases to fight\n• Other Confederate armies surrender in following weeks\n\nBottom caption: 'The war effectively ends — April 1865'. All text fully legible.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-08.png"
+    },
+    {
+      "slide_number": 9,
+      "page_type": "content",
+      "content": "Reconstruction Era",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: hopeful yet sobering — warm amber tones with aged broadsheet texture, evoking an 1865 newspaper about the post-war era. Layout: left 40% shows an engraving illustration of freed people celebrating, a Freedmen's Bureau building, and children entering a schoolhouse. Right 60%: clear text panel with readable typography. Title: 'RECONSTRUCTION ERA 1865–1877' in large bold dark serif. Below, clearly legible content:\n\nConstitutional Amendments:\n13th Amendment (1865) — Abolished slavery\n14th Amendment (1868) — Equal citizenship for all\n15th Amendment (1870) — Black male voting rights\n\nKey Developments:\n• Freedmen's Bureau established to aid formerly enslaved people\n• Federal troops occupy Southern states\n• Black men elected to Congress for first time\n• Resistance from white supremacist groups\n• Reconstruction ends with Compromise of 1877\n\nAll text fully legible in clean modern serif.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-09.png"
+    },
+    {
+      "slide_number": 10,
+      "page_type": "data",
+      "content": "Legacy",
+      "prompt": "An educational presentation slide in 16:9 widescreen format. Visual style: grand monumental aesthetic — deep navy blue sky at golden sunset, stone texture, evoking a Civil War memorial site. Layout: background shows a silhouette of a tall granite obelisk monument against the sunset sky, American flag at half-mast. Overlaid foreground: two text panels clearly legible.\n\nTop center — large white bold title: 'LEGACY OF THE CIVIL WAR'\n\nLeft panel (white text on dark semi-transparent background):\nLasting Impact:\n• Preserved the United States as one nation\n• Ended slavery after 246 years on American soil\n• 13th, 14th, 15th Amendments reshaped the Constitution\n• Defined American national identity and memory\n• Set precedent: federal authority over states' rights\n• Over 620,000 lives lost — a defining national trauma\n\nBottom center — two quotes clearly rendered in italic serif:\n'A new birth of freedom.' — Lincoln, Gettysburg Address, 1863\n'With malice toward none, with charity for all.' — Lincoln, 2nd Inaugural, 1865\n\nAll text must be large, bold where appropriate, and fully legible against the background.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_v4/images/slide-10.png"
+    }
+  ]
+}

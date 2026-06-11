@@ -1,0 +1,38 @@
+{
+  "dataset_name": "Roys Legion Demo Dataset",
+  "version": "0.1.0-draft",
+  "description": "Public demo dataset for Roys Legion multidisciplinary visual tutoring.",
+  "license": "TBD",
+  "created_at": "2026-06-10",
+  "documents": [
+    {
+      "file_id": "example-file-id",
+      "filename": "example.pdf",
+      "subject": "Economics",
+      "course": "A-Level",
+      "source_pdf": "uploads/example.pdf",
+      "extraction_dir": "extraction_results/example-file-id",
+      "output_json": "extraction_results/example-file-id/deepseek_chunked_output.json",
+      "result_key": "example",
+      "chunk_file": "chunks/example-file-id.jsonl",
+      "ocr_engine": "deepseek",
+      "image_dir": "extraction_results/example-file-id/images",
+      "chunk_count": 12,
+      "copied_extraction_files": [
+        "deepseek_metadata.json",
+        "deepseek_chunked_output.json",
+        "deepseek_extraction.md"
+      ],
+      "provenance": {
+        "source": "TBD",
+        "public_release_approved": true,
+        "notes": "Replace with real provenance before release."
+      },
+      "checksums": {
+        "source_pdf_sha256": "TBD",
+        "output_json_sha256": "TBD",
+        "chunk_file_sha256": "TBD"
+      }
+    }
+  ]
+}

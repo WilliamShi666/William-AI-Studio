@@ -1,0 +1,10 @@
+# Optional PDF rendering dependency for PDF input support.
+#
+# PyMuPDF / MuPDF are dual-licensed under AGPL or a commercial Artifex
+# license. They are intentionally kept out of this service's default
+# requirements so a normal install does not automatically pull AGPL
+# dependencies.
+#
+# Install only if your use case complies with AGPL obligations or you have an
+# appropriate commercial license.
+PyMuPDF>=1.23.16,<1.24.0

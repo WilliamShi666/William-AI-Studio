@@ -1,0 +1,23 @@
+# PPIO Sandbox template for Claude Agent SDK
+# This template includes Claude Code CLI + Python SDK for running
+# Claude Agent as a new backend path alongside AgentScope.
+#
+# Usage:
+#   from ppio_sandbox.core import Sandbox, AsyncSandbox
+#   sandbox = Sandbox.create("claude-agent-v1")
+#   sandbox = await AsyncSandbox.create("claude-agent-v1")
+#
+# JS SDK:
+#   import { Sandbox } from 'ppio-sandbox'
+#   const sandbox = await Sandbox.create('claude-agent-v1')
+
+team_id = "77e91ecb-211d-4978-abeb-b5ef79cda745"
+memory_mb = 8_192
+cpu_count = 8
+start_cmd = "/root/.jupyter/start-up.sh"
+dockerfile = "ppio-claude.Dockerfile"
+template_name = "claude-agent-v1"
+
+# template_id is assigned by PPIO after the first push.
+# Leave empty for initial creation; PPIO will auto-assign.
+template_id = ""

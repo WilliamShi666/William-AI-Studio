@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "title": "The American Civil War 1861-1865",
+    "total_slides": 10,
+    "resolution": "2K",
+    "style": "styles/gradient-glass.md",
+    "generated_at": "2026-03-09T11:17:13.966567"
+  },
+  "slides": [
+    {
+      "slide_number": 1,
+      "page_type": "cover",
+      "content": "THE AMERICAN CIVIL WAR\n1861 – 1865\nA Nation Divided, A Nation Reborn",
+      "prompt": "A dramatic 19th-century engraving-style cover slide for 'THE AMERICAN CIVIL WAR 1861–1865'. Dark sepia and charcoal tones on aged parchment texture. Center: a large American eagle with wings spread, clutching a broken rifle and an olive branch, surrounded by a laurel wreath. Above the eagle: bold blackletter gothic title 'THE AMERICAN CIVIL WAR'. Below: '1861 – 1865' in large serif numerals. Bottom subtitle in smaller italic serif: 'A Nation Divided, A Nation Reborn'. Corners decorated with Victorian ornamental flourishes and cannon motifs. The entire composition resembles a Harper's Weekly broadsheet front page, printed in letterpress with slight ink unevenness. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-01.png"
+    },
+    {
+      "slide_number": 2,
+      "page_type": "content",
+      "content": "Origins of Conflict\n• Slavery: 4 million enslaved people in the South\n• States' Rights vs Federal Authority\n• Economic divide: industrial North vs agrarian South\n• Election of Abraham Lincoln, 1860\n• Southern secession begins",
+      "prompt": "A Harper's Weekly double-column broadsheet layout on aged yellowed newspaper. Left column: bold serif headline 'ORIGINS OF THE GREAT CONFLICT'. Below: editorial body text in small 19th-century letterpress font listing causes of the Civil War — slavery, states' rights, economic divide, Lincoln's election, secession. Right column: a steel engraving illustration of a Southern cotton plantation with enslaved workers in fields, contrasted with a small vignette of a Northern factory with smokestacks. Decorative horizontal rule dividers between sections. Ink-stained, slightly uneven printing. Sepia tones on cream newsprint texture. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-02.png"
+    },
+    {
+      "slide_number": 3,
+      "page_type": "content",
+      "content": "Key Figures\nAbraham Lincoln – Union President\nJefferson Davis – Confederate President\nUlysses S. Grant – Union General\nRobert E. Lee – Confederate General\nFrederick Douglass – Abolitionist Leader",
+      "prompt": "Five oval daguerreotype portrait medallions arranged symmetrically on dark walnut-brown velvet background, in the style of 1860s photograph albums. Each oval portrait: slightly faded silver-gelatin monochrome photograph with aged brown toning. Top center: Abraham Lincoln, formal suit. Top-left: Jefferson Davis, Confederate uniform. Top-right: Ulysses S. Grant, Union general uniform with stars. Bottom-left: Robert E. Lee, Confederate grey uniform with sash. Bottom-right: Frederick Douglass, formal Victorian suit. Below each portrait: engraved nameplate with name and title in serif font. Title banner at top: 'PRINCIPAL FIGURES OF THE WAR' in gold-embossed Victorian typography. Decorative brass border around the entire composition. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-03.png"
+    },
+    {
+      "slide_number": 4,
+      "page_type": "content",
+      "content": "The War Begins: Fort Sumter\nApril 12, 1861 – Confederate forces fire on Fort Sumter\n33 hours of bombardment\nUnion garrison surrenders\nNo casualties — war has begun\n11 Southern states form the Confederacy",
+      "prompt": "A dramatic 1861 newspaper front page layout. Large bold headline: 'WAR COMMENCED! FORT SUMTER ATTACKED!' in massive blackletter type. Below: a detailed steel engraving illustration of Fort Sumter under bombardment — smoke billowing from cannon fire, ships in Charleston harbor, the American flag still flying above the battered walls. Left sidebar: a map of Charleston Harbor showing Confederate battery positions. Bottom text columns: eyewitness account typography. Dark ink on yellowed paper with foxing marks. Red headline accent color (faded). Urgent, dramatic energy of breaking news. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-04.png"
+    },
+    {
+      "slide_number": 5,
+      "page_type": "content",
+      "content": "Major Battles\n• Bull Run (1861) — Confederate victory, shocking the North\n• Antietam (1862) — Bloodiest single day: 22,717 casualties\n• Gettysburg (1863) — Union turning point, 51,000 casualties\n• Vicksburg (1863) — Union controls the Mississippi\n• Sherman's March (1864) — Total war strategy",
+      "prompt": "A hand-drawn military campaign map of the Eastern United States in the style of an 1863 Army Corps cartographer. Aged parchment background with watercolor washes in muted blue (Union) and grey (Confederate). Major battle sites marked with crossed-swords icons: Bull Run, Antietam, Gettysburg, Vicksburg, Atlanta. Red dotted lines show Sherman's March to the Sea. Blue arrows show Union advances; grey arrows show Confederate movements. State borders in thin ink lines. Rivers hand-lettered. Compass rose in the corner. Border decorated with regimental flags. Title cartouche: 'PRINCIPAL CAMPAIGNS OF THE CIVIL WAR 1861–1865'. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-05.png"
+    },
+    {
+      "slide_number": 6,
+      "page_type": "content",
+      "content": "The Emancipation Proclamation\nJanuary 1, 1863\nPresident Lincoln declares freedom for all enslaved people in Confederate states\nMoral turning point of the war\nOpens door for Black soldiers in Union Army\n180,000 Black soldiers serve",
+      "prompt": "An official-looking government proclamation document design. Cream parchment background with aged water stains. Top: ornate Federal eagle seal embossed in gold. Large bold header in formal serif: 'EMANCIPATION PROCLAMATION'. Subtitle: 'January 1st, 1863 — By the President of the United States of America'. Main body text in period-appropriate government typography declaring freedom. At bottom: Abraham Lincoln's signature in dark ink, with an official red wax seal. Decorative border of stars and stripes. Below the document: a small vignette engraving of Black Union soldiers marching with rifles. Warm amber candlelight illumination. Formal, historic document aesthetic. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-06.png"
+    },
+    {
+      "slide_number": 7,
+      "page_type": "content",
+      "content": "The Human Cost\nTotal deaths: 620,000–750,000\nUnion: ~360,000 dead\nConfederate: ~260,000 dead\nMore deaths than all other American wars combined until Vietnam\nCivilian displacement: millions",
+      "prompt": "A somber Victorian statistical infographic on aged cream paper. Title in bold mourning-style typography: 'THE HUMAN COST OF WAR'. Center: a large black silhouette of a cemetery with rows of white crosses stretching to the horizon — Mathew Brady photography style. Left side: a vertical bar chart comparing casualties using stacked coffin icons (one icon = 10,000 deaths): Union in blue, Confederate in grey. Right side: a circular diagram showing proportion of war deaths vs total US population. Text annotations in copperplate engraving style. Border of black mourning ribbon. The visual conveys immense grief and loss. Monochrome with sepia tones. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-07.png"
+    },
+    {
+      "slide_number": 8,
+      "page_type": "content",
+      "content": "Surrender at Appomattox\nApril 9, 1865\nGeneral Lee surrenders to General Grant\nMcLean House, Appomattox Court House, Virginia\nGenerous terms: Confederate soldiers paroled\nThe war effectively ends",
+      "prompt": "A detailed period illustration of the McLean House parlor at Appomattox Court House, April 9, 1865. Painted in the style of a Harper's Weekly steel engraving. Interior scene: General Robert E. Lee in full dress Confederate uniform seated at a table, pen in hand over the surrender document. Across the table: General Ulysses S. Grant in Union uniform with mud-splattered boots. Attending officers stand at respectful distance. Victorian parlor furniture, floral wallpaper, afternoon light through windows. Composition is solemn and historic. Sepia and warm ochre tones. Captions in engraved copperplate font below: 'THE SURRENDER — Appomattox Court House, Virginia, April 9th, 1865'. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-08.png"
+    },
+    {
+      "slide_number": 9,
+      "page_type": "content",
+      "content": "Reconstruction Era\n1865–1877\n13th Amendment: Slavery abolished\n14th Amendment: Equal citizenship\n15th Amendment: Black male voting rights\nFreedmen's Bureau established\nThe painful process of healing begins",
+      "prompt": "A split-panel broadsheet layout showing Reconstruction era. Left panel: illustration of the signing of the 13th Amendment — Congress chamber, jubilant crowd, people of all races celebrating, some weeping with joy. Center: bold typeset header 'RECONSTRUCTION — A NEW AMERICA BEGINS'. Three amendment banners displayed vertically: '13th — Freedom', '14th — Citizenship', '15th — Suffrage'. Right panel: engraving of a Freedmen's Bureau office, with newly freed people registering, families reuniting, children entering a schoolhouse. Optimistic but also showing the hard road ahead. Sepia newspaper aesthetic with gold accent highlights. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-09.png"
+    },
+    {
+      "slide_number": 10,
+      "page_type": "data",
+      "content": "Legacy of the Civil War\n• Preserved the Union as one nation\n• Ended slavery in America\n• 13th, 14th, 15th Amendments reshape the Constitution\n• Defined American identity and national memory\n'A new birth of freedom' — Lincoln, Gettysburg Address\n'With malice toward none, with charity for all' — Lincoln",
+      "prompt": "A grand memorial monument composition as the closing slide. Center: a tall granite obelisk monument on a grassy hill at golden sunset, with an American flag flying at half-mast. The monument is inscribed with Lincoln's words: 'A NEW BIRTH OF FREEDOM'. Flanking the monument: two bronze relief panels showing Union and Confederate soldiers shaking hands. Stone steps leading up the monument inscribed with the three Reconstruction amendments. Sky: dramatic amber and purple sunset, symbolizing endings and hope. Below: formal serif subtitle text listing the war's legacy in bullet points. Two small portrait oval cameos at bottom corners: Lincoln left, Lee right — both humanized in peace. Bronze, gold, and stone color palette. Monumental and solemn. 16:9 widescreen layout.",
+      "image_path": "/path/to/williams-ai-studio/WilliamManus/backend/claude_skills/american_civil_war_qwen/images/slide-10.png"
+    }
+  ]
+}

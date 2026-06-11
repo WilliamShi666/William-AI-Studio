@@ -1,0 +1,202 @@
+沙箱模板
+沙箱模板
+通过沙箱模板可以自定义您的沙箱环境。
+PPIO Agent 沙箱服务已经内置一些公共模板方便您开箱即用，您可以在 控制台 找到这些公共模板。
+我们通过您定义的 ppio.Dockerfile 来创建一个新的沙箱模板，并返回模板 ID 用于创建沙箱。详见下方教程。
+​
+如何创建自定义沙箱
+​
+1. 安装 PPIO 沙箱命令行工具
+请参考 教程 来进行安装，并完成 认证。
+​
+2. 初始化沙箱模板
+以下命令将在当前目录下创建一个基础 ppio.Dockerfile 文件。
+
+Bash
+
+Copy
+ppio-sandbox-cli template init
+​
+3. 自定义ppio.Dockerfile
+现在您可以通过编辑 ppio.Dockerfile 文件来自定义您的沙箱模板。
+
+ppio.Dockerfile
+
+Copy
+# 本文档示例使用这个基础镜像，请保持不变
+FROM image.ppinfra.com/sandbox/code-interpreter:latest
+# 安装一些 python 包
+RUN pip install cowsay
+​
+4. 构建沙箱模板
+现在您可以开始构建沙箱模板。下面命令会调用本地 Docker 工具来构建镜像，然后将其推送到 PPIO 的远程镜像仓库。
+我们会在云端将 Docker 镜像转换为 firecracker 的 microVM 镜像，后续会基于该镜像来启动沙箱实例。
+下面通过 -c 参数指定了启动命令，有关启动命令的用法请参考这里。
+
+Bash
+
+Copy
+ppio-sandbox-cli template build -c "/root/.jupyter/start-up.sh"
+这个过程需要一些时间。最后，您会得到模板 ID，后面我们使用它通过 SDK 创建沙箱。
+​
+5. 启动您的自定义沙箱
+现在您可以使用上一步获得的模板 ID 来创建沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 在上一步创建的模板 ID 
+template_id = 'id-of-your-template'
+
+# 将模板 ID 传递给 `Sandbox.create` 方法
+sandbox = Sandbox.create(template_id)
+
+# 模板已安装 cowsay，可以直接使用它
+result = sandbox.run_code("""
+import cowsay
+cowsay.say('Hello!')""")
+
+print(result)
+
+sandbox.kill()
+​
+工作原理
+每次构建一个沙箱模板时，我们都会基于 ppio.Dockerfile 文件创建一个容器。我们会提取容器的文件系统，进行配置（例如安装所需依赖项等），然后启动一个沙箱实例。
+接下来我们会：
+获取正在运行的沙箱实例。
+执行 启动命令。仅当您指定了 “启动命令” 则会执行该步骤，否则跳过。
+等待就绪（如果指定了 “启动命令”，则默认等待 20 秒，否则立即就绪）。就绪检查逻辑可以通过 就绪命令 进行配置。
+对当前正在运行的沙箱进行快照并使其准备好供后续创建沙箱时使用。
+我们将最后产生的 “沙箱快照” 称为沙箱模板。
+我们将整个沙箱的文件系统连同所有正在运行的进程以一种 “稍后可快速加载” 的方式进行序列化和保存。
+这使我们能够在稍后的任何时候在几百毫秒内加载沙箱，加载后，所有进程处于运行状态，并且文件系统完全保持原样。
+
+沙箱模板
+沙箱模板
+通过沙箱模板可以自定义您的沙箱环境。
+PPIO Agent 沙箱服务已经内置一些公共模板方便您开箱即用，您可以在 控制台 找到这些公共模板。
+我们通过您定义的 ppio.Dockerfile 来创建一个新的沙箱模板，并返回模板 ID 用于创建沙箱。详见下方教程。
+​
+如何创建自定义沙箱
+​
+1. 安装 PPIO 沙箱命令行工具
+请参考 教程 来进行安装，并完成 认证。
+​
+2. 初始化沙箱模板
+以下命令将在当前目录下创建一个基础 ppio.Dockerfile 文件。
+
+Bash
+
+Copy
+ppio-sandbox-cli template init
+​
+3. 自定义ppio.Dockerfile
+现在您可以通过编辑 ppio.Dockerfile 文件来自定义您的沙箱模板。
+
+ppio.Dockerfile
+
+Copy
+# 本文档示例使用这个基础镜像，请保持不变
+FROM image.ppinfra.com/sandbox/code-interpreter:latest
+# 安装一些 python 包
+RUN pip install cowsay
+​
+4. 构建沙箱模板
+现在您可以开始构建沙箱模板。下面命令会调用本地 Docker 工具来构建镜像，然后将其推送到 PPIO 的远程镜像仓库。
+我们会在云端将 Docker 镜像转换为 firecracker 的 microVM 镜像，后续会基于该镜像来启动沙箱实例。
+下面通过 -c 参数指定了启动命令，有关启动命令的用法请参考这里。
+
+Bash
+
+Copy
+ppio-sandbox-cli template build -c "/root/.jupyter/start-up.sh"
+这个过程需要一些时间。最后，您会得到模板 ID，后面我们使用它通过 SDK 创建沙箱。
+​
+5. 启动您的自定义沙箱
+现在您可以使用上一步获得的模板 ID 来创建沙箱。
+
+JavaScript & TypeScript
+
+Python
+
+Copy
+from ppio_sandbox.code_interpreter import Sandbox
+
+# 在上一步创建的模板 ID 
+template_id = 'id-of-your-template'
+
+# 将模板 ID 传递给 `Sandbox.create` 方法
+sandbox = Sandbox.create(template_id)
+
+# 模板已安装 cowsay，可以直接使用它
+result = sandbox.run_code("""
+import cowsay
+cowsay.say('Hello!')""")
+
+print(result)
+
+sandbox.kill()
+​
+工作原理
+每次构建一个沙箱模板时，我们都会基于 ppio.Dockerfile 文件创建一个容器。我们会提取容器的文件系统，进行配置（例如安装所需依赖项等），然后启动一个沙箱实例。
+接下来我们会：
+获取正在运行的沙箱实例。
+执行 启动命令。仅当您指定了 “启动命令” 则会执行该步骤，否则跳过。
+等待就绪（如果指定了 “启动命令”，则默认等待 20 秒，否则立即就绪）。就绪检查逻辑可以通过 就绪命令 进行配置。
+对当前正在运行的沙箱进行快照并使其准备好供后续创建沙箱时使用。
+我们将最后产生的 “沙箱快照” 称为沙箱模板。
+我们将整个沙箱的文件系统连同所有正在运行的进程以一种 “稍后可快速加载” 的方式进行序列化和保存。
+这使我们能够在稍后的任何时候在几百毫秒内加载沙箱，加载后，所有进程处于运行状态，并且文件系统完全保持原样。
+
+沙箱模板
+自定义 CPU 和 RAM 规格
+您可以通过 PPIO 沙箱命令行工具来自定义沙箱模板的 CPU 和 RAM 规格。
+在运行本文档中命令行相关的示例代码前，请参考 教程 来进行安装 PPIO 沙箱命令行工具，并完成 认证。
+您需要先创建一个 沙箱模板。
+在构建步骤中，您可以指定沙箱模板的 vCPU 和 RAM 规格。
+以下命令将创建一个具有 2 vCPU、2GB RAM 的沙箱模板。
+Bash
+
+Copy
+ppio-sandbox-cli template build -c "/root/.jupyter/start-up.sh" --cpu-count 2 --memory-mb 2048
+​
+通过配置文件
+您也可以在运行 ppio-sandbox-cli template build 命令的同一目录下的 ppio.toml 文件内指定沙箱模板的 vCPU 和 RAM 规格。
+Toml
+
+Copy
+template_id = "0r0efkbfwzfp9p7qpc1c"
+dockerfile = "ppio.Dockerfile"
+template_name = "my-agent-sandbox"
+ready_cmd = "<your-ready-command>"
+# 指定沙箱模板 vCPU 和 RAM 规格为 2 vCPU、2GB RAM
+cpu_count = 2
+memory_mb = 2_048
+
+沙箱模板
+版本管理
+注意以下功能需要 安装 Beta SDK & CLI 才能使用。另外 Beta 版功能在合并到稳定版前，可能会经历多次迭代，因此可能存在不稳定性。如果您在使用过程中遇到任何问题，欢迎 联系我们。
+对于同一个沙箱模板，每次构建后，系统都会新增一个版本号（buildID），沙箱模板会默认使用最新构建的版本。某些场景下，如果发现新构建的版本有错误需要回滚到历史的某个版本。这时您可以使用 PPIO 沙箱命令行工具来对沙箱模板的版本进行管理。
+​
+查看沙箱模板的所有版本
+Bash
+
+Copy
+# ppio-sandbox-cli template version [templateID]
+ppio-sandbox-cli tpl version m3b8bus6balxmxlijrwb
+# 示例输出：
+# Sandbox template versions                                                               
+# Build ID Is Default Build  RAM MiB  VCPUs  Start Cmd  Status    Created At              Finished At            
+# effe0aca-15ae-4976-be4b-2027bbe4eb07  true  8192 8 Uploaded  7/16/2025, 10:28:26 PM  7/16/2025, 10:33:07 PM 
+# 8188e650-26dd-4f93-835e-aad63ecf767b  false 8192 8 Uploaded  7/11/2025, 1:34:23 PM   7/11/2025, 1:38:58 PM  
+​
+回滚到指定版本
+Bash
+
+Copy
+# ppio-sandbox-cli template version [templateID] -r [buildID]
+ppio-sandbox-cli tpl version m3b8bus6balxmxlijrwb -r effe0aca-15ae-4976-be4b-2027bbe4eb07
