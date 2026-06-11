@@ -49,13 +49,22 @@ The release package includes:
 - `EXCLUDED_DOCUMENTS.json`;
 - release notes and checksums.
 
-Expected release assets:
+Release:
 
 ```text
-roys-legion-demo-dataset-v0.1.0.tar.zst.part-aa
-roys-legion-demo-dataset-v0.1.0.tar.zst.part-ab
-SHA256SUMS
+https://github.com/WilliamShi666/William-AI-Studio/releases/tag/roys-legion-demo-dataset-v0.1.0
 ```
+
+Download all release assets:
+
+```text
+SHA256SUMS
+roys-legion-demo-dataset-v0.1.0.tar.zst.part-aa
+...
+roys-legion-demo-dataset-v0.1.0.tar.zst.part-az
+```
+
+There are `26` split archive files. `part-aa` through `part-ay` are `100MiB` each, and `part-az` is the final smaller part.
 
 Recombine and extract:
 

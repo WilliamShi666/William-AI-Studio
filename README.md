@@ -2,6 +2,8 @@
 
 William's AI Studio is an open-source monorepo for AI agent workflows, a local Claude Code UI, and a multidisciplinary visual tutoring system.
 
+[中文说明](README.zh-CN.md)
+
 This repository is published as a source-first open-source release. Local secrets, runtime logs, generated traces, build outputs, database volumes, and unreviewed data artifacts are intentionally excluded from the public source tree.
 
 ## Projects
@@ -209,9 +211,62 @@ Roys Legion is not only a generic RAG demo. Its main use case is multidisciplina
 - retrieved image URLs are served back to the chat UI;
 - the assistant answers with subject-specific, image-supported explanations.
 
-The source-first public candidate makes the workflow reproducible through docs and import tooling, but it does not commit the full public teaching dataset as ordinary git files. The large PDFs, extracted images, chunk files, metadata, and optional embeddings are packaged later through Git LFS, release artifacts, or external storage after final curation and checksum generation.
+The source repository does not commit the full public teaching dataset as ordinary git files. The curated public PDFs, extracted images, chunk files, metadata, and import scripts are published as GitHub Release assets:
 
-Planned public data shape:
+```text
+https://github.com/WilliamShi666/William-AI-Studio/releases/tag/roys-legion-demo-dataset-v0.1.0
+```
+
+### Roys Legion Demo Dataset v0.1.0
+
+The Release contains a curated source-of-truth dataset for rebuilding a local Roys Legion Milvus collection and serving retrieved document images.
+
+Release contents:
+
+| Item | Count / Size |
+|------|--------------|
+| Source PDFs | `504` |
+| Chunk JSONL files | `504` |
+| Chunks | `6181` |
+| Extracted image files | `3943` |
+| Curated unpacked size | about `3.3G` |
+| Excluded source documents | `10`, documented in `EXCLUDED_DOCUMENTS.json` |
+
+Download all Release assets:
+
+- `SHA256SUMS`
+- `roys-legion-demo-dataset-v0.1.0.tar.zst.part-aa` through `roys-legion-demo-dataset-v0.1.0.tar.zst.part-az`
+
+Reassemble and extract:
+
+```bash
+cat roys-legion-demo-dataset-v0.1.0.tar.zst.part-* > roys-legion-demo-dataset-v0.1.0.tar.zst
+sha256sum -c SHA256SUMS
+tar --zstd -xf roys-legion-demo-dataset-v0.1.0.tar.zst
+```
+
+Then validate and import:
+
+```bash
+cd public_tutoring_demo
+python scripts/validate_dataset.py --manifest manifest.json
+
+python scripts/import_milvus.py \
+  --manifest manifest.json \
+  --milvus-api-url http://localhost:8000 \
+  --collection-name roys_legion_demo_v0_1_0
+```
+
+Dry-run import without contacting Milvus:
+
+```bash
+python scripts/import_milvus.py \
+  --manifest manifest.json \
+  --collection-name roys_legion_demo_v0_1_0 \
+  --dry-run
+```
+
+Dataset package shape after extraction:
 
 ```text
 multimodalrag/
@@ -221,18 +276,18 @@ multimodalrag/
         ├── manifest.json
         ├── uploads/
         ├── extraction_results/
-        ├── embeddings.jsonl
-        └── import_milvus.py
+        ├── chunks/
+        ├── EXCLUDED_DOCUMENTS.json
+        └── scripts/
 ```
 
-Raw Milvus Docker volumes are not the primary public data format. Developers should be able to rebuild Milvus from the public dataset and import scripts. An optional reviewed Milvus snapshot may be published later as a release artifact if it is useful.
+Raw Milvus Docker volumes are not the public data format. Developers rebuild Milvus from the public dataset and import scripts. Milvus stores vectors and metadata; image binaries remain on disk under `extraction_results/{file_id}/images/` and are served by the Roys Legion backend through:
 
-Current source-first status:
+```text
+/document/{file_id}/images/{image_name}
+```
 
-- `multimodalrag/datasets/public_tutoring_demo/` contains the dataset README, manifest example, placeholder directories, and export/validate/import scripts.
-- Full approved public PDFs/images/chunks are not included in the first source candidate.
-- Developers can use the included scripts to export, validate, and import an approved dataset package once it is published or generated locally.
-- Raw Milvus, MinIO, and etcd runtime volumes remain excluded from normal git source.
+This is why the Release includes both chunk files and extracted image directories.
 
 ## OCR And Model Services
 
